@@ -1,23 +1,23 @@
 1、二手房相关枚举类型数据表
   区域（功能：子父级，排序，belong选择）
   *sl_area
-  区域（功能：排序，belong选择）
+  装修（功能：排序，belong选择）
   *sl_decoration
-  区域（功能：排序，belong选择）
+  朝向（功能：排序，belong选择）
   *sl_direction
-  区域（功能：排序，belong选择）
+  楼层（功能：排序，belong选择）
   *sl_floor
-  区域（功能：排序，belong选择）
+  房屋配套（功能：排序，belong选择）
   *sl_house_supporting
-  区域（功能：排序，belong选择）
+  支付方式（功能：排序，belong选择）
   *sl_pay_method
-  区域（功能：排序）
+  商铺铺面类型（功能：排序）
   *sl_shop_face_type
-  区域（功能：排序）
+  商铺可经营类别（功能：排序）
   *sl_shop_manager_type
-  区域（功能：排序，belong选择）
+  特色标签（功能：排序，belong选择）
   *sl_tag
-  区域（功能：排序，belong选择）
+  类型（功能：排序，belong选择）
   *sl_type
 
 2、二手房前台搜索条件枚举类型数据表
