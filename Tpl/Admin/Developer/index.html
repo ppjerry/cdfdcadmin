@@ -1,0 +1,38 @@
+<extend name="Public:list_layout" />
+<block name="title"><title>开发商管理</title></block>
+<block name="subheader">
+  <script src="__PUBLIC__/js/admin/jquery.artDialog.source.js?skin=default"></script>
+  <script src="__PUBLIC__/js/admin/plugins/iframeTools.source.js"></script>
+</block>
+<block name="subnav">
+  <a class="add fb" href="javascript:art.dialog.open('<?php echo U('add'); ?>', { id:'add', title:'添加开发商',  width:'700px', height:'400px', ok:function(){ var d = this.iframe.contentWindow; var form = d.document.getElementById('dosubmit'); form.click(); return false; }, cancel: true, lock: true});void(0);"><em>添加开发商</em></a>    <a class="on" href="__URL__/index"><em>开发商管理</em></a>
+</block>
+<block name="main">
+  <form name="myform" action="__URL__/delete" method="post">
+    <div class="table-list">
+      <table width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th align="center">开发商</th>
+            <th align="center">地址</th>
+            <th align="center">电话</th>
+            <th width="12%" align="center">管理操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($developers as $key => $developer) { ?>
+          <tr>
+            <td align="center"><?php echo $developer['name']; ?></td>
+            <td align="center"><?php echo $developer['addr'] ?></td>
+            <td align="center"><?php echo $developer['call'] ?></td>
+            <td align="center" width="12%">
+              <a href="javascript:art.dialog.open('<?php echo U('edit','id='.$developer['id']); ?>', { id:'edit', title:'修改',  width:'700px', height:'400px', ok:function(){ var d = this.iframe.contentWindow; var form = d.document.getElementById('dosubmit'); form.click(); return false; }, cancel: true, lock: true});void(0);" title="修改">修改</a> |  <a href='__URL__/delete?id=<?php echo $developer['id']?>' onClick="return confirm('<?php echo L('confirm',NULL,array('message' => $developer['name'])); ?>')">删除</a> 
+            </td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
+    <div id="pages"><?php echo $pages; ?></div>
+  </form>
+</block>

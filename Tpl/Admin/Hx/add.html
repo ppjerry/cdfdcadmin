@@ -1,0 +1,96 @@
+<extend name="Public:form_layout" />
+<block name="title"><title>添加户型</title></block>
+<block name="subheader">
+  <script type="text/javascript" src="__PUBLIC__/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/attachupload.js"></script>
+  <script type="text/javascript">
+  var openClose = $("#RopenClose"), rh = $(".addContent .col-auto").height(),colRight = $(".addContent .col-right");
+  $(function(){
+    $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, function(){this.close();$(obj).focus();})}});
+    $("#title").formValidator({onshow:"请输入户型标题",onfocus:"请输入户型标题"}).inputValidator({min:1,onerror:"请输入户型标题"});
+    $("#area").formValidator({onshow:"请输入户型面积",onfocus:"请输入户型面积"}).inputValidator({min:1,onerror:"请输入户型面积"});
+  });
+  </script>
+</block>
+<block name="subnav">
+  <a class="add fb" href="__URL__/add"><em>添加户型</em></a>　    <a href="__URL__/index"><em>户型管理</em></a>
+</block>
+<block name="main">
+  <form action="__URL__/add" method="post" name="myform" id="myform">
+    <div class="pad-10">
+      <table width="100%" class="table_form">
+        <tbody>
+          <tr>
+            <th width="80">标题：</th>
+            <td class="y-bg"><input type="text" class="input-text" name="hx[title]" id="title" size="30"></td>
+            <td rowspan="4"><a href="javascript:attachupload('imgurl_images', '图片上传','imgurl',preview,'1,jpg|jpeg|png|gif,1','image','<?php echo U("Upfile/upload"); ?>');void(0);"><img src="__PUBLIC__/images/admin/admin_upload_thumb.png" id="imgurl_s" width="210"></a><input type="hidden" id="imgurl" name="hx[attachment]"></td>
+          </tr>
+          <tr>
+            <th>面积：</th>
+            <td class="y-bg"><input type="text" class="input-text" name="hx[area]" id="area" size="30"></td>
+          </tr>
+          <tr>
+            <th>户型:</th>
+            <td>
+              <select name="housetype[]">
+                <option value="1">1室</option>
+                <option value="2">2室</option>
+                <option value="3">3室</option>
+                <option value="4">4室</option>
+                <option value="5">5室</option>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <option value="1">1厅</option>
+                <option value="2">2厅</option>
+                <option value="3">3厅</option>
+                <option value="4">4厅</option>
+                <option value="5">5厅</option>
+                <option value="0">0厅</option>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <option value="1">1卫</option>
+                <option value="2">2卫</option>
+                <option value="3">3卫</option>
+                <option value="4">4卫</option>
+                <option value="5">5卫</option>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <option value="1">1厨</option>
+                <option value="2">2厨</option>
+                <option value="3">3厨</option>
+                <option value="4">4厨</option>
+                <option value="5">5厨</option>
+                <option value="0">0厨</option>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <option value="1">1阳台</option>
+                <option value="2">2阳台</option>
+                <option value="3">3阳台</option>
+                <option value="4">4阳台</option>
+                <option value="5">5阳台</option>
+                <option value="0">0阳台</option>
+              </select>&nbsp; 
+            </td>
+          </tr>
+          <tr>
+            <th>物业类型：</th>
+            <td class="y-bg">
+              <select name="hx[property]">
+                <?php foreach ($property as $key => $value) {
+                  echo "<option value='".$value."'>" . $value . "</option>";
+                }?>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>描述：</th>
+            <td colspan="2">
+              <textarea name="hx[description]" id="content" class="ckeditor"></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="text-align: center;"><input name="dosubmit" type="submit" value="提交" class="button"></div>
+  </form>
+</block>

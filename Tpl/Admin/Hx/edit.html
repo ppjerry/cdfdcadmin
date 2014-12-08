@@ -1,0 +1,87 @@
+<extend name="Public:form_layout" />
+<block name="title"><title>添加户型</title></block>
+<block name="subheader">
+  <script type="text/javascript">
+  $(function(){
+    $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, function(){this.close();$(obj).focus();})}});
+    $("#title").formValidator({onshow:"请输入户型标题",onfocus:"请输入户型标题"}).inputValidator({min:1,onerror:"请输入户型标题"}).defaultPassed();
+    $("#area").formValidator({onshow:"请输入户型面积",onfocus:"请输入户型面积"}).inputValidator({min:1,onerror:"请输入户型面积"}).defaultPassed();
+  });
+  </script>
+  <script type="text/javascript" src="__PUBLIC__/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/attachupload.js"></script>
+</block>
+<block name="main">
+  <form action="__URL__/edit" method="post" name="myform" id="myform">
+    <input type="hidden" value="<?php echo $hx['id']; ?>" name="id">
+    <div class="pad-10">
+      <table width="100%" class="table_form">
+        <tbody>
+          <tr>
+            <th width="80">标题：</th>
+            <td class="y-bg"><input type="text" class="input-text" name="hx[title]" value="<?php echo $hx['title']; ?>" id="title" size="30"></td>
+            <td rowspan="4">
+              <a href="javascript:attachupload('imgurl_images','图片上传','imgurl',preview,'1,jpg|jpeg|png|gif,1','image','<?php echo U("Upfile/upload"); ?>');void(0);">
+                <img src="<?php if ($hx['attachment']) { echo  $hx['attachment']; } else { ?> __PUBLIC__/images/admin/admin_upload_thumb.png <?php } ?>" id="imgurl_s" width="210">
+              </a>
+              <input type="hidden" id="imgurl" name="hx[attachment]" value="<?php echo $hx['attachment']; ?>">
+            </td>
+          </tr>
+          <tr>
+            <th>面积：</th>
+            <td class="y-bg">
+              <input type="text" class="input-text" name="hx[area]" id="area" size="30" value="<?php echo $hx['area']; ?>">
+            </td>
+          </tr>
+          <tr>
+            <th>户型:</th>
+            <td>
+              <select name="housetype[]">
+                <?php for ($i=1; $i <= 5; $i++) {
+                  echo "<option value='".$i."' ". ($housetype[0] == $i ? "selected" : "" ) .">".$i."室</option>";
+                }?>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <?php for ($i=0; $i <= 5; $i++) {
+                  echo "<option value='".$i."' ". ($housetype[1] == $i ? "selected" : "" ) .">".$i."厅</option>";
+                }?>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <?php for ($i=0; $i <= 5; $i++) {
+                  echo "<option value='".$i."' ". ($housetype[2] == $i ? "selected" : "" ) .">".$i."卫</option>";
+                }?>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <?php for ($i=0; $i <= 5; $i++) {
+                  echo "<option value='".$i."' ". ($housetype[1] == $i ? "selected" : "" ) .">".$i."厨</option>";
+                }?>
+              </select>&nbsp; 
+              <select name="housetype[]">
+                <?php for ($i=0; $i <= 5; $i++) {
+                  echo "<option value='".$i."' ". ($housetype[1] == $i ? "selected" : "" ) .">".$i."阳台</option>";
+                }?>
+              </select>&nbsp; 
+            </td>
+          </tr>
+          <tr>
+            <th>物业类型：</th>
+            <td class="y-bg">
+              <select name="hx[property]">
+                <?php foreach ($property as $key => $value) {
+                  echo "<option value='".$value."' ". ($value==$hx['property'] ? "selected" : "") .">" . $value . "</option>";
+                }?>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <th>描述：</th>
+            <td colspan="2">
+              <textarea name="hx[description]" id="content" class="ckeditor"><?php echo $hx['description']; ?></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <input name="dosubmit" type="submit" value="提交" class="dialog" id="dosubmit"/>
+  </form>
+</block>

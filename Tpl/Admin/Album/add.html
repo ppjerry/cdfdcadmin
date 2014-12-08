@@ -1,0 +1,33 @@
+<extend name="Public:form_layout" />
+<block name="title"><title>添加户型</title></block>
+<block name="subheader">
+  <script type="text/javascript">
+  $(function(){
+    $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, function(){this.close();$(obj).focus();})}});
+    $("#title").formValidator({onshow:"请输入相册标题",onfocus:"请输入相册标题"}).inputValidator({min:1,onerror:"请输入相册标题"});
+  });
+  </script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/attachupload.js"></script>
+</block>
+<block name="main">
+  <form action="__URL__/add" method="post" name="myform" id="myform">
+    <div class="pad-10">
+      <table width="100%" class="table_form">
+        <tbody>
+          <tr>
+            <th width="80">标题：</th>
+            <td class="y-bg"><input type="text" class="input-text" name="album[title]" id="title" size="30"></td>
+            <td rowspan="2"><a href="javascript:attachupload('album_cover', '相册封面','imgurl',preview,'1,jpg|jpeg|png|gif,1','image','<?php echo U("Upfile/upload"); ?>');void(0);"><img src="__PUBLIC__/images/admin/admin_upload_thumb.png" id="imgurl_s" width="210"></a><input type="hidden" id="imgurl" name="album[cover]"></td>
+          </tr>
+          <tr>
+            <th>描述：</th>
+            <td class="y-bg">
+              <textarea name="album[description]" class="input-textarea" cols="45" rows="4"></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <input name="dosubmit" type="submit" value="提交" class="dialog" id="dosubmit"/>
+  </form>
+</block>

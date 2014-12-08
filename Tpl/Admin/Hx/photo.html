@@ -1,0 +1,231 @@
+<extend name="Public:list_layout" />
+<block name="title"><title>样板房</title></block>
+<block name="subheader">
+  <script src="__PUBLIC__/js/admin/jquery.artDialog.source.js?skin=default"></script>
+  <script src="__PUBLIC__/js/admin/plugins/iframeTools.source.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/attachupload.js"></script>
+</block>
+<block name="subnav">
+  <a class="on" href="__URL__/index"><em>户型管理</em></a><span>|</span><a href="javascript:;" onclick="javascript:$('#searchid').css('display','');"><em>搜索</em></a>
+</block>
+<block name="search">
+  <div id="searchid" style="display: <?php echo ($_GET['search'] ? "" : "none"); ?>;">
+    <form name="searchform" action="" method="get">
+      <input type="hidden" value="1" name="search">
+      <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+          <tr>
+            <td>
+              <div class="explain-col">
+                添加时间：
+                <script type="text/javascript" src="__PUBLIC__/js/JSCal/jscal2.js"></script>
+                <script type="text/javascript" src="__PUBLIC__/js/JSCal/lang/cn.js"></script>
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/jscal2.css">
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/border-radius.css">
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/win2k/win2k.css">
+                <input type="text" name="start_time" id="start_time" value="<?php echo $_GET['start_time']; ?>" size="10" class="date input-text" readonly="">&nbsp;<script type="text/javascript">
+                Calendar.setup({
+                  weekNumbers: false,
+                  inputField : "start_time",
+                  trigger    : "start_time",
+                  dateFormat: "%Y-%m-%d",
+                  showTime: false,
+                  minuteStep: 1,
+                  onSelect   : function() {this.hide();}
+                });
+                </script>- &nbsp;<input type="text" name="end_time" id="end_time" value="<?php echo $_GET['end_time']; ?>" size="10" class="date input-text" readonly="">&nbsp;<script type="text/javascript">
+                Calendar.setup({
+                  weekNumbers: false,
+                  inputField : "end_time",
+                  trigger    : "end_time",
+                  dateFormat: "%Y-%m-%d",
+                  showTime: false,
+                  minuteStep: 1,
+                  onSelect   : function() {this.hide();}
+                });
+                </script>
+                <label>相片标题: <input name="keyword" type="text" value="<?php echo $_GET['keyword']; ?>" class="input-text"></label>
+                <input type="submit" name="search" class="button" value="搜索">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</block>
+<block name="main">
+  <style type="text/css">
+  .create_access, .photo {
+    display: block;
+    width: 150px;
+    border: 3px dashed #B8B8B8;
+    text-align: center;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin: 0 5px 10px 5px;
+    padding-bottom: 10px;
+    float:left;
+    position: relative;
+  }
+  .create_access {
+    height: 216px;
+    line-height: 216px;
+  }
+  .first i {
+    cursor: pointer;
+  }
+  .icon42_common.add_gray {
+    background: url("__PUBLIC__/images/admin/addicon.png") center center no-repeat;
+  }
+  .icon42_common {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -21px;
+    margin-top: -21px;
+    display: inline-block;
+    overflow: hidden;
+  }
+  .photo img {
+    width: 140px;
+    height: 140px;
+    padding: 5px;
+  }
+  .photodesc {
+    width: 135px;
+    font-size: 14px;
+    margin: 5px;
+  }
+  .save, .delete {
+    display: inline-block;
+    width: 50px;
+    line-height: 22px;
+    text-align: center;
+    margin: 0 5px;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    color: #3C763D;
+    background-color: #DFF0D8;
+    border-color: #D6E9C6;
+    cursor: pointer;
+  }
+  .warning , .notice{
+    font-size: 14px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    color: #A94442;
+    background-color: #F2DEDE;
+    border: 1px solid #EBCCD1;
+    display: none;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .notice {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -15px;
+  }
+  </style>
+  <div class="body">
+    <div class="warning"></div>
+    <div class="create_access first" id="create_access"><i class="icon42_common add_gray"></i></div>
+    <?php foreach ($album['photos']['url'] as $key => $value) { ?>
+    <div class="photo">
+      <img src="<?php echo $value; ?>" data-url="<?php echo $value; ?>" />
+      <input type="text" value="<?php echo $album['photos']['name'][$key]; ?>" class="photodesc"/>
+      <span class="save">修改</span><span class="delete">删除</span>
+    </div>
+    <?php } ?>
+  </div>
+  <script type="text/javascript">
+  function album_create(returnid) {
+    var in_content_str = this.$("#att-status").html().substring(1);
+    if (in_content_str) {
+      var in_content = in_content_str.split('|');
+      var in_name_str = this.$("#att-name").html().substring(1);
+      var in_name = in_name_str.split("|");
+      if (in_content) {
+        $.ajax({
+          type: "post",
+          url: "__URL__/photo",
+          data: { "id" :  <?php echo $id; ?>, "urls" : in_content_str, "names" : in_name_str },
+          success: function(msg) {
+            $response = $.parseJSON(msg);
+            if ($response.status == "success") {
+              var html = "";
+              for (var i = 0; i < in_content.length; i++) {
+                html += '<div class="photo">' +
+                '<img src="' + in_content[i] + '" data-url="' + in_content[i] + '" />' + 
+                '<input type="text" name="" value="' + in_name[i] + '" class="photodesc" />' + 
+                '<span class="save">保存</span><span class="delete">删除</span>' +
+                '</div>';
+              }
+              $(html).insertAfter("#create_access");    
+            } else {
+              $(".warning").html($response.msg).show();
+            };
+          }
+        })
+      }
+    } 
+  }
+  $(function(){
+    $(".body").on("click", ".save", function(){
+      $this = $(this);
+      $name = $(this).siblings(".photodesc").val();
+      $url = $(this).siblings("img").data('url');
+      $.ajax({
+        url: "__URL__/photoedit",
+        type: "post",
+        data: { "id" : <?php echo $id; ?>, "name" : $name, "url" : $url },
+        success: function(msg){
+          $response = $.parseJSON(msg);
+          if ($response.status == "success") {
+            $this.parent(".photo").append($("<div class='notice'>修改成功</div>"));
+            $(".notice").delay(3000).fadeOut(2000);
+          } else {
+            $this.parent(".photo").append($("<div class='notice'>" + $response.msg + "</div>"));
+            $(".notice").delay(3000).fadeOut(2000);
+          }
+        }
+      })
+    });
+
+    $(".body").on("click", ".delete", function(){
+      $this = $(this);
+      $name = $(this).siblings(".photodesc").val();
+      $url = $(this).siblings("img").data('url');
+      $.ajax({
+        url: "__URL__/photodelete",
+        type: "post",
+        data: { "id" : <?php echo $id; ?>, "name" : $name, "url" : $url },
+        success: function(msg){
+          $response = $.parseJSON(msg);
+          if ($response.status == "success") {
+            $this.parent(".photo").remove();
+          } else {
+            $this.parent(".photo").append($("<div class='notice'>" + $response.msg + "</div>"));
+            $(".notice").delay(3000).fadeOut(2000);
+          }
+        }
+      })
+    })
+
+    $(".first").click(function(){
+      attachupload('album_cover', '添加样板房','imgurl',album_create,'50,jpg|jpeg|png|gif,50','image','<?php echo U("Upfile/upload"); ?>');
+    })
+  })
+  </script>
+</block>

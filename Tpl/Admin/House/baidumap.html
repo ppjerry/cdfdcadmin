@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=1uWFbCYO6wyXHHODQIgGabyi"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/jquery.min.js"></script>
+  <title>百度地图的Hello, World</title>
+  <style type="text/css">
+  body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+  #search_bar {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  #search_bar .search_input{
+    width: 200px;
+    height: 20px;
+    line-height: 20px;
+  }
+  #search_bar #search_btn{
+    border: 0;
+    color: #FFF;
+    width: 77px;
+    height: 24px;
+    background-position: 0 0;
+    margin-right: 5px;
+    cursor: pointer;
+    background: #06C;
+    margin-left: 10px;
+  }
+  </style>
+</head>
+<body>
+  <div id="allmap"></div>
+  <div id="search_bar">
+    <input type="text" class="search_input" id="suggestId" value="常德市房地产管理局" style="width:150px;" /><input type="button" name="search" value="搜索" id="search_btn">
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+// 百度地图API功能
+var map = new BMap.Map("allmap");
+var marker1;
+map.centerAndZoom("常德市武陵区", 13);
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT}));
+
+$("#search_btn").bind("click", function(){
+  if ($("#search_bar .search_input").val()) {
+    search_location();
+  };
+});
+$("#search_bar .search_input").bind("keydown", function(event){
+  if ($("#search_bar .search_input").val()) {
+    if ( event.which == 13 ) {
+      search_location();
+    }
+  }
+});
+function search_location() {
+  $location = $("#search_bar .search_input").val();
+  var local = new BMap.LocalSearch("常德市", {
+    renderOptions: {
+      map: map,
+      autoViewport: true,
+      selectFirstResult: true
+    },
+    pageCapacity: 3
+  });
+  local.search($location);
+  
+}
+map.addEventListener("click", function(e){
+  if (marker1) {
+    map.removeOverlay(marker1);  
+  };
+  marker1 = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+  map.addOverlay(marker1);
+  $("#pro_map", window.parent.document).val(e.point.lng + ", " + e.point.lat);
+});
+
+</script>

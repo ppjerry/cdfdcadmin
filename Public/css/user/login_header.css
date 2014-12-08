@@ -1,0 +1,163 @@
+body{
+  background: url("../../images/user/top_banner_bg.png") repeat-x left top;
+  overflow-x:hidden;
+  font: 16px/1 微软雅黑,Microsoft Yahei,STXihei,arial,sans-serif;
+}
+a {
+  text-decoration: none;
+}
+.float{
+  float: left;
+}
+.clear {
+  clear: both;
+}
+.wrap{
+  width: 980px;
+  margin: 0 auto;  
+}
+.header {
+  width: 980px;
+  margin: 0 auto;
+}
+.top_banner {
+  height: 38px;
+}
+.top_banner .login a{
+  display: block;
+  float: right;
+  text-align: center;
+  width: 55px;
+  text-decoration: none;
+  height: 37px;
+  line-height: 33px;
+  color: white;
+  font-size: 14px;
+}
+.top_banner .login a:hover{
+  background: url("../../images/user/login_hover.png") no-repeat left top;
+}
+.top_banner .other_login {
+  padding-top: 5px;
+  float: right;
+}
+.nav_top{
+  height: 137px;
+}
+.logo {
+  float: left;
+  padding: 10px 0;
+}
+.nav_top .top_ad{
+  float: right;
+  padding-top: 25px;
+}
+.nav_top .top_ad img{
+  width: 730px;
+  height: 90px;
+}
+.nav{
+  margin-top: 4px;
+  height: 38px;
+  z-index: 10;
+}
+
+/* =Menu
+-------------------------------------------------------------- */
+
+#access {
+  background: url("../../images/user/10.png");
+  display: block;
+  float: left;
+  margin: 0 auto;
+  width: 980px;
+}
+#access .menu-header,
+div.menu {
+  font-size: 13px;
+  margin-left: 12px;
+  width: 928px;
+}
+#access .menu-header ul,
+div.menu ul {
+  list-style: none;
+  margin: 0;
+}
+#access .menu-header li,
+div.menu li {
+  margin-right: 5px;
+  min-width: 80px;
+  text-align: center;
+  float: left;
+  position: relative;
+}
+#access a {
+  font-size: 15px;
+  font-family: "黑体";
+  color: white;
+  display: block;
+  margin-top: 4px;
+  line-height: 34px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+#access ul ul a {
+  margin-top: 0;
+}
+#access ul ul {
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  display: none;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  float: left;
+  width: 180px;
+  z-index: 99999;
+}
+#access ul ul li {
+  min-width: 180px;
+}
+#access ul ul ul {
+  left: 100%;
+  top: 0;
+}
+#access ul ul a {
+  background: #e9e9e9;
+  line-height: 1em;
+  padding: 10px;
+  width: 160px;
+  height: auto;
+}
+
+#access li:hover > a {
+  margin-top: 4px;
+  line-height: 34px;
+}
+
+#access .show, #access li:hover > a {
+  background: url("../../images/user/nav_hover.png") repeat-x;
+  color: black;
+}
+#access ul li:hover > ul li a {
+  color: black;
+}
+#access #second_nav :hover > a {
+  background: url("../../images/user/10.png") repeat-x center center;
+  color: #FFF;
+}
+#access ul li:hover > ul {
+  display: block;
+}
+#access ul li:hover > ul li:hover > a {
+  margin-top: 0;
+  line-height: 18px;
+}
+#access ul li.current_page_item > a,
+#access ul li.current-menu-ancestor > a,
+#access ul li.current-menu-item > a,
+#access ul li.current-menu-parent > a {
+  background: url("../../images/user/nav_hover.png") repeat-x;
+  color: black;
+}

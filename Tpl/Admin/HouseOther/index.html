@@ -1,0 +1,41 @@
+<extend name="Public:list_layout" />
+<block name="title"><title>友情链接</title></block>
+<block name="subheader">
+  <script src="__PUBLIC__/js/admin/jquery.artDialog.source.js?skin=default"></script>
+  <script src="__PUBLIC__/js/admin/plugins/iframeTools.source.js"></script>
+</block>
+<block name="subnav">
+  <a class="add fb" href="<?php echo $big_menu[0]; ?>"><em><?php echo $big_menu[1]; ?></em></a>　    <a class="on" href="__URL__/index?cid=<?php echo $node['id'] . "&" . $node['params']; ?>"><em><?php echo $node['title']; ?></em></a>
+</block>
+<block name="main">
+  <form name="myform" action="" method="post">
+    <div class="table-list">
+      <table width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th width="35" align="center"><input type="checkbox" value="" id="check_box" onclick="selectall('ids[]');"></th>
+            <th width="35" align="center">ID</th>
+            <th>标题</th>
+            <th width="12%" align="center">管理操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($infos as $key => $info) { ?>
+          <tr>
+            <td align="center" width="35"><input type="checkbox" name="ids[]" value="<?php echo $info['id']?>"></td>
+            <td align="center" width="35"><?php echo $info['id']; ?></td>
+            <td><?php echo $info['name']?></td>
+            <td align="center" width="12%">
+              
+              <a href="javascript:art.dialog.open('<?php echo U('edit',"id=".$info['id']."&cid=".$node['id']."&".$node['params']); ?>', {id:'edit', name: '修改『 <?php echo addslashes($info['name']); ?> 』', width: '450px', height: '320px', lock: true, ok:function(){ var d = this.iframe.contentWindow; var form = d.document.getElementById('dosubmit'); form.click(); return false; }, cancel: true});void(0);" title="修改">修改</a> |  <a href="<?php echo U('delete','id='.$info['id'].'&cid='.$node['id'].'&'.$node['params']); ?>" onClick="return confirm('确认删除『 <?php echo addslashes($info['name']); ?> 』 吗？')">删除</a> 
+            </td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
+    <div class="btn"> 
+      <input type="submit" class="button" name="dosubmit" onClick="document.myform.action='<?php echo U('delete','cid='.$node['id'].'&'.$node['params']); ?>'" value="删除"/>
+    </div>
+  </form>
+</block>

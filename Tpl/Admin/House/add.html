@@ -1,0 +1,328 @@
+<?php defined('THINK_PATH') or exit('No permission resources.'); ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="addbg">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>添加房源</title>
+  <link href="__PUBLIC__/css/admin/reset.css" rel="stylesheet" type="text/css">
+  <link href="__PUBLIC__/css/admin/zh-cn-system.css" rel="stylesheet" type="text/css">
+  <link href="__PUBLIC__/css/admin/table_form.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/style/zh-cn-styles1.css" title="styles1" media="screen">
+  <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/css/admin/style/zh-cn-styles2.css" title="styles2" media="screen">
+  <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/css/admin/style/zh-cn-styles3.css" title="styles3" media="screen">
+  <link rel="alternate stylesheet" type="text/css" href="__PUBLIC__/css/admin/style/zh-cn-styles4.css" title="styles4" media="screen">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/jscal2.css">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/win2k/win2k.css">
+  <script type="text/javascript" src="__PUBLIC__/js/admin/jquery.min.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/jquery.cookie.js"></script>
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin/cookie.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/styleswitch.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/admin_common.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/JSCal/jscal2.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/JSCal/lang/cn.js"></script>
+  <script src="__PUBLIC__/js/admin/jquery.artDialog.source.js?skin=default"></script>
+  <script src="__PUBLIC__/js/admin/plugins/iframeTools.source.js"></script>
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin/content_add.js" charset="UTF-8"></script>
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin/formvalidator.js" charset="UTF-8"></script>
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin/formvalidatorregex.js" charset="UTF-8"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/attachupload.js"></script>
+</head>
+<body>
+  <form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="info[typeid]" value="1" />
+    <div class="addContent">
+      <div class="crumbs">当前位置：楼盘 > 楼盘管理 > 添加楼盘</div>
+      <div class="col-right">
+        <div class="col-1">
+          <div class="content pad-6">
+            <h6>缩略图</h6>
+            <div class="upload-pic img-wrap">
+              <input type="hidden" name="info[thumb]" id="thumb" value="">
+              <a href="javascript:void(0);" onclick="attachupload('thumb_images', '附件上传','thumb',thumb_images,'','image','<?php echo U("Upfile/upload"); ?>');return false;">
+                <img src="__PUBLIC__/images/admin/admin_upload_thumb.png" id="thumb_preview" width="135" height="113" style="cursor:hand">
+              </a>
+              <input type="button" style="width: 66px;" class="button" onclick="crop_cut_thumb($('#thumb').val());return false;" value="裁切图片"><input type="button" style="width: 66px;" class="button" onclick="$('#thumb_preview').attr('src','__PUBLIC__/images/admin/admin_upload_thumb.png');$('#thumb').val('');return false;" value="取消图片">
+              <script type="text/javascript">
+              function crop_cut_thumb(id){
+                if (id=='') { alert('请先上传缩略图');return false;}
+                window.top.art.dialog({title:'裁切图片', id:'crop', iframe:'index.php?m=content&c=content&a=public_crop&module=content&catid='+catid+'&picurl='+encodeURIComponent(id)+'&input=thumb&preview=thumb_preview', width:'680px', height:'480px'},  function(){var d = window.top.art.dialog({id:'crop'}).data.iframe;d.uploadfile();return false;}, function(){window.top.art.dialog({id:'crop'}).close()});
+              };
+              </script>
+            </div> 
+            <h6>相关文章</h6>
+            <input type="hidden" name="info[relation][ids]" id="relation" value=""/>
+            <input type="hidden" name="info[relation][cats]" id="relation_cats" value=""/>
+            <input type="hidden" name="info[relation][title]" id="relation_title" value=""/>
+            <ul class="list-dot" id="relation_text"></ul>
+            <div>
+              <input type="button" value="添加相关" onclick="omnipotent('selectid','<?php echo U("Content/public_relationlist"); ?>','添加相关文章',1)" class="button" style="width:66px;">
+            </div>
+            <h6> 发布时间</h6>
+            <?php echo Form::date('inputtime', '', true); ?>
+            <h6> 开盘日期</h6>
+            <?php echo Form::date('opendate'); ?>
+            <h6> 交房日期</h6>
+            <?php echo Form::date('transferdate'); ?>
+            <h6>点击数</h6>
+            <input type="text" class="input-text" name="info[readpoint]" /> 
+            <h6> 转向链接</h6>
+            <input type="hidden" name="info[islink]" value="0">
+            <input type="text" name="linkurl" id="linkurl" value="" size="25" maxlength="255" disabled="disabled" class="input-text">
+            <input name="info[islink]" type="checkbox" id="islink" value="1" onclick="ruselinkurl();">
+            <font color="red">转向链接</font>
+            <h6> 允许评论</h6>
+            <?php echo Form::radio(array('1' => '允许评论', '0' => '不允许评论'), '1', 'name=info[allow_comment]', '88', 'allow_comment' ); ?>
+            <h6>状态</h6>
+            <?php echo Form::radio(array('99' => '发布', '1' => '审核'), '99', 'name=info[status]', '90', 'status' ); ?>
+          </div>
+        </div>
+      </div>
+      <a title="展开与关闭" class="r-close" hidefocus="hidefocus" style="outline-style: none; outline-width: medium;" id="RopenClose" href="javascript:;"><span class="hidden">展开</span></a>
+      <div class="col-auto">
+        <div class="col-1">
+          <div class="content pad-6">
+            <table width="100%" cellspacing="0" class="table_form">
+              <tbody>
+                <tr>
+                  <th width="80"> <font color="red">*</font> 标题   </th>
+                  <td>
+                    <span><input type="text" style="width:300px;" name="info[title]" id="title" value="" class="measure-input  input-text" onkeyup="strlen_verify(this, 'title_len', 255);"></span>
+                    <input type="button" class="button" id="check_title_alt" value="检测重复" onclick="$.get('__URL__/public_check_title, {data:$('#title').val()}, function(data){if(data=='1') {$('#check_title_alt').val('标题重复').css('background-color','#FFCC66');} else if(data=='0') {$('#check_title_alt').val('标题不重复').css('background-color','#F8FFE1')}})" style="width:73px;"></span>还可输入<b><span id="title_len">255</span></b> 个字符
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">均价</th>
+                  <td><input type="text" name="info[price]" id="price" value="0" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">楼盘地址</th>
+                  <td>
+                    <input type="text" name="info[proaddr]" id="proaddr" value="" style="width: 400px;" class="input-text">
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">楼盘开发商</th>
+                  <td>
+                    <a href="javascript:;" onclick="omnipotent('selectid','__URL__/public_developer','关联开发商',1);return false;" style="color:#B5BFBB">[关联开发商]</a>
+                    <input type="hidden" name="info[developer]" id="relation_developer" value="" style="50">
+                    <ul class="list-dot-othors" id="relation_developer_text">
+                      
+                    </ul>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80"> <font color="red">*</font> 区域   </th>
+                  <td>
+                    <?php echo Form::select($area, 0, 'name=info[areaid] id="area"', '请选择城区'); ?>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">商圈</th>
+                  <td>
+                    <?php echo Form::select($trade, 0, 'name=info[tradeid] id="trade"', '请选择商圈'); ?>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">交通路线</th>
+                  <td>
+                    <input type="text" name="info[traffic]" id="traffic" value="" style="width: 400px;" class="input-text">
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">地图</th>
+                  <td>
+                    <input class="map_button" type="button" />
+                    <label>经纬度：<input type="text" name="info[map]" id="pro_map" value="" class="input-text"></label>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">物业类型</th>
+                  <td>
+                    <?php echo Form::checkbox($property, 0, 'name=info[propertyid][]', '', '70', 'propertyid'); ?>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">销售状态</th>
+                  <td>
+                    <?php echo Form::radio($sell, 0, 'name=info[sellid]', '60', 'sellid'); ?>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">装修程度</th>
+                  <td>
+                    <?php echo Form::radio($decoration, 0, 'name=info[decorationid]', '60', 'decorationid'); ?>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">楼层</th>
+                  <td>
+                    <?php echo Form::checkbox($layer, 0, 'name=info[layerid][]', '', '70', 'layerid'); ?>
+                    <div>1~3层为低层,4~7层为多层,8~12层为小高层,13~25层为高层26层,100米以上为超高层</div>
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">销售电话</th>
+                  <td>
+                    <input type="text" name="info[tell]" id="tell" value="" class="input-text">
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">售楼地址</th>
+                  <td>
+                    <input type="text" name="info[selladdr]" id="selladdr" value="" style="width: 400px;" class="input-text">
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">预售许可证</th>
+                  <td>
+                    <input type="text" name="info[presellnum]" id="presellnum" value="" style="width: 400px;" class="input-text">
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">占地面积</th>
+                  <td>
+                    <input type="text" name="info[floorarea]" id="floorarea" value="" class="input-text">
+                  </td>
+                </tr>
+                <tr>
+                  <th width="80">建筑面积</th>
+                  <td><input type="text" name="info[coveredarea]" id="coveredarea" value="" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">得房率</th>
+                  <td><input type="text" name="info[dfl]" id="dfl" value="" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">绿化率</th>
+                  <td><input type="text" name="info[lhl]" id="lhl" value="" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">容积率</th>
+                  <td><input type="text" name="info[rjl]" id="rjl" value="" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">学区所属</th>
+                  <td><input type="text" name="info[schoolarea]" id="schoolarea" value="" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">物业费</th>
+                  <td><input type="text" name="info[propertyfee]" id="propertyfee" value="" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">物业公司</th>
+                  <td><input type="text" name="info[propertycompany]" id="propertycompany" value="" style="width: 400px;" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">物业地址</th>
+                  <td><input type="text" name="info[propertyaddr]" id="propertyaddr" value="" style="width: 400px;" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80">车库说明</th>
+                  <td><input type="text" name="info[garage]" id="garage" value="" style="width: 400px;" class="input-text"></td>
+                </tr>
+                <tr>
+                  <th width="80"> 推荐位   </th>
+                  <td><?php echo $posidstr; ?></td>
+                </tr>
+                <tr>
+                  <th width="80">其他备注</th>
+                  <td><textarea name="info[description]" id="description" style="width:98%;height:46px;" onkeyup="strlen_verify(this, 'description_len', 255)"></textarea>还可输入<b><span id="description_len">255</span></b> 个字符  </td>
+                </tr>
+                <tr>
+                  <th width="80"><font color="red">*</font>内容</th>
+                  <td><textarea name="info[content]" id="content"></textarea></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fixed-bottom">
+      <div class="fixed-but text-c">
+        <div class="button"><input value="保存后关闭" type="submit" name="dosubmit" class="cu" style="width:130px;" onclick="refersh_window()"></div>
+        <div class="button"><input value="保存后继续添加" type="submit" name="dosubmit_continue" class="cu" style="width:145px;" title="Alt+X" onclick="refersh_window()"></div>
+        <div class="button"><input value="关闭" type="button" name="close" onclick="refersh_window();close_window();" class="cu" style="width:70px;"></div>
+      </div>
+    </div>
+  </form>
+  <script type="text/javascript">
+  CKEDITOR.replace( 'content', {
+    filebrowserBrowseUrl: '__GROUP__/Attachment/album_list',
+    filebrowserUploadUrl: '__GROUP__/Upfile/upload'
+  });
+  var openClose = $("#RopenClose"), rh = $(".addContent .col-auto").height(),colRight = $(".addContent .col-right"),valClose = getcookie('openClose');
+  $(function(){
+    if(valClose==1){
+      colRight.hide();
+      openClose.addClass("r-open");
+      openClose.removeClass("r-close");
+    }else{
+      colRight.show();
+    }
+    openClose.height(rh);
+    $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){
+      window.top.art.dialog({id:'check_content_id',content:msg,lock:true,width:'200',height:'50'},function(){
+        $(obj).focus();
+        boxid = $(obj).attr('id');
+        if($('#'+boxid).attr('boxid')!=undefined) {
+          check_content(boxid);
+        }
+      })}
+    });
+    
+    $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, function(){this.close();$(obj).focus();})}});
+    $("#title").formValidator({onshow:"请输入标题",onfocus:"请输入标题"}).inputValidator({min:1,max:255,onerror:"标题不能为空"});
+    $("#area").formValidator({onshow:"请选择城区",onfocus:"请选择城区"}).inputValidator({min:1,max:255,onerror:"城区必选"});
+    $("#price").formValidator({onshow:"单位是：元/M2，0为待定",onfocus:"单位是：元/M2，0为待定"}).regexValidator({regexp:"num1",datatype:"enum",onerror:"正数格式不正确"}).defaultPassed();
+    $("#layer").formValidator({onshow:"1~3层为低层,4~7层为多层,8~12层为小高层,13~25层为高层26层,100米以上为超高层",onfocus:"1~3层为低层,4~7层为多层,8~12层为小高层,13~25层为高层26层,100米以上为超高层"}).inputValidator();
+    $(".map_button").click(function(){
+      art.dialog.open('__URL__/baidumap', {
+        id: 'baidumap',
+        width: "900px",
+        height: "500px",
+        title: '选择楼盘位置',
+        ok: function() {
+          /*var iframe = this.iframe.contentWindow;
+          if (!iframe.document.body) {
+            alert('窗口还没加载完毕！')
+            return false;
+          };
+          if(funcName) {
+            funcName.apply(iframe,[textareaid]);
+          } else {
+            preview.apply(iframe,textareaid);
+          }*/
+          return true;
+        },
+        cancel: true,
+        lock: true,
+        background: "#000"
+      }); 
+    });
+  });
+self.moveTo(0, 0);
+function refersh_window() {
+  setcookie('refersh_time', 1);
+}
+openClose.click(function (){
+  if(colRight.css("display")=="none"){
+    setcookie('openClose',0,1);
+    openClose.addClass("r-close");
+    openClose.removeClass("r-open");
+    colRight.show();
+  }else{
+    openClose.addClass("r-open");
+    openClose.removeClass("r-close");
+    colRight.hide();
+    setcookie('openClose',1,1);
+  }
+});
+
+function remove_id(id) {
+  $('#'+id).remove();
+}
+</script>
+</body>
+</html>

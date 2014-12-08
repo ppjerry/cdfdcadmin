@@ -1,0 +1,99 @@
+<extend name="Public:list_layout" />
+<block name="title"><title>户型管理</title></block>
+<block name="subheader">
+  <script src="__PUBLIC__/js/admin/jquery.artDialog.source.js?skin=default"></script>
+  <script src="__PUBLIC__/js/admin/plugins/iframeTools.source.js"></script>
+</block>
+<block name="subnav">
+  <a class="add fb" href="__URL__/add"><em>添加户型</em></a>　    <a class="on" href="__URL__/index"><em>户型管理</em></a><span>|</span><a href="javascript:;" onclick="javascript:$('#searchid').css('display','');"><em>搜索</em></a>
+</block>
+<block name="search">
+  <div id="searchid" style="display: <?php echo ($_GET['search'] ? "" : "none"); ?>;">
+    <form name="searchform" action="" method="get">
+      <input type="hidden" value="1" name="search">
+      <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+          <tr>
+            <td>
+              <div class="explain-col">
+                添加时间：
+                <script type="text/javascript" src="__PUBLIC__/js/JSCal/jscal2.js"></script>
+                <script type="text/javascript" src="__PUBLIC__/js/JSCal/lang/cn.js"></script>
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/jscal2.css">
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/border-radius.css">
+                <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/JSCal/win2k/win2k.css">
+                <input type="text" name="start_time" id="start_time" value="<?php echo $_GET['start_time']; ?>" size="10" class="date input-text" readonly="">&nbsp;<script type="text/javascript">
+                Calendar.setup({
+                  weekNumbers: false,
+                  inputField : "start_time",
+                  trigger    : "start_time",
+                  dateFormat: "%Y-%m-%d",
+                  showTime: false,
+                  minuteStep: 1,
+                  onSelect   : function() {this.hide();}
+                });
+                </script>- &nbsp;<input type="text" name="end_time" id="end_time" value="<?php echo $_GET['end_time']; ?>" size="10" class="date input-text" readonly="">&nbsp;<script type="text/javascript">
+                Calendar.setup({
+                  weekNumbers: false,
+                  inputField : "end_time",
+                  trigger    : "end_time",
+                  dateFormat: "%Y-%m-%d",
+                  showTime: false,
+                  minuteStep: 1,
+                  onSelect   : function() {this.hide();}
+                });
+                </script>       
+                <select name="searchtype">
+                  <option value="0" <?php if($_GET['searchtype']==0) echo "selected"; ?>>户型名称</option>
+                  <option value="1" <?php if($_GET['searchtype']==1) echo "selected"; ?>>ID</option>
+                </select>
+                <input name="keyword" type="text" value="<?php echo $_GET['keyword']; ?>" class="input-text">
+                <input type="submit" name="search" class="button" value="搜索">
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+</block>
+<block name="main">
+<form name="myform" action="__URL__/listorder" method="post">
+  <div class="table-list">
+    <table width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th width="35" align="center"><input type="checkbox" value="" id="check_box" onclick="selectall('hxid[]');"></th>
+          <th width="35" align="center">排序</th>
+          <th width="12%" align="center">标题</th>
+          <th width="15%" align="center">结构</th>
+          <th width="45" align="center">面积</th>
+          <th align="center">描述</th>
+          <th width='10%' align="center">物业类型</th>
+          <th width="20%" align="center">管理操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($hxs as $key => $hx) { ?>
+        <tr>
+          <td align="center" width="35"><input type="checkbox" name="hxid[]" value="<?php echo $hx['id']; ?>"></td>
+          <td align="center" width="35"><input name='listorder[<?php echo $hx['id']; ?>]' type='text' size='3' value='<?php echo $hx['listorder']; ?>' class="input-text-c"></td>
+          <td align="center"><a href="javascript:art.dialog.open('<?php echo U('edit','id='.$hx['id']); ?>', { id:'edit', title:'修改',  width:'700px', height:'400px', ok:function(){ var d = this.iframe.contentWindow; var form = d.document.getElementById('dosubmit'); form.click(); return false; }, cancel: true, lock: true});void(0);"><?php echo $hx['title']; ?></a> </td>
+          <td align="center" width="15%"><?php echo parsehousetype($hx['housetype']); ?></td>
+          <td align="45"><?php echo $hx['area']."㎡"; ?></td>
+          <td align="center"><?php echo $hx['description']; ?></td>
+          <td align="center" width="8%"><?php echo $hx['property']; ?></td>
+          <td align="center" width="20%">
+            <a href="__URL__/photo?id={$hx['id']}" title="照片管理">样板房管理</a> |  <a href="javascript:art.dialog.open('<?php echo U('edit','id='.$hx['id']); ?>', { id:'edit', title:'修改',  width:'800px', height:'550px', ok:function(){ var d = this.iframe.contentWindow; var form = d.document.getElementById('dosubmit'); form.click(); return false; }, cancel: true, lock: true});void(0);" title="修改">修改</a> |  <a href='__URL__/delete?hxid=<?php echo $hx['id']; ?>' onClick="return confirm('确认删除『 <?php echo new_addslashes($hx['title']); ?> 』 吗？')">删除</a> 
+          </td>
+        </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
+  <div class="btn"> 
+    <input name="dosubmit" type="submit" class="button" value="排序">&nbsp;&nbsp;<input type="submit" class="button" name="dosubmit" onClick="document.myform.action='__URL__/delete'" value="删除"/>
+  </div>
+  <div id="pages"><?php echo $pages; ?></div>
+</form>
+</block>

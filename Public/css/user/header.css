@@ -1,0 +1,339 @@
+.hr_10{
+  clear: both;
+  height: 10px;
+  width: auto;
+}
+body{
+  overflow-x:hidden;
+  font: 16px/1 微软雅黑,Microsoft Yahei,STXihei,arial,sans-serif;
+}
+a {
+  text-decoration: none;
+}
+.float{
+  float: left;
+}
+.clear {
+  clear: both;
+}
+.wrap{
+  width: 980px;
+  margin: 0 auto;  
+}
+.header {
+  width: 980px;
+  margin: 0 auto;
+  height: ;
+}
+.top_banner {
+  /*background: url("../images/top_banner_bg.jpg") repeat-x left top;*/
+  background: #f9f9f9;
+  border: 1px solid #DBDBDB;
+  border-top: none;
+  height: 26px;
+}
+.top_banner .login a{
+  display: block;
+  float: right;
+  text-align: center;
+  width: 55px;
+  text-decoration: none;
+  height: 24px;
+  line-height: 24px;
+  color: #2C2C2C;
+  font-size: 12px;
+}
+/*.top_banner .login a:hover{
+  background: url("../images/login_hover.png") no-repeat left top;
+}*/
+.top_banner .other_login {
+  padding-top: 5px;
+  float: right;
+}
+.nav_top{
+  height: 137px;
+}
+.logo {
+  float: left;
+  padding: 10px 0;
+}
+.nav_top .top_ad{
+  float: right;
+  padding-top: 25px;
+}
+.nav_top .top_ad img{
+  width: 730px;
+  height: 90px;
+}
+.nav{
+  margin-top: 4px;
+  height: 38px;
+  z-index: 10;
+}
+
+/* =Menu
+-------------------------------------------------------------- */
+
+#access {
+  background: url(../images/syicon2013.gif) repeat-x 0 -32px;
+  display: block;
+  float: left;
+  margin: 0 auto;
+  width: 980px;
+  border: 1px #a31613 solid;
+  border-bottom: none;
+}
+
+#access .menu-header,
+div.menu {
+  font-size: 13px;
+  margin-left: 12px;
+  width: 928px;
+}
+#access .menu-header ul,
+div.menu ul {
+  list-style: none;
+  margin: 0;
+}
+#access .menu-header li,
+div.menu li {
+  margin-right: 5px;
+  min-width: 80px;
+  text-align: center;
+  float: left;
+  position: relative;
+}
+#access a {
+  font-size: 15px;
+  font-family: "宋体";
+  font-weight: bold;
+  color: white;
+  display: block;
+  line-height: 32px;
+  padding: 0 10px;
+  text-decoration: none;
+}
+#access ul ul a {
+  margin-top: 0;
+}
+#access ul ul {
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  -moz-box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 0px 3px 3px rgba(0,0,0,0.2);
+  display: none;
+  position: absolute;
+  top: 32px;
+  left: 0;
+  float: left;
+  width: 180px;
+  z-index: 99999;
+}
+#access ul ul li {
+  min-width: 180px;
+}
+#access ul ul ul {
+  left: 100%;
+  top: 0;
+}
+#access ul ul a {
+  background: #e9e9e9;
+  line-height: 1em;
+  padding: 10px;
+  width: 160px;
+  height: auto;
+}
+
+#access li:hover > a {
+  line-height: 32px;
+}
+
+#access .show, #access li:hover > a {
+  background: #FFF;
+  color: #666666;
+}
+#access ul li:hover > ul li a {
+  color: #666666;
+}
+#access #second_nav :hover > a {
+  background: url("../images/nav_bg.png") repeat-x center center;
+  color: #FFF;
+}
+#access ul li:hover > ul {
+  display: block;
+}
+#access ul li:hover > ul li:hover > a {
+  margin-top: 0;
+  line-height: 18px;
+}
+#access ul li.current_page_item > a,
+#access ul li.current-menu-ancestor > a,
+#access ul li.current-menu-item > a,
+#access ul li.current-menu-parent > a {
+  /*background: url("../images/nav_hover.png") repeat-x;*/
+  background: rgb(247,247,247);
+  color: #666666;
+}
+
+.contenttop{
+  width: 980px;
+  height: 252px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.contenttop .contenttopleft {
+  width: 675px;
+  height: auto;
+  overflow: hidden;
+  float:left;
+}
+.center_menu {
+height: 59px;
+background: url(../images/mune_bg.gif) repeat-x bottom;
+}
+.center_menu ul li{
+  width:150px;
+  height:59px;
+  font-size: 14px;
+  cursor:pointer;
+  text-align:center;
+  float:left;
+}
+.button_01 {
+line-height: 59px;
+text-indent: 35px;
+background: url(../images/change_00.gif) no-repeat center;
+}
+.button_02 {
+line-height: 59px;
+text-indent: 35px;
+background: url(../images/change_01.gif) no-repeat center;
+}
+.button_03 {
+line-height: 59px;
+text-indent: 45px;
+background: url(../images/change_03.gif) no-repeat center;
+}
+.button_04 {
+line-height: 59px;
+text-indent: 45px;
+margin-right: 0 !important;
+background: url(../images/change_04.gif) no-repeat center;
+}
+.nav_01 {
+text-indent: 35px;
+line-height: 59px;
+color: #BA1414;
+background: url(../images/mune_button01.gif) no-repeat;
+}
+.nav_02 {
+text-indent: 35px;
+line-height: 59px;
+color: #BA1414;
+background: url(../images/mune_button02.gif) no-repeat;
+}
+.nav_03 {
+text-indent: 35px;
+line-height: 59px;
+color: #BA1414;
+background: url(../images/mune_button04.gif) no-repeat;
+}
+#center_menu_content{
+  width: 675px;
+  display:block;
+}
+.center_menu ul li {
+width: 150px;
+height: 59px;
+margin-right: 16px;
+font-size: 14px;
+font-weight: bold;
+text-align: center;
+cursor: pointer;
+float: left;
+}
+#center_menu_content .menu_content {
+  width: 643px;
+  padding: 10px 15px;
+  height: 155px;
+  border-left: #A06845 1px solid;
+  border-right: #A06845 1px solid;
+  overflow: hidden;
+}
+.search_enter {
+  clear: both;
+  float: left;
+  margin-top: 10px;
+  width: 640px;
+  height:50px;
+}
+.search_enter span{
+  float:left;
+}
+.search_enter ul li {
+  float: left;
+  margin-right: 10px;
+  line-height: 34px;
+}
+.text_b {
+  width: 370px;
+  height: 28px;
+  font-size: 15px;
+  padding: 3px 5px;
+  border: #F26521 1px solid;
+  float: left;
+}
+.blue_color{
+  color: #096FC3;
+  font-size: 12px;
+}
+.content_zone ul li{
+  height: 25px;
+  line-height: 25px;
+  margin-right: 15px;
+  text-decoration: none;
+  float: left;
+}
+.content_zone{
+  clear:both;
+  float: left;
+  width:640px;
+}
+.bottom_line {
+  width: 675px;
+  height: 14px;
+  background: url(../images/bottom_line.gif) no-repeat;
+  overflow: hidden;
+}
+
+#paged {
+  position: relative;
+  left: 50%;
+  float: left;
+}
+
+#paged .sort {
+  position: relative;
+  left: -50%;
+  float: left;
+}
+
+#pages .current {
+width: 25px;
+border: 1px solid #F50;
+font-weight: 700;
+color: #F50;
+background-color: #FFEEE5;
+}
+
+#pages .page {
+margin: 0 3px;
+border: solid 1px #CCC;
+}
+
+#pages span, #pages a {
+height: 25px;
+line-height: 25px;
+float: left;
+font-size: 14px;
+text-align: center;
+}

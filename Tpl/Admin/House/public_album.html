@@ -1,0 +1,101 @@
+<extend name="Public:form_layout" />
+<block name="title"><title>相册关联</title></block>
+<block name="main">
+  <form name="searchform" action="" method="get">
+    <table width="100%" cellspacing="0" class="search-form">
+      <tbody>
+        <tr>
+          <td align="center">
+            <div class="explain-col">
+              <label>相册：<input name="title" type="text" value="<?php echo stripslashes($_GET['title'])?>" style="width:300px;" class="input-text" /></label>
+              <input type="submit" name="dosubmit" class="button" value="搜索" />
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <form action="" method="post" name="myform" id="myform">
+    <div class="table-list">
+      <table width="100%" cellspacing="0" >
+        <thead>
+          <tr>
+            <th width="16"></th>
+            <th>ID</th>
+            <th>相册</th>
+            <th>照片数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach($albums as $r) { ?>
+          <tr onclick="select_list(this,'<?php echo safe_replace($r['title']);?>',<?php echo $r['id'];?>)" class="cu" id="<?php echo "a" . $r['id']; ?>" title="点击选择">
+            <td align="center" class="checkbox">
+              <input class="inputcheckbox " name="ids[]" value="<?php echo $r['id']; ?>" type="checkbox">
+            </td>
+            <td align='center'><?php echo $r['id'];?></td>
+            <td align='center'><?php echo $r['title'];?></td>
+            <td align='center'><?php $photos = string2array($r['photos']); echo count($photos['url']); ?></td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+      <div id="pages"><?php echo $pages;?></div>
+    </div>
+    <input name="albumids" type="hidden" id="albumids" value="<?php echo $albumids; ?>">
+    <input name="houseid" type="hidden" value="<?php echo $houseid; ?>" />
+    <input name="dosubmit" type="submit" value="提交" class="dialog" id="dosubmit"/>
+  </form>
+  <style type="text/css">
+  .line_ff9966,.line_ff9966:hover td{
+    background-color:#FF9966;
+  }
+  .line_fbffe4,.line_fbffe4:hover td {
+    background-color:#fbffe4;
+  }
+  </style>
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin/cookie.js"></script>
+  <SCRIPT LANGUAGE="JavaScript">
+  function select_list(obj,title,id) {
+    var relation_ids = $("#albumids").val();
+    if($(obj).attr('class')=='line_ff9966' || $(obj).attr('class')==null) {
+      $(obj).attr('class','line_fbffe4');
+      $(obj).children(".checkbox").children('.inputcheckbox').removeAttr("checked");
+      if(relation_ids !='' ) {
+        var r_arr = relation_ids.split('|');
+        var newrelation_ids = '';
+        $.each(r_arr, function(i, n){
+          if(n!=id) {
+            if(i==0) {
+              newrelation_ids = n;
+            } else {
+              newrelation_ids = newrelation_ids+'|'+n;
+            }
+          }
+        });
+        $('#albumids').val(newrelation_ids);
+      }
+    } else {
+      $(obj).attr('class','line_ff9966');
+      $(obj).children(".checkbox").children('.inputcheckbox').attr("checked", "checked");
+
+      if(relation_ids =='' ) {
+        $('#albumids').val(id);
+      } else {
+        relation_ids = relation_ids+'|'+id;
+        $('#albumids').val(relation_ids);
+      }
+    }
+  }
+
+  $(function(){
+    var relation_ids = $("#albumids").val();
+    if(relation_ids !='' ) {
+      var r_arr = relation_ids.split('|');
+      $.each(r_arr, function(i, n) {
+        $("#a" + n).children(".checkbox").children('.inputcheckbox').attr("checked", "checked");
+        $("#a" + n).attr("class", "line_ff9966");
+      });
+    }
+  })
+  </SCRIPT>
+</block>

@@ -1,0 +1,249 @@
+body{font-size: 12px;}
+.layout{margin:0 auto; width: 980px;}
+.fl{float: left;}
+.fr{float: right;}
+.mt10{margin-top: 10px;}
+.pt10{padding-top: 10px;}
+.fn{clear: both;}
+.module_head {width: 980px; height: 40px;}
+.module_head img{float: left;}
+.module_head p{width: 845px; height: 40px; float: left;}
+p.more a{width:57px;  height:23px; display: block; float: right; font-size: 14px; text-align: center; line-height: 23px; margin:12px 0px 0px 0;}
+.content_border{height: auto; width: 980px;}
+#hotsale_content{ width: 960px; height: 314px; padding: 15px 10px 0 10px;}
+#js_rightinfo div{width: 165px; height: 95px;}
+#js_rightinfo h4{padding: 10px; font-size: 14px;}
+#js_rightinfo p{text-indent: 10px; line-height: 20px;}
+#js_pic{position: relative;width: 472px; height: 300px; }
+#js_pic .index_recommend_img{position: absolute; left: 0; top: 0; }
+#js_pic .index_recommend_img img{width: 472px; height: 300px;}
+#info2{margin:8px 0 7px 0;}
+#news{width: 310px; height: 300px; margin-left: 10px;}
+#news h2{text-align: center; line-height: 40px; font-size:18px;}
+#big_news{width: 300px; height: 85px; margin: 0 auto;}
+#big_news p{line-height: 20px; text-indent: 24px; padding-left: 10px;}
+.news_content{width: 300px; margin: 0 auto;}
+.news_content ul{width: 290px; height: 205px; margin: 0 auto; text-indent:15px; padding:10px 0 0 20px;}
+.news_content ul li{line-height: 20px;}
+table{padding:1px;}
+#table{width: 970px; height: auto; margin: 5px;}
+.table th{height: 30px;text-align: center;}
+table td{text-align: center;height: 23px; line-height: 23px;}
+#broker_head {width: 980px; height: 40px;}
+#broker_head p{width: 852px;height: 40px; float: left;}
+#broker_head img{float: left;}
+#broker_content{width:978px; height: 120px; padding:25px 0;}
+#broker_content dl{float: left; width: 210px; height: 115px; padding: 10px 0 0 3px;}
+.broker_btn a{width: 48px; height: 125px; display: block; float: left;}
+.person_info dt{width: 90px; height: 105px; float: left;}
+.person_info img{display: block;}
+.person_info dd{float: left;width: 115px; height: 18px; line-height: 18px; padding-left: 3px;}
+.mr7{margin-right: 7px;}
+#buytips{height:230px;padding-top: 10px;}
+#buytips p{width: 100%; height: 5px;}
+#buytips_content{height: 205px;}
+.tips{width: 220px; height: 180px; padding:25px 0 0 25px;}
+.tips ul{padding-top: 20px;}
+.tips ul li{line-height: 20px; padding-left: 10px;}
+#recommend{height: 375px;}
+.recommend_head{width: 471px; height: 33px; padding-bottom: 5px; line-height: 33px; margin-left: 5px; margin-right: 5px;}
+.recommend_head span{font-size: 22px; float: left;}
+.recommend_head p a{float: right;}
+#shop{width: 483px; height: 373px;}
+.hot_shop img{ padding: 1px;}
+.pr50{padding-right: 50px;}
+.img{padding:8px; width: 160px; height: 160px;}
+.shop_words{width:280px; height:160px; padding:5px 10px 0 10px;}
+.shop_words h3{ font-size: 14px; text-align: center; line-height: 25px;}
+.shop_words p{height: 23px; line-height: 23px;}
+.hot_shop table{width: 465px; margin: 8px;}
+.hot_shop table th{height: 25px; text-align: center;}
+#office{width: 483px; height: 373px; margin-left: 10px;}
+
+#house_title h1{font-size: 22px; padding-left: 10px;}
+#house_title span{padding:5px 10px;}
+.nav_menu, #nav_menu{height: 25px;}
+.nav_menu ul li, #nav_menu ul li{width:86px; height: 25px; line-height: 25px; float: left; margin-right:3px; font-size: 14px; text-align: center;}
+.nav_menu ul li:hover ,#nav_menu ul li:hover {text-decoration: underline;}
+.nav_menu span,#nav_menu span{line-height: 25px; padding-right: 25px;}
+
+#nav_content {height: 205px;}
+#nav_content .pic_show{width:260px; height:190px; padding: 2px;}
+.pic_show p{line-height: 20px;}
+.nav_contentright{width: 650px; height: 195px; padding-left: 40px;}
+.house_info p{line-height: 25px;}
+.all_price{padding-left: 15px;}
+.phone_contact{height: 50px; }
+.phone_contact div{height: 51px;}        
+.phone_contact img{float: left; padding: 4px 10px;}
+.phone_contact p{line-height: 24px;}
+
+.content_left{width: 740px;}
+.common_info{height: 350px;}
+.common_infohead{ height: 25px; background: #F8F8F8;}
+.common_infohead ul li{float: left; width: 97px; height: 26px; line-height: 25px; font-size: 14px; text-align: center;}
+.common_infohead ul li:hover{text-decoration: underline;}
+.common_infohead span{line-height: 25px; padding-right: 5px;}   
+.common_infohead p span{padding-left: 15px; }     
+.common_info_content ul{height: auto; padding-left: 10px;}
+.common_info_content li{width: 363px; float: left; line-height: 25px;}
+ul li.long_words{width: 100%;}
+
+.house_type{height: 238px;}
+.housetype_content{height: 210px; width: 738px;}
+.common .common_infohead{height: 25px; text-indent: 10px; }
+.housetype_content img{padding: 20px 5px 20px 0;}
+.housetype_content p{padding: 10px 0 0 10px; width: 114px;}
+.housetype_content img{padding: 10px 5px 0 0;}
+.housetype_content p{padding-top: 7px;}
+.housetype_content div{float: left; width: 147px; height: 200px; text-align: center; margin: 5px 0px 0 30px;}
+.house_pictures{height: 200px;}
+.housepic_content{height: 172px; width: 738px;}
+.housepic_content div{float: left; width: 156px; height: 131px; text-align: center; margin: 20px 0px 0 23px;}
+.housepic_content p{padding: 5px 0 0 20px; width: 114px;}
+.description_content {padding-top: 10px; }
+.description_content p{text-indent: 2em; line-height: 180%; width: 720px; padding-left: 10px;}
+
+.content_right{width: 230px; margin-left: 10px;}
+.content_right ul{padding: 10px 0 10px 8px;}
+.content_right ul li{line-height: 20px; text-indent: 5px; }
+.content_right ul li span{float: right; padding-right: 5px;}
+
+.rent_left{width: 740px;}
+.rent_common{height: auto;}
+.user_info{width: 180px; height: 255px;}
+.user_info p{text-align:left; padding: 10px 0 0 20px;}
+.user_info img{padding: 10px 0 10px 36px;}
+.house_maininfo{width: 557px; height: 255px;}
+.house_maininfo h2{text-align: center; font-size: 16px; padding: 10px 0;}
+.update{width:523px; line-height: 25px; margin-left: 15px;}
+.update span{margin-left: 32px;}
+.house_maininfo ul {width: 530px; margin: 0 15px;}
+.house_maininfo ul li{width: 262px; float: left; line-height: 28px; border-bottom: 1px dashed #ccc;}
+.house_maininfo .phone_contact{margin: 0 15px;}
+.house_facilities{width: 699px; padding: 0 20px; margin-top: -10px;}
+.house_detail p{line-height: 25px;}
+.house_detail p.safe_undertaking{text-indent: 25px; border: none; padding: 5px 0 7px 0;}
+.brief_desc {height:50px;  padding:15px 10px;}
+.house_detail{padding: 10px; width: 718px; text-align: center;}
+.house_detail p{text-align: left;}
+.house_detail img{padding-top: 10px;}
+.returntop a{display: block; width: 80px; height: 21px; padding-top: 5px;}
+.rent_pic{width: 738px; padding-bottom: 5px;}
+.rent_nav {width: 630px; height: 30px; line-height: 30px; text-indent: 20px; margin: 10px auto;}
+.rent_nav ul li{float: left;}
+.rent_pic_show{width: 632px; height: 85px; margin: 0 auto;}
+.rent_pic_show img{margin-right: 19px; padding: 3px; border: 1px solid #ccc;}
+.rent_pic_show span img{margin-right: 0;}
+.rent_right{width: 230px; padding-left: 10px;}
+
+.house_purchasing{width: 292px; height: 242px; }
+.house_purchasing h2{width:292px; height: 28px; line-height: 28px; text-indent: 10px;}
+.buy_button{height: 75px;}
+.buyer_tools{width: 292px;}
+.buyer_tools ul li{width: 50%; float: left; text-indent:32px; margin-top: 15px;}
+.buy_button a{display: block; width: 107px;text-indent: 10px; height: 33px; line-height: 33px; float: left;  text-align: center; margin: 8px 0px 8px 25px; font-size: 14px;}
+
+.shop_info{width: 740px; height: 85px; padding: 10px 0;}
+.shop_info dl{width: 480px;}
+.shop_info dt{float: left; padding-right: 10px;}
+.shop_info dt img{padding: 2px; width: 100px; height: 75px;}
+.shop_info dd{line-height: 20px;}
+.shop_info p{height:85px; width:130px; float: left; text-align: center; line-height: 85px;}
+.shop_page{width:740px;}
+.shop_page ul{line-height:30px; padding-right: 20px;}
+.shop_page ul li{float: left;}
+
+.broker_list{height: 245px; padding: 10px;}
+.broker_list h2 a{color: #0969BF;}
+.broker_info{width: 160px; height:245px; text-align: left; border-right: 1px dotted #ccc;}
+.broker_info img{width:100px; height:130px;}
+.broker_info p{line-height: 23px;}
+.broker_face {width: 150px; text-align: center;}
+.broker_face p{text-align: center;}
+.broker_face a{color: #C30000;}
+.broker_rent{width: 260px; padding-left: 10px;}
+.sale_rent_info{width:260px; height: 60px; border-bottom: 1px dashed #ccc;}
+.sale_rent_info h2{padding: 10px 0}
+.sale_rent_info ul li{float: left; padding-right: 10px;}
+.broker_sale{width: 260px; margin-left: 26px;}
+
+.shop_pic{width: 240px; height: 258px; }
+.shop_pic img{padding: 17px 0 0 10px;}
+.shop_common{width:738px; height: 258px;}
+.shop_maininfo{width: 497px; height: 258px;}
+.shop_maininfo ul{width: 520px; margin: 0 15px;}
+.shop_maininfo ul li{width: 240px; margin-left: 0px; float: left; line-height: 28px; border-bottom: 1px dashed #ccc;}
+.shop_maininfo .update{width: 465px; height: 25px;}
+.shop_maininfo .update span{margin: 0;}
+
+.broker_body h2{font-size: 15px; margin-left: 10px; text-indent: 15px;}
+.brokershow_left{width: 280px; height: auto;} 
+.brokershow_right{width: 690px; padding-left: 10px;}
+.brokerleft_top{height: 9px;}
+.brokerleft_content{height: auto;}
+.brokerleft_bottom{height: 9px;}
+.broker_notice{ padding-top: 10px; border-top: 1px dashed #ccc;}
+.broker_introduce{height: 190px;}
+.broker_introduce h2{height:25px;  line-height: 25px; }
+.broker_introduce img{float: left; padding: 5px 5px 10px 10px;}
+.broker_introduce p{min-width:150px; float: left; height: 23px; line-height: 23px; padding-left: 10px;}
+.brokershow_right h2{height: 35px; line-height: 35px;}
+.brokershow_right table {width: 100%; text-align: center;}
+.brokershow_right td{ text-align: center;}
+.brokershow_right th{height: 30px; text-align: center;}
+.brokershow_right td.broker_rightimg{padding: 5px 0;}
+.brokershow_right td.broker_rightadd{text-align: left;}
+.brokershow_right td.broker_rightadd h3{ line-height: 15px;}
+.brokershow_right td.broker_rightadd p{padding-top: 8px;}
+.broker_rightimg{width: 140px; }
+.broker_rightadd{width: 200px; }
+.broker_rightheight{width: 100px; }
+.broker_rightarea{width: 70px; }
+.broker_rightprice{width: 80px; }
+.broker_righttime{width: 80px; }
+
+#member_top{height: 30px; line-height: 30px;}
+#member_top a{padding: 0 10px;}
+#member_top span{padding: 0 10px;}
+#member_header{height:75px; line-height: 75px;}
+#member_header img{width: 280px; height: 75px; float: left;}
+#member_header p{ font-size: 16px; padding-right: 260px;  float: right;}
+.divid_line{clear: both; width: 100%; height: 5px; background-color: #999;}
+.member_leftcontent{width: 160px; padding:15px 10px; background: #ECF0E8; height: auto;}
+.member_rightcontent{width: 748px; margin-left: 10px; border:1px solid #ddd; padding: 10px;}
+.member_leftcontent ul.member_outli li a:hover { text-decoration: none;}
+.member_leftcontent ul.member_outli li a{font-size: 14px; line-height: 40px; text-align: center; margin-top: 10px; font-weight: bold;width: 150px; height: 40px; display: block; margin-right: 10px;}
+.member_leftcontent ul.member_outli li .nav_title{color: #111;}
+.member_outli li.my_index{margin-top:-10px; *margin-top: 0px;}
+.member_inli li a{border: none; width: 130px;}
+.expand ul.member_inli li a{padding-left:45px; text-align: left; width: 100px; margin:10px 0px 0 6px; height: 20px; line-height: 20px; color: #444;}
+.member_rightcontent h2{font-size: 18px; padding: 10px 30px; margin:0 20px; }
+.member_content h3{font-size: 14px; padding-bottom: 10px;}
+.member_content{height: auto; padding: 20px;}
+.member_publish{width: 320px; height: 110px; margin: 0px 15px 20px 15px; border: 1px solid #ccc; text-align: center; padding-top: 30px;}
+.member_publish p a{width: 178px; height: 48px; display: block; font-size: 20px; text-align: center; line-height: 48px; margin: 10px auto; color:#006400;}
+.member_publish p a:hover{text-decoration: none;}
+.howto_publish{*padding-top: 17px;}
+.member_publish_process ul li{float: left;}
+.member_publish_process ul li.member_liword{ padding: 10px; border: 1px solid #ccc;}
+.member_publish_process ul li.member_li2{margin-top: -20px;}
+.member_li2 ul li.member_liword{clear: both; margin-bottom: 10px;}
+.member_li2 li.member_liword{ width: 85px; height: 10px;}
+.member_info{width: 718px; min-height: 100px; padding: 15px; background: #F6F6F6;}
+.member_info img{width:80px;padding: 2px; border: 1px solid #ddd; }
+.member_info h3{padding: 5px 0 10px 0;}
+.member_info p{ line-height: 20px;}
+.member_info_img{width: 80px;}
+.member_info_word{padding-left: 20px; width: 610px;}
+.member_credits{border-bottom: 1px dotted #ccc; padding-bottom: 10px;}
+.member_identity{padding-top: 10px;}
+.daily_manage{border: 4px solid #f4f4f4; }
+.daily_content{ margin: 10px 20px; *padding-bottom: 5px;}
+.daily_content h3{font-size: 14px; padding: 15px 0 5px 0; border-bottom: 1px dashed #ccc;}
+.daily_content ul li{float: left;}
+.daily_content p{line-height: 30px; }
+.daily_content p span{*margin-top: -28px; padding: 0 5px;}
+.daily_content p span a{padding-left: 10px; padding-right: 20px; color:#CE5553;}
+.member_rightcontent table{margin-top: 3px; border: 1px solid #ddd; width: 100%;}
+.member_rightcontent table tr th{text-align: center;}

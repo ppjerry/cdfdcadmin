@@ -1,0 +1,44 @@
+<extend name="Public:form_layout" />
+<block name="title"><title>修改开发商</title></block>
+<block name="subheader">
+  <script type="text/javascript">
+  $(function(){
+    $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, function(){this.close();$(obj).focus();})}});
+    $("#name").formValidator({onshow:"请输入开发商",onfocus:"请输入开发商"}).inputValidator({min:1,onerror:"请输入开发商"}).defaultPassed();
+  });
+  </script>
+</block>
+<block name="main">
+  <form action="__URL__/edit" method="post" name="myform" id="myform">
+    <input type="hidden" name="id" value="<?php echo $developer['id']; ?>" />
+    <div class="pad-10">
+      <table width="100%" class="table_form">
+        <tbody>
+          <tr>
+            <th width="80">开发商：</th>
+            <td><input type="text" class="input-text" name="info[name]" value="<?php echo $developer['name']; ?>" id="name" size="30"></td>
+          </tr>
+          <tr>
+            <th width="80">地址：</th>
+            <td><input type="text" class="input-text" name="info[addr]" value="<?php echo $developer['addr']; ?>" id="addr" size="30"></td>
+          </tr>
+          <tr>
+            <th width="80">电话：</th>
+            <td><input type="text" class="input-text" name="info[call]" size="30" value="<?php echo $developer['call']; ?>"></td>
+          </tr>
+          <tr>
+            <th width="80">法人：</th>
+            <td><input type="text" class="input-text" name="info[faren]" size="30" value="<?php echo $developer['faren']; ?>"></td>
+          </tr>
+          <tr>
+            <th>描述：</th>
+            <td class="y-bg">
+              <textarea name="info[content]" class="input-textarea" cols="45" rows="4"><?php echo $developer['content']; ?></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <input name="dosubmit" type="submit" value="提交" class="dialog" id="dosubmit"/>
+  </form>
+</block>

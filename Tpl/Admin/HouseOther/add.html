@@ -1,0 +1,34 @@
+<?php defined('THINK_PATH') or exit('No permission resources.'); ?>
+<extend name="Public:list_layout" />
+<block name="subheader">
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin/formvalidator.js" charset="UTF-8"></script>
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/admin/formvalidatorregex.js" charset="UTF-8"></script>
+  <script src="__PUBLIC__/js/admin/jquery.artDialog.source.js?skin=default"></script>
+  <script src="__PUBLIC__/js/admin/plugins/iframeTools.source.js"></script>
+</block>
+<block name="main">
+  <h2 class="title-1 f14 lh28">房源附加字段添加</h2>
+  <div class="bk10"></div>
+  <!-- <div class="explain-col">
+    <strong>调用说明：</strong><br>
+    1、调用方式一对服务器环境无特殊要求，可统计广告展示次数和自动判断广告是否过期，但是消耗服务器资源，访问速度慢，不支持Google等JS类代码广告；<br>
+    2、调用方式二对服务器环境无特殊要求，消耗服务器资源少，访问速度快，但是不能自动判断广告有效期，要时常更新js。不支持Google等JS类代码广告；<br>
+    3、调用google、baidu等代码广告，只能使用唯一的一种方式。当网站使用静态页面时，修改广告代码后请更新广告所在的静态页；<br>
+    4、根据自身情况选择一种调用方式，然后把调用代码复制粘贴到需要显示广告的模板再更新相关网页即可。
+  </div>
+  <div class="bk10"></div> -->
+  <fieldset>
+    <legend>添加内容</legend>
+    <form action="<?php echo U('add',"cid=".$node['id']."&".$node['params']); ?>" method="post" id="myform" class="myform">
+      <input name="info[name]" id="name" value="" style="width:200px" class="input-text">
+      <input type="submit" name="dosubmit" id="dosubmit" class="dialog" />
+    </form>
+  </fieldset>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){art.dialog.through({content:msg,lock:true,width:'220',height:'70'}, function(){this.close();$(obj).focus();})}});
+  $("#name").formValidator({onshow:"请输入名称!",onfocus:"名称至少1个汉字以上",oncorrect:"输入正确"}).inputValidator({min:2,onerror:"名称至少1个汉字以上"});
+})
+</script>
+</block>

@@ -1,0 +1,10 @@
+/Uploads
+/Admin/Runtime
+/Home/Runtime
+Runtime
+/Conf/database.php
+/Conf/sitelist.php
+/html
+/deploy.php
+/deployments.log
+.DS_Store
