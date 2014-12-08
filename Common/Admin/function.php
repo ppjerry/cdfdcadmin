@@ -11,19 +11,19 @@
     foreach ($list as $key=>$v) {
       $dirname = basename($v);
       if (file_exists($v.DIRECTORY_SEPARATOR.'config.php')) {
-       $template_config = include $v.DIRECTORY_SEPARATOR.'config.php';
-       $arr[$key]['name'] = $template_config['name'];
-       if (!$disable && isset($arr[$key]['disable']) && $arr[$key]['disable'] == 1) {
-        unset($arr[$key]);
-        continue;
+        $template_config = include $v.DIRECTORY_SEPARATOR.'config.php';
+        $arr[$key]['name'] = $template_config['name'];
+        if (!$disable && isset($template_config['disable']) && $template_config['disable'] == 1) {
+          unset($arr[$key]);
+          continue;
+        }
+      } else {
+        $arr[$key]['name'] = $dirname;
       }
-    } else {
-      $arr[$key]['name'] = $dirname;
+      $arr[$key]['dirname']= $dirname;
     }
-    $arr[$key]['dirname']=$dirname;
+    return $arr;
   }
-  return $arr;
-}
 
 
   /**
@@ -90,7 +90,7 @@
   /**
    * 根据版位的类型，得到版位的配置信息。如广告类型等
    * @param string  $type 版位的类型,默认情况下是一张图片或者动画
-   * return boolean  
+   * return boolean
    */
 
   function get_setting($type) {
@@ -104,17 +104,17 @@
         $data['type'] = array('images' => L('photo'), 'flash' => L('flash'));
         $data['num'] = 1;
         break;
-        
+
         case 'fixure':
         $data['type'] = array('images' => L('photo'), 'flash' => L('flash'));
         $data['num'] = 1;
         break;
-        
+
         case 'float':
         $data['type'] = array('images' => L('photo'), 'flash' => L('flash'));
         $data['num'] = 1;
         break;
-        
+
         case 'couplet':
         $data['type'] = array('images' => L('photo'), 'flash' => L('flash'));
         $data['num'] = 2;
@@ -129,7 +129,7 @@
         $data['type'] = array('images' => L('photo'));
         $data['num'] = 1;
         break;
-        
+
         case 'text':
         $data['type'] = array('text' => L('title'));
         break;
@@ -190,7 +190,7 @@
     $arr['thumb_height'] = intval($args[4]);
     $arr['watermark_enable'] = ($args[5]=='') ? 1 : intval($args[5]);
     return $arr;
-  } 
+  }
 
   function my_explode($split, $string) {
     $arr = explode($split, $string);

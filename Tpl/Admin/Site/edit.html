@@ -63,13 +63,13 @@
       <table width="100%"  class="table_form">
         <tr>
           <th width="80" valign="top"><?php echo L('style_name')?>：</th>
-          <td class="y-bg"> 
+          <td class="y-bg">
             <select name="info[template]" title="<?php echo L('ctrl_more_selected')?>" id='template'>
-              <?php if(is_array($template_list)){ 
+              <?php if(is_array($template_list)){
                 foreach ($template_list as $key=>$val){ ?>
                 <option value="0">请选择模板</option>
                 <option value="<?php echo $val['dirname']?>" <?php if($val['dirname'] == $data['template'] ){echo 'selected';}?>><?php echo $val['name']?></option>
-                <?php } 
+                <?php }
               } ?>
             </select>
           </td>
@@ -95,7 +95,7 @@
         <tr>
           <th width="130" valign="top"><?php echo L('site_att_allow_ext')?></th>
           <td class="y-bg"><input type="text" class="input-text" name="setting[upload_allowext]" id="upload_allowext" size="50" value="<?php echo $setting['upload_allowext']?>"/></td>
-        </tr>  
+        </tr>
         <tr>
           <th><?php echo L('site_att_gb_check')?></th>
           <td class="y-bg"><?php echo check_gd(); ?></td>
@@ -106,7 +106,7 @@
             <input class="radio_style" name="setting[watermark_enable]" value="1" <?php echo $setting['watermark_enable']==1 ? 'checked="checked"' : ''?> type="radio"> <?php echo L('site_att_watermark_open')?>&nbsp;&nbsp;&nbsp;&nbsp;
             <input class="radio_style" name="setting[watermark_enable]" value="0" <?php echo $setting['watermark_enable']==0 ? 'checked="checked"' : ''?> type="radio"> <?php echo L('site_att_watermark_close')?>
           </td>
-        </tr>    
+        </tr>
         <tr>
           <th><?php echo L('site_att_watermark_condition')?></th>
           <td class="y-bg"><?php echo L('site_att_watermark_minwidth')?>
@@ -116,11 +116,11 @@
         <tr>
           <th width="130" valign="top"><?php echo L('site_att_watermark_img')?></th>
           <td class="y-bg"><input type="text" name="setting[watermark_img]" id="watermark_img" size="30" value="<?php echo $setting['watermark_img'] ? $setting['watermark_img'] : 'mark.gif' ?>"/><?php echo L('site_att_watermark_img_desc')?></td>
-        </tr> 
+        </tr>
         <tr>
           <th width="130" valign="top"><?php echo L('site_att_watermark_pct')?></th>
           <td class="y-bg"><input type="text" class="input-text" name="setting[watermark_pct]" id="watermark_pct" size="10" value="<?php echo $setting['watermark_pct'] ? $setting['watermark_pct'] : '100' ?>" />  <?php echo L('site_att_watermark_pct_desc')?></td>
-        </tr> 
+        </tr>
         <tr>
           <th width="130" valign="top"><?php echo L('site_att_watermark_quality')?></th>
           <td class="y-bg"><input type="text" class="input-text" name="setting[watermark_quality]" id="watermark_quality" size="10" value="<?php echo $setting['watermark_quality'] ? $setting['watermark_quality'] : '80' ?>" /> <?php echo L('site_att_watermark_quality_desc')?></td>

@@ -59,7 +59,7 @@
         if (is_array($data['propertyid'])) {
           $data['propertyid'] = join(",", $data['propertyid']);
         }
-        
+
         if (is_array($data['layerid'])) {
           $data['layerid'] = join(",", $data['layerid']);
         }
@@ -121,7 +121,7 @@
         }
       } else {
         import("ORG.Util.Form");
-        // 载入推荐位 
+        // 载入推荐位
         $position = $this->position_db->query("select pos.* from " . C("DB_PREFIX") .  "position as pos, " . C("DB_PREFIX") .  "model as model where model.controller = '".MODULE_NAME."' and model.typeid = pos.typeid order by pos.listorder desc");
         // echo $this->position_db->getLastSql();
         $array = array_translate($position);
@@ -155,7 +155,7 @@
         if (is_array($data['propertyid'])) {
           $data['propertyid'] = join(",", $data['propertyid']);
         }
-        
+
         if (is_array($data['layerid'])) {
           $data['layerid'] = join(",", $data['layerid']);
         }
@@ -171,7 +171,7 @@
         } else {
           $data['transferdate'] = time();
         }
-        
+
         if($_POST['opendate'] && !is_numeric($_POST['opendate'])) {
           $data['opendate'] = strtotime($_POST['opendate']);
         } else {
@@ -229,7 +229,7 @@
         $house = $this->db->get_house($houseid);
         import("ORG.Util.Form");
 
-        // 载入推荐位 
+        // 载入推荐位
         $position = $this->position_db->query("select pos.* from " . C("DB_PREFIX") .  "position as pos, " . C("DB_PREFIX") .  "model as model where model.controller = '".MODULE_NAME."' and model.typeid = pos.typeid order by pos.listorder desc");
         // echo $this->position_db->getLastSql();
         $posids = array();

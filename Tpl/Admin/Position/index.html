@@ -11,7 +11,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
     <tbody>
       <tr>
         <td>
-          <div class="explain-col"> 
+          <div class="explain-col">
             所有分类: &nbsp;&nbsp; <a href="__URL__/index">全部</a> &nbsp;&nbsp;
             <a href="__URL__/index/typeid/0" <?php if(!$_GET['typeid']) { echo "class='on'"; } ?>>默认分类</a>&nbsp;
             <?php foreach ($types as $key => $type) { ?>
@@ -50,7 +50,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
             <td width="20%" align="center">
               <a href="__URL__/public_item?posid=<?php echo $position['id']; ?>">信息管理</a> |
               <!-- <a href="javascript:edit(2, '首页头条推荐')">修改</a> |  -->
-              <a href="__URL__/edit?posid=<?php echo $position['id']; ?>">修改</a> | 
+              <a href="__URL__/edit?posid=<?php echo $position['id']; ?>">修改</a> |
               <a href="javascript:confirmurl('__URL__/delete?posid=<?php echo $position['id']; ?>', '是否删除?')">删除</a>
             </td>
           </tr>
@@ -58,7 +58,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
         </tbody>
       </table>
     </div>
-    <div class="btn"> 
+    <div class="btn">
       <input type="submit" class="button" name="dosubmit" value="排序"/>
     </div>
     <div id="pages"><?php echo $pages; ?></div>
