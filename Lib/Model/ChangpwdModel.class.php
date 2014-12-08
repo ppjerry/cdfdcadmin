@@ -6,7 +6,7 @@ class ChangpwdModel extends Model {
 		$res = $M->find($id);
 		if(md5($old_pwd) != $res['password']) {
 			return $rs = 'a';
-		} elseif($new_pwd != $re_pwd || strlen($new_pwd) < 5 || strlen($new_pwd) > 15) {
+		} elseif($new_pwd != $re_pwd || strlen($new_pwd) < 5 || strlen($new_pwd) > 50) {
 			return $rs = 'b';
 		}	else {
 			$data['password'] = md5($new_pwd);
