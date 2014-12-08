@@ -59,11 +59,6 @@ class MenuModel extends Model {
     return $this->where("id = %d", $nid)->delete();
   }
 
-
-  public function get_childs() {
-
-  }
-
   /*
   删除节点和子节点
   */
