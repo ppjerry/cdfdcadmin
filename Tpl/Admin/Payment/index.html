@@ -46,9 +46,6 @@
             <td><?php echo cat_empty_deal($value, $value[$key+1]['pid'], 'pid').$value['name']; ?></td>
             <td align="center"><?php echo isset($types[$value['belong']]) ? $types[$value['belong']] : '公用'; ?></td>
             <td align="center">
-              <?php if( $value['pid'] == 0 ) { ?>
-              <a href="__URL__/add/pid/<?php echo $value['id']; ?>">添加子区域</a> |
-              <?php } ?>
               <a href="__URL__/edit?id=<?php echo $value['id'] ?>">修改</a> |
               <a href="__URL__/delete?id=<?php echo $value['id']; ?>" onClick="return confirm('确认删除『 <?php echo addslashes($value['name']); ?> 』 吗？')">删除</a>
             </td>
