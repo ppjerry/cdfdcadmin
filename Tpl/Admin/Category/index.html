@@ -8,20 +8,6 @@
   <a class="add fb" href="__URL__/add"><em>添加商铺可经营类别</em></a>　    <a class="on" href="__URL__/index"><em>商铺可经营类别</em></a>
 </block>
 <block name="search">
-  <table width="100%" cellspacing="0" class="search-form">
-    <tbody>
-      <tr>
-        <td>
-          <div class="explain-col">
-            所有分类: &nbsp;&nbsp; <a href="__URL__/index/type/0" <?php if( !isset($_GET['type']) || empty($_GET['type']) ) { echo "class='on'"; } ?>>公用</a>&nbsp;
-            <?php foreach ($types as $key => $type) { ?>
-            <a href="__URL__/index/type/<?php echo $key; ?>" <?php if($_GET['type'] == $key) { echo "class='on'"; } ?>><?php echo $type; ?></a>&nbsp;
-            <?php } ?>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
 </block>
 <block name="main">
   <form name="myform" action="__URL__/listorder" method="post">
