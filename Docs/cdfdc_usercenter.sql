@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: 2014-12-03 04:06:31
--- 服务器版本： 5.5.34
--- PHP Version: 5.5.10
+-- Host: 127.0.0.1
+-- Generation Time: 2014-12-09 05:21:52
+-- 服务器版本： 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,12 +27,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `sl_area` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
   `pid` smallint(6) NOT NULL DEFAULT '0' COMMENT '父ID',
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `sl_area`
@@ -46,7 +47,7 @@ INSERT INTO `sl_area` (`id`, `name`, `pid`, `sort`, `belong`) VALUES
 (5, '柳叶湖度假区', 4, 0, 0),
 (6, '德山经开区', 3, 0, 0),
 (7, '鼎城区', 2, 0, 0),
-(8, '步行街', 1, 0, 0),
+(8, '步行街', 1, 1, 0),
 (9, '东城', 1, 0, 0),
 (10, '西城', 1, 0, 0);
 
@@ -57,7 +58,7 @@ INSERT INTO `sl_area` (`id`, `name`, `pid`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_attachment` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL COMMENT '所属栏目',
   `title` varchar(255) NOT NULL COMMENT '自定义标题',
   `description` varchar(255) NOT NULL COMMENT '自定义描述',
@@ -73,7 +74,8 @@ CREATE TABLE IF NOT EXISTS `sl_attachment` (
   `url` varchar(255) DEFAULT NULL,
   `width` smallint(6) DEFAULT NULL,
   `height` smallint(6) DEFAULT NULL,
-  `compression_url` varchar(255) DEFAULT NULL
+  `compression_url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1417164290 ;
 
 --
@@ -97,22 +99,24 @@ INSERT INTO `sl_attachment` (`id`, `category_id`, `title`, `description`, `path`
 --
 
 CREATE TABLE IF NOT EXISTS `sl_decoration` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `sl_decoration`
 --
 
 INSERT INTO `sl_decoration` (`id`, `name`, `sort`, `belong`) VALUES
-(1, '豪华装修', 0, 0),
-(2, '精装修', 0, 0),
-(3, '中等装修', 0, 0),
-(4, '简装修', 0, 0),
-(5, '毛坯', 0, 0);
+(2, '精装修', 2, 0),
+(3, '中等装修', 3, 0),
+(4, '简装修', 4, 0),
+(7, '豪华装修', 0, 1),
+(8, '毛坯', 5, 0),
+(9, '豪华装修', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -121,25 +125,26 @@ INSERT INTO `sl_decoration` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_direction` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=44 ;
+  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
 -- 转存表中的数据 `sl_direction`
 --
 
 INSERT INTO `sl_direction` (`id`, `name`, `sort`, `belong`) VALUES
-(1, '东', 0, 0),
+(1, '东', 1, 0),
 (2, '西', 0, 0),
 (3, '南', 0, 0),
 (5, '东西', 0, 0),
 (6, '东南', 0, 0),
 (7, '西南', 0, 0),
 (8, '南北', 0, 0),
-(9, '东北', 0, 0),
+(9, '东北', 2, 0),
 (10, '西北', 0, 0),
 (43, '北', 0, 0);
 
@@ -150,10 +155,11 @@ INSERT INTO `sl_direction` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_floor` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0'
+  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='楼层表' AUTO_INCREMENT=6 ;
 
 --
@@ -174,10 +180,11 @@ INSERT INTO `sl_floor` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_house_supporting` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '0' COMMENT '名字',
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0'
+  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
@@ -205,11 +212,12 @@ INSERT INTO `sl_house_supporting` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_house_supporting_relationship` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` tinyint(1) NOT NULL COMMENT '0为出售，1为出租',
   `model` tinyint(2) NOT NULL COMMENT '0:二手房，1:商铺，2:写字楼，3:别墅',
   `house_id` int(11) NOT NULL,
-  `supporting_id` smallint(5) NOT NULL
+  `supporting_id` smallint(5) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
 
 --
@@ -235,7 +243,7 @@ INSERT INTO `sl_house_supporting_relationship` (`id`, `type`, `model`, `house_id
 --
 
 CREATE TABLE IF NOT EXISTS `sl_i_wanna_buy_property` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(1) NOT NULL COMMENT '发布类型，1:住宅，2:写字楼，3:商铺',
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
@@ -261,7 +269,8 @@ CREATE TABLE IF NOT EXISTS `sl_i_wanna_buy_property` (
   `member_id` int(11) NOT NULL COMMENT '用户ID',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，1：再次提交审核，99：审核通过。默认审核通过',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
@@ -280,7 +289,7 @@ INSERT INTO `sl_i_wanna_buy_property` (`id`, `type`, `contacts`, `phone`, `area_
 --
 
 CREATE TABLE IF NOT EXISTS `sl_i_wanna_rent_property` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(1) NOT NULL COMMENT '发布类型，1:住宅，2:写字楼，3:商铺',
   `community` varchar(255) NOT NULL,
   `contacts` char(20) NOT NULL COMMENT '联系人',
@@ -302,7 +311,8 @@ CREATE TABLE IF NOT EXISTS `sl_i_wanna_rent_property` (
   `member_id` int(11) NOT NULL COMMENT '用户ID',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，1：再次提交审核，99：审核通过。默认审核通过',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -321,7 +331,8 @@ INSERT INTO `sl_i_wanna_rent_property` (`id`, `type`, `community`, `contacts`, `
 CREATE TABLE IF NOT EXISTS `sl_laravel_sessions` (
   `id` varchar(255) NOT NULL,
   `payload` text NOT NULL,
-  `last_activity` int(11) NOT NULL
+  `last_activity` int(11) NOT NULL,
+  UNIQUE KEY `laravel_sessions_id_unique` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -438,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `sl_migrations` (
 --
 
 CREATE TABLE IF NOT EXISTS `sl_office` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `community_name` varchar(255) NOT NULL COMMENT '小区名字',
@@ -474,7 +485,8 @@ CREATE TABLE IF NOT EXISTS `sl_office` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
@@ -491,10 +503,11 @@ INSERT INTO `sl_office` (`id`, `contacts`, `phone`, `community_name`, `community
 --
 
 CREATE TABLE IF NOT EXISTS `sl_pay_method` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '0',
   `sort` smallint(6) NOT NULL DEFAULT '0',
-  `belong` tinyint(2) NOT NULL DEFAULT '0' COMMENT '(0:所有, 1:住宅出租，2:商铺出租，3:写字楼出租，4:别墅出租)，默认0'
+  `belong` tinyint(2) NOT NULL DEFAULT '0' COMMENT '(0:所有, 1:住宅出租，2:商铺出租，3:写字楼出租，4:别墅出租)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
@@ -515,7 +528,7 @@ INSERT INTO `sl_pay_method` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_rent` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `community_name` varchar(255) NOT NULL COMMENT '小区名字',
@@ -552,7 +565,8 @@ CREATE TABLE IF NOT EXISTS `sl_rent` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
@@ -574,7 +588,7 @@ INSERT INTO `sl_rent` (`id`, `contacts`, `phone`, `community_name`, `community_i
 --
 
 CREATE TABLE IF NOT EXISTS `sl_rent_common` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   `title` varchar(255) NOT NULL COMMENT '房源标题',
   `community_name` varchar(255) NOT NULL,
@@ -593,7 +607,8 @@ CREATE TABLE IF NOT EXISTS `sl_rent_common` (
   `member_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
@@ -610,10 +625,11 @@ INSERT INTO `sl_rent_common` (`id`, `type`, `title`, `community_name`, `communit
 --
 
 CREATE TABLE IF NOT EXISTS `sl_rent_method` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '0',
   `sort` smallint(6) NOT NULL DEFAULT '0',
-  `belong` tinyint(2) NOT NULL DEFAULT '0' COMMENT '(0:所有, 1:住宅出租，2:商铺出租，3:写字楼出租，4:别墅出租)，默认0'
+  `belong` tinyint(2) NOT NULL DEFAULT '0' COMMENT '(0:所有, 1:住宅出租，2:商铺出租，3:写字楼出租，4:别墅出租)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
@@ -633,7 +649,7 @@ INSERT INTO `sl_rent_method` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_rent_office` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `community_name` varchar(255) NOT NULL COMMENT '小区名字',
@@ -665,7 +681,8 @@ CREATE TABLE IF NOT EXISTS `sl_rent_office` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -682,7 +699,7 @@ INSERT INTO `sl_rent_office` (`id`, `contacts`, `phone`, `community_name`, `comm
 --
 
 CREATE TABLE IF NOT EXISTS `sl_rent_shop` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `rent_type` tinyint(1) DEFAULT '0' COMMENT '0:出租，1转让',
@@ -714,7 +731,8 @@ CREATE TABLE IF NOT EXISTS `sl_rent_shop` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='商铺出租' AUTO_INCREMENT=2 ;
 
 --
@@ -731,7 +749,7 @@ INSERT INTO `sl_rent_shop` (`id`, `contacts`, `phone`, `rent_type`, `community_n
 --
 
 CREATE TABLE IF NOT EXISTS `sl_rent_villas` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `community_name` varchar(255) NOT NULL COMMENT '小区名字',
@@ -761,7 +779,8 @@ CREATE TABLE IF NOT EXISTS `sl_rent_villas` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -778,7 +797,7 @@ INSERT INTO `sl_rent_villas` (`id`, `contacts`, `phone`, `community_name`, `comm
 --
 
 CREATE TABLE IF NOT EXISTS `sl_sale_common` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   `title` varchar(255) NOT NULL COMMENT '房源标题',
   `community_name` varchar(255) NOT NULL,
@@ -797,7 +816,8 @@ CREATE TABLE IF NOT EXISTS `sl_sale_common` (
   `member_id` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` datetime NOT NULL
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
@@ -818,7 +838,7 @@ INSERT INTO `sl_sale_common` (`id`, `type`, `title`, `community_name`, `communit
 --
 
 CREATE TABLE IF NOT EXISTS `sl_second_hand_housing` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `community_name` varchar(255) NOT NULL COMMENT '小区名字',
@@ -853,7 +873,8 @@ CREATE TABLE IF NOT EXISTS `sl_second_hand_housing` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
@@ -874,7 +895,7 @@ INSERT INTO `sl_second_hand_housing` (`id`, `contacts`, `phone`, `community_name
 --
 
 CREATE TABLE IF NOT EXISTS `sl_shop` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `community_name` varchar(255) NOT NULL COMMENT '小区名字',
@@ -907,7 +928,8 @@ CREATE TABLE IF NOT EXISTS `sl_shop` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
@@ -924,9 +946,10 @@ INSERT INTO `sl_shop` (`id`, `contacts`, `phone`, `community_name`, `community_i
 --
 
 CREATE TABLE IF NOT EXISTS `sl_shop_face_type` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
-  `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序'
+  `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
@@ -945,9 +968,10 @@ INSERT INTO `sl_shop_face_type` (`id`, `name`, `sort`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_shop_manager_type` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
-  `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序'
+  `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
@@ -972,11 +996,12 @@ INSERT INTO `sl_shop_manager_type` (`id`, `name`, `sort`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_s_area` (
-`id` smallint(5) NOT NULL,
+  `id` smallint(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `area` varchar(255) NOT NULL,
   `sort` smallint(5) NOT NULL DEFAULT '0',
-  `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0'
+  `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
@@ -1007,11 +1032,12 @@ INSERT INTO `sl_s_area` (`id`, `name`, `area`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_s_price` (
-`id` smallint(5) NOT NULL,
+  `id` smallint(5) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `price` varchar(255) NOT NULL,
   `sort` smallint(5) NOT NULL DEFAULT '0',
-  `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0'
+  `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
@@ -1046,10 +1072,11 @@ INSERT INTO `sl_s_price` (`id`, `name`, `price`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_tag` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0'
+  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
@@ -1070,10 +1097,11 @@ INSERT INTO `sl_tag` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_type` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL COMMENT '名字',
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0'
+  `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
@@ -1095,7 +1123,7 @@ INSERT INTO `sl_type` (`id`, `name`, `sort`, `belong`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `sl_villas` (
-`id` int(10) unsigned NOT NULL,
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `contacts` char(20) NOT NULL COMMENT '联系人',
   `phone` char(11) NOT NULL COMMENT '联系人手机',
   `community_name` varchar(255) NOT NULL COMMENT '小区名字',
@@ -1128,7 +1156,8 @@ CREATE TABLE IF NOT EXISTS `sl_villas` (
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，2：再次提交审核，1：审核通过。默认审核通过',
   `refresh_at` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '刷新时间',
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
@@ -1140,317 +1169,6 @@ INSERT INTO `sl_villas` (`id`, `contacts`, `phone`, `community_name`, `community
 (2, '补天', '18182156697', '紫金城・金色世纪', NULL, 0, 7, '常德市紫菱路与荷花路交汇处东北角', '{"room":"3","hall":"1","bathroom":"1"}', 0, 0, 0, 245.00, 200.00, 3, '{"floor":"1","unit":"1"}', 1, 1, '["1","2"]', NULL, '特色别墅', '["2","6","10"]', '', '', '', 0, 0, 1, 0, 35, 1, '2014-11-16 18:40:51', '2014-11-16 10:40:51', '2014-11-16 10:40:51'),
 (3, '补天', '18182156697', '中原德景园', NULL, 0, 8, '常德市洞庭大道与皂果路交汇处', '{"room":"4","hall":"2","bathroom":"2"}', 4, 2, 2, 45.00, 200.00, 3, '{"floor":"122","unit":"1"}', 2, 0, '["2"]', NULL, '别墅出售', '["2","3","7","10","11"]', '', 'http://www.cdfdc.com/c_esf/public/uploads/2014/11/16/QQ20141115-5.png', '{"1416140868":{"id":"1416140868","url":"http:\\/\\/www.cdfdc.com\\/c_esf\\/public\\/uploads\\/2014\\/11\\/16\\/QQ20141115-5.png"}}', 0, 0, 1, 0, 35, 1, '2014-11-16 18:42:34', '2014-11-16 10:42:34', '2014-11-16 12:27:50');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `sl_area`
---
-ALTER TABLE `sl_area`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_attachment`
---
-ALTER TABLE `sl_attachment`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_decoration`
---
-ALTER TABLE `sl_decoration`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_direction`
---
-ALTER TABLE `sl_direction`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_floor`
---
-ALTER TABLE `sl_floor`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_house_supporting`
---
-ALTER TABLE `sl_house_supporting`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_house_supporting_relationship`
---
-ALTER TABLE `sl_house_supporting_relationship`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_i_wanna_buy_property`
---
-ALTER TABLE `sl_i_wanna_buy_property`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_i_wanna_rent_property`
---
-ALTER TABLE `sl_i_wanna_rent_property`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_laravel_sessions`
---
-ALTER TABLE `sl_laravel_sessions`
- ADD UNIQUE KEY `laravel_sessions_id_unique` (`id`);
-
---
--- Indexes for table `sl_office`
---
-ALTER TABLE `sl_office`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_pay_method`
---
-ALTER TABLE `sl_pay_method`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_rent`
---
-ALTER TABLE `sl_rent`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_rent_common`
---
-ALTER TABLE `sl_rent_common`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_rent_method`
---
-ALTER TABLE `sl_rent_method`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_rent_office`
---
-ALTER TABLE `sl_rent_office`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_rent_shop`
---
-ALTER TABLE `sl_rent_shop`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_rent_villas`
---
-ALTER TABLE `sl_rent_villas`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_sale_common`
---
-ALTER TABLE `sl_sale_common`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_second_hand_housing`
---
-ALTER TABLE `sl_second_hand_housing`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_shop`
---
-ALTER TABLE `sl_shop`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_shop_face_type`
---
-ALTER TABLE `sl_shop_face_type`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_shop_manager_type`
---
-ALTER TABLE `sl_shop_manager_type`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_s_area`
---
-ALTER TABLE `sl_s_area`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_s_price`
---
-ALTER TABLE `sl_s_price`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_tag`
---
-ALTER TABLE `sl_tag`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_type`
---
-ALTER TABLE `sl_type`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sl_villas`
---
-ALTER TABLE `sl_villas`
- ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `sl_area`
---
-ALTER TABLE `sl_area`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT for table `sl_attachment`
---
-ALTER TABLE `sl_attachment`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1417164290;
---
--- AUTO_INCREMENT for table `sl_decoration`
---
-ALTER TABLE `sl_decoration`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `sl_direction`
---
-ALTER TABLE `sl_direction`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
---
--- AUTO_INCREMENT for table `sl_floor`
---
-ALTER TABLE `sl_floor`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `sl_house_supporting`
---
-ALTER TABLE `sl_house_supporting`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT for table `sl_house_supporting_relationship`
---
-ALTER TABLE `sl_house_supporting_relationship`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
---
--- AUTO_INCREMENT for table `sl_i_wanna_buy_property`
---
-ALTER TABLE `sl_i_wanna_buy_property`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
---
--- AUTO_INCREMENT for table `sl_i_wanna_rent_property`
---
-ALTER TABLE `sl_i_wanna_rent_property`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `sl_office`
---
-ALTER TABLE `sl_office`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `sl_pay_method`
---
-ALTER TABLE `sl_pay_method`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `sl_rent`
---
-ALTER TABLE `sl_rent`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `sl_rent_common`
---
-ALTER TABLE `sl_rent_common`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `sl_rent_method`
---
-ALTER TABLE `sl_rent_method`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `sl_rent_office`
---
-ALTER TABLE `sl_rent_office`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `sl_rent_shop`
---
-ALTER TABLE `sl_rent_shop`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `sl_rent_villas`
---
-ALTER TABLE `sl_rent_villas`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `sl_sale_common`
---
-ALTER TABLE `sl_sale_common`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `sl_second_hand_housing`
---
-ALTER TABLE `sl_second_hand_housing`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `sl_shop`
---
-ALTER TABLE `sl_shop`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `sl_shop_face_type`
---
-ALTER TABLE `sl_shop_face_type`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `sl_shop_manager_type`
---
-ALTER TABLE `sl_shop_manager_type`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT for table `sl_s_area`
---
-ALTER TABLE `sl_s_area`
-MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
---
--- AUTO_INCREMENT for table `sl_s_price`
---
-ALTER TABLE `sl_s_price`
-MODIFY `id` smallint(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT for table `sl_tag`
---
-ALTER TABLE `sl_tag`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `sl_type`
---
-ALTER TABLE `sl_type`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `sl_villas`
---
-ALTER TABLE `sl_villas`
-MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
