@@ -4,7 +4,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
 <extend name="Public:form_layout" />
 <block name="title"><title>添加推荐位</title></block>
 <block name="subnav">
-  <a class="add fb" href="__URL__/add"><em>添加区域</em></a>　    <a href="__URL__/index"><em>区域管理</em></a>
+  <a class="add fb" href="__URL__/add"><em>添加商铺铺面类型</em></a>　    <a href="__URL__/index"><em>商铺铺面类型</em></a>
 </block>
 <block name="main">
   <div class="common-form">
@@ -28,19 +28,6 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </td>
         </tr>
         <tr>
-          <th width="100"><font class="red">*</font> 父区域 </th>
-          <td>
-            <select name="info[pid]" id="pid">
-              <option value="0" <?php echo !isset($pid) || ( $pid == 0 ) ? 'selected' : ''; ?>>顶级区域</option>
-              <?php foreach ($regions as $key => $value) { ?>
-                <?php if ( $value['belong'] == 0 || $value['belong'] == $type ) { ?>
-                <option value='<?php echo $value['id']; ?>' <?php echo ( $pid == $value['id'] ) ? 'selected' : ''; ?>><?php echo $value['name']; ?></option>
-                <?php } ?>
-              <?php } ?>
-            </select>
-          </td>
-        </tr>
-        <tr>
           <th width="100">排序</th>
           <td><input type="text" name="info[sort]" class="input-text" size="5" value="0"></input></td>
         </tr>
@@ -50,7 +37,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
     </form>
   </div>
   <script type="text/javascript">
-    var regions = '<?php echo json_encode($regions); ?>';
+    var shoptypes = '<?php echo json_encode($shoptypes); ?>';
     $(function() {
       $.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
       $("#name").formValidator({onshow:"请输入名字",onfocus:"名称不能为空"}).inputValidator({min:1,max:999,onerror:"名称不能为空"});
@@ -60,7 +47,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $('#typeid').change(function(){
         belong = $(this).val();
         pid_options = '<option value="0">顶级区域</option>';
-        $.each($.parseJSON(regions), function( index, obj ){
+        $.each($.parseJSON(shoptypes), function( index, obj ){
           if ( obj.belong == belong || obj.belong == 0 )
           pid_options += '<option value="' + obj.id + '">' + obj.name + '</option>';
         });
