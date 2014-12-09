@@ -17,7 +17,7 @@
   *sl_shop_manager_type
   特色标签(Special)（功能：排序，belong选择）
   *sl_tag
-  类型(Type)（功能：排序，belong选择）
+  类型(Genre)（功能：排序，belong选择）
   *sl_type
 
 2、二手房前台搜索条件枚举类型数据表
