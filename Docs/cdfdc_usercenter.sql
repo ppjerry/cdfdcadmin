@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-09 07:11:46
+-- Generation Time: 2014-12-10 01:27:14
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `sl_area` (
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
   `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `sl_area`
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `sl_direction` (
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
   `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `sl_direction`
@@ -138,15 +138,13 @@ CREATE TABLE IF NOT EXISTS `sl_direction` (
 
 INSERT INTO `sl_direction` (`id`, `name`, `sort`, `belong`) VALUES
 (1, '东', 1, 0),
-(2, '西', 0, 0),
 (3, '南', 0, 0),
 (5, '东西', 0, 0),
 (6, '东南', 0, 0),
 (7, '西南', 0, 0),
 (8, '南北', 0, 0),
 (9, '东北', 2, 0),
-(10, '西北', 0, 0),
-(43, '北', 0, 0);
+(10, '西北', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1002,7 +1000,7 @@ CREATE TABLE IF NOT EXISTS `sl_s_area` (
   `sort` smallint(5) NOT NULL DEFAULT '0',
   `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- 转存表中的数据 `sl_s_area`
@@ -1023,7 +1021,8 @@ INSERT INTO `sl_s_area` (`id`, `name`, `area`, `sort`, `belong`) VALUES
 (12, '150-200平米', '150,200', 0, 3),
 (13, '200-500平米', '200,500', 0, 3),
 (14, '500-1000平米', '500,1000', 0, 3),
-(15, '1000平米以上', '1000,1000000', 0, 3);
+(15, '1000平米以上', '1000,1000000', 0, 3),
+(21, '少于100平方米', '', 0, 0);
 
 -- --------------------------------------------------------
 
