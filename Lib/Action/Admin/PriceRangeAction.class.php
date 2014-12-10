@@ -11,9 +11,9 @@ class PriceRangeAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $priceranges = $this->db->pricerangeList( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) );
+      $priceranges = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->select();
     } else {
-      $priceranges = $this->db->pricerangeList( array( 'belong' => 0 ) );
+      $priceranges = $this->db->where( array( 'belong' => 0 ) )->select();
     }
     $this->assign('priceranges',$priceranges);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
