@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-10 01:27:14
+-- Generation Time: 2014-12-10 05:26:56
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -1037,7 +1037,7 @@ CREATE TABLE IF NOT EXISTS `sl_s_price` (
   `sort` smallint(5) NOT NULL DEFAULT '0',
   `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- 转存表中的数据 `sl_s_price`
@@ -1062,7 +1062,8 @@ INSERT INTO `sl_s_price` (`id`, `name`, `price`, `sort`, `belong`) VALUES
 (17, '8000-10000元', '8000,10000', 0, 3),
 (18, '10000-15000元', '10000,15000', 0, 3),
 (19, '15000-20000元', '15000,20000', 0, 3),
-(20, '20000元以上', '20000,200000', 0, 3);
+(20, '20000元以上', '20000,200000', 0, 3),
+(21, '1000元以上', '', 0, 0);
 
 -- --------------------------------------------------------
 
