@@ -28,19 +28,6 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </td>
         </tr>
         <tr>
-          <th width="100"><font class="red">*</font> 父区域 </th>
-          <td>
-            <select name="info[pid]" id="pid">
-              <option value="0" <?php echo !isset($pid) || ( $pid == 0 ) ? 'selected' : ''; ?>>顶级区域</option>
-              <?php foreach ($assorts as $key => $value) { ?>
-                <?php if ( $value['belong'] == 0 || $value['belong'] == $type ) { ?>
-                <option value='<?php echo $value['id']; ?>' <?php echo ( $pid == $value['id'] ) ? 'selected' : ''; ?>><?php echo $value['name']; ?></option>
-                <?php } ?>
-              <?php } ?>
-            </select>
-          </td>
-        </tr>
-        <tr>
           <th width="100">排序</th>
           <td><input type="text" name="info[sort]" class="input-text" size="5" value="0"></input></td>
         </tr>
@@ -55,18 +42,6 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
       $("#name").formValidator({onshow:"请输入名字",onfocus:"名称不能为空"}).inputValidator({min:1,max:999,onerror:"名称不能为空"});
       $("#typeid").formValidator({onshow:"请选择分类",onfocus:"请选择分类"}).inputValidator({min:0,onerror:"分类必选"}).defaultPassed();
-      $("#pid").formValidator({onshow:"请选择父区域",onfocus:"请选择父区域"}).inputValidator({min:0,onerror:"父区域必选"}).defaultPassed();
-
-      $('#typeid').change(function(){
-        belong = $(this).val();
-        pid_options = '<option value="0">顶级区域</option>';
-        $.each($.parseJSON(assorts), function( index, obj ){
-          if ( obj.belong == belong || obj.belong == 0 )
-          pid_options += '<option value="' + obj.id + '">' + obj.name + '</option>';
-        });
-        $('#pid').html( pid_options );
-      });
-
     })
   </script>
 </block>

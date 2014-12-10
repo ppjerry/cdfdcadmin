@@ -11,9 +11,9 @@ class HouseSupportingAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $assorts = $this->db->assortList( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) );
+      $assorts = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $assorts = $this->db->assortList( array( 'belong' => 0 ) );
+      $assorts = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
     }
     $this->assign('assorts',$assorts);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅' ));

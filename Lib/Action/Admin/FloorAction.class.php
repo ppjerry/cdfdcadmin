@@ -11,9 +11,9 @@ class FloorAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $layers = $this->db->layerList( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) );
+      $layers = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $layers = $this->db->layerList( array( 'belong' => 0 ) );
+      $layers = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
     }
     $this->assign('layers',$layers);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅' ));
