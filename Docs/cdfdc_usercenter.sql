@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-10 05:26:56
+-- Generation Time: 2014-12-10 10:30:25
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -111,12 +111,12 @@ CREATE TABLE IF NOT EXISTS `sl_decoration` (
 --
 
 INSERT INTO `sl_decoration` (`id`, `name`, `sort`, `belong`) VALUES
-(2, '精装修', 2, 0),
-(3, '中等装修', 3, 0),
+(2, '精装修', 0, 0),
+(3, '中等装修', 5, 0),
 (4, '简装修', 4, 0),
 (7, '豪华装修', 0, 1),
-(8, '毛坯', 5, 0),
-(9, '豪华装修', 1, 0);
+(8, '毛坯', 1, 0),
+(9, '豪华装修', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `sl_direction` (
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
   `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- 转存表中的数据 `sl_direction`
@@ -138,13 +138,13 @@ CREATE TABLE IF NOT EXISTS `sl_direction` (
 
 INSERT INTO `sl_direction` (`id`, `name`, `sort`, `belong`) VALUES
 (1, '东', 1, 0),
-(3, '南', 0, 0),
-(5, '东西', 0, 0),
-(6, '东南', 0, 0),
+(3, '南', 7, 0),
+(5, '东西', 8, 0),
+(6, '东南', 6, 0),
 (7, '西南', 0, 0),
-(8, '南北', 0, 0),
+(8, '南北', 3, 0),
 (9, '东北', 2, 0),
-(10, '西北', 0, 0);
+(10, '西北', 5, 0);
 
 -- --------------------------------------------------------
 
@@ -167,7 +167,7 @@ CREATE TABLE IF NOT EXISTS `sl_floor` (
 INSERT INTO `sl_floor` (`id`, `name`, `sort`, `belong`) VALUES
 (1, '低层', 0, 0),
 (2, '多层', 0, 0),
-(3, '小高层', 0, 0),
+(3, '小高层', 1, 0),
 (4, '高层', 0, 0),
 (5, '超高层', 0, 0);
 
@@ -1000,7 +1000,7 @@ CREATE TABLE IF NOT EXISTS `sl_s_area` (
   `sort` smallint(5) NOT NULL DEFAULT '0',
   `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 --
 -- 转存表中的数据 `sl_s_area`
@@ -1021,8 +1021,7 @@ INSERT INTO `sl_s_area` (`id`, `name`, `area`, `sort`, `belong`) VALUES
 (12, '150-200平米', '150,200', 0, 3),
 (13, '200-500平米', '200,500', 0, 3),
 (14, '500-1000平米', '500,1000', 0, 3),
-(15, '1000平米以上', '1000,1000000', 0, 3),
-(21, '少于100平方米', '', 0, 0);
+(15, '1000平米以上', '1000,1000000', 0, 3);
 
 -- --------------------------------------------------------
 
@@ -1037,7 +1036,7 @@ CREATE TABLE IF NOT EXISTS `sl_s_price` (
   `sort` smallint(5) NOT NULL DEFAULT '0',
   `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- 转存表中的数据 `sl_s_price`
@@ -1049,10 +1048,10 @@ INSERT INTO `sl_s_price` (`id`, `name`, `price`, `sort`, `belong`) VALUES
 (4, '80-100万', '50,80', 0, 2),
 (5, '100-150万', '100,150', 0, 2),
 (6, '150-200万', '150,200', 0, 2),
-(7, '200-250万', '200,250', 0, 2),
+(7, '200-250万', '200,250', 1, 2),
 (8, '300万以上', '300,1000000', 0, 2),
 (9, '500元以下', '0,500', 0, 6),
-(10, '500-1000元', '500,1000', 0, 6),
+(10, '500-1000元', '500,1000', 1, 6),
 (11, '1000-2000元', '1000,2000', 0, 6),
 (12, '2000-3000元', '2000,3000', 0, 6),
 (13, '3000元以上', '3000,100000000', 0, 6),
@@ -1062,8 +1061,7 @@ INSERT INTO `sl_s_price` (`id`, `name`, `price`, `sort`, `belong`) VALUES
 (17, '8000-10000元', '8000,10000', 0, 3),
 (18, '10000-15000元', '10000,15000', 0, 3),
 (19, '15000-20000元', '15000,20000', 0, 3),
-(20, '20000元以上', '20000,200000', 0, 3),
-(21, '1000元以上', '', 0, 0);
+(20, '20000元以上', '20000,200000', 0, 3);
 
 -- --------------------------------------------------------
 
