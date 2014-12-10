@@ -43,7 +43,7 @@
             <td align="center"><input class="inputcheckbox " name="ids[]" value="<?php echo $value['id']; ?>" type="checkbox"></td>
             <td align="center"><input name="listorders[<?php echo $value['id']; ?>]" type="text" size="3" value="<?php echo $value['sort']; ?>" class="input-text-c input-text"></td>
             <td align="center"><?php echo $value['id']; ?></td>
-            <td><?php echo cat_empty_deal($value, $value[$key+1]['pid'], 'pid').$value['name']; ?></td>
+            <td><?php echo $value['name']; ?></td>
             <td align="center"><?php echo isset($types[$value['belong']]) ? $types[$value['belong']] : '公用'; ?></td>
             <td align="center">
               <a href="__URL__/edit?id=<?php echo $value['id'] ?>">修改</a> |

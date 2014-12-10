@@ -11,9 +11,9 @@ class DirectionAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $towards = $this->db->towardList( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) );
+      $towards = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $towards = $this->db->towardList( array( 'belong' => 0 ) );
+      $towards = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
     }
     $this->assign('towards',$towards);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅' ));

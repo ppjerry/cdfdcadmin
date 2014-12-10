@@ -11,9 +11,9 @@ class PriceRangeAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $priceranges = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->select();
+      $priceranges = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $priceranges = $this->db->where( array( 'belong' => 0 ) )->select();
+      $priceranges = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
     }
     $this->assign('priceranges',$priceranges);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
@@ -24,6 +24,7 @@ class PriceRangeAction extends CommonAction {
     if (IS_POST) {
       $this->checkToken();
       $data = $_POST['info'];
+      $data['price'] = implode(',', $data['price']);
       $data['siteid'] = $this->siteid;
       if ($id = $this->db->add($data)) {
         $this->success('添加成功', 'index');
@@ -56,8 +57,7 @@ class PriceRangeAction extends CommonAction {
       }
     } else {
       $pricerange = $this->db->find($_GET['id']);
-      $priceranges = $this->db->where( array( 'pid' => 0 ) )->select();
-      $this->assign('priceranges', $priceranges);
+      $pricerange['price'] = explode(',', $pricerange['price']);
       $this->assign('pricerange', $pricerange);
       $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
       $this->display();

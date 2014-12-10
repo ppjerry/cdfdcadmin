@@ -11,9 +11,9 @@ class DecorationAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $decorations = $this->db->decorationList( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) );
+      $decorations = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $decorations = $this->db->decorationList( array( 'belong' => 0 ) );
+      $decorations = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->order("sort desc")->select()->select();
     }
     $this->assign('decorations',$decorations);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅' ));

@@ -11,9 +11,9 @@ class PayMethodAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $payments = $this->db->paymentList( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) );
+      $payments = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $payments = $this->db->paymentList( array( 'belong' => 0 ) );
+      $payments = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
     }
     $this->assign('payments',$payments);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅' ));

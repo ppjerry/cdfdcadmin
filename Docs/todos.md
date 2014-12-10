@@ -20,6 +20,8 @@
   类型(Genre)（功能：排序，belong选择）
   *sl_type
 
+->order("sort desc")->select()
+
 2、二手房前台搜索条件枚举类型数据表
   区域(HomeArea)（功能：排序，belong选择，区间填写）
   *sl_s_area

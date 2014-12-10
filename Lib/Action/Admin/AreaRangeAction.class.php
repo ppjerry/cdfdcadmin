@@ -11,9 +11,9 @@ class AreaRangeAction extends CommonAction {
 
   public function index() {
     if (isset( $_GET['type'] )) {
-      $homeareas = $this->db->homeareaList( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) );
+      $homeareas = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $homeareas = $this->db->homeareaList( array( 'belong' => 0 ) );
+      $homeareas = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
     }
     $this->assign('homeareas',$homeareas);
     $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
@@ -24,6 +24,7 @@ class AreaRangeAction extends CommonAction {
     if (IS_POST) {
       $this->checkToken();
       $data = $_POST['info'];
+      $data['area'] = implode(',', $data['area']);
       $data['siteid'] = $this->siteid;
       if ($id = $this->db->add($data)) {
         $this->success('添加成功', 'index');
@@ -56,6 +57,7 @@ class AreaRangeAction extends CommonAction {
       }
     } else {
       $homearea = $this->db->find($_GET['id']);
+      $homearea['area'] = explode(',', $homearea['area']);
       $homeareas = $this->db->where( array( 'pid' => 0 ) )->select();
       $this->assign('homeareas', $homeareas);
       $this->assign('homearea', $homearea);

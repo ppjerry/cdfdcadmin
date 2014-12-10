@@ -20,13 +20,13 @@ defined('IN_ADMIN') or exit('No permission resources.');
         <tr>
         <th width="100"><font class="red">*</font>价格大于</th>
           <td>
-            <input type="text" name="info[area][]" value="" class="input-text" id="price1">
+            <input type="text" name="info[price][]" value="<?php echo $pricerange['price'][0]; ?>" class="input-text" id="price1">
           </td>
         </tr>
         <tr>
           <th width="100"><font class="red">*</font>价格小于</th>
           <td>
-            <input type="text" name="info[area][]" value="" class="input-text" id="price2">
+            <input type="text" name="info[price][]" value="<?php echo $pricerange['price'][1]; ?>" class="input-text" id="price2">
         </tr>
         <tr>
           <th width="100"><font class="red">*</font>所属分类</th>
@@ -49,24 +49,12 @@ defined('IN_ADMIN') or exit('No permission resources.');
     </form>
   </div>
   <script type="text/javascript">
-    var priceranges = '<?php echo json_encode($priceranges); ?>';
     $(function() {
       $.formValidator.initConfig({autotip:true,formid:"myform",onerror:function(msg){}});
       $("#name").formValidator({onshow:"请输入名字",onfocus:"名称不能为空"}).inputValidator({min:1,max:50,onerror:"名称不能为空"}).defaultPassed();
       $("#price1").formValidator({onshow:"请输入价格",onfocus:"价格不能为空"}).inputValidator({min:1,max:999,onerror:"价格不能为空"});
       $("#price2").formValidator({onshow:"请输入价格",onfocus:"价格不能为空"}).inputValidator({min:1,max:999,onerror:"价格不能为空"});
       $("#typeid").formValidator({onshow:"请选择分类",onfocus:"请选择分类"}).inputValidator({min:0,onerror:"分类必选"}).defaultPassed();
-      $("#pid").formValidator({onshow:"请选择父区域",onfocus:"请选择父区域"}).inputValidator({min:0,onerror:"父区域必选"}).defaultPassed();
-
-      $('#typeid').change(function(){
-        belong = $(this).val();
-        pid_options = '<option value="0">顶级区域</option>';
-        $.each($.parseJSON(priceranges), function( index, obj ){
-          if ( obj.belong == belong || obj.belong == 0 )
-          pid_options += '<option value="' + obj.id + '">' + obj.name + '</option>';
-        });
-        $('#pid').html( pid_options );
-      });
 
     })
   </script>

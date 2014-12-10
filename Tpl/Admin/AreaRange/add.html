@@ -55,17 +55,6 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $("#area1").formValidator({onshow:"请输入面积",onfocus:"面积不能为空"}).inputValidator({min:1,max:999,onerror:"面积不能为空"});
       $("#area2").formValidator({onshow:"请输入面积",onfocus:"面积不能为空"}).inputValidator({min:1,max:999,onerror:"面积不能为空"});
       $("#typeid").formValidator({onshow:"请选择分类",onfocus:"请选择分类"}).inputValidator({min:0,onerror:"分类必选"}).defaultPassed();
-      $("#pid").formValidator({onshow:"请选择父区域",onfocus:"请选择父区域"}).inputValidator({min:0,onerror:"父区域必选"}).defaultPassed();
-
-      $('#typeid').change(function(){
-        belong = $(this).val();
-        pid_options = '<option value="0">顶级区域</option>';
-        $.each($.parseJSON(homeareas), function( index, obj ){
-          if ( obj.belong == belong || obj.belong == 0 )
-            pid_options += '<option value="' + obj.id + '">' + obj.name + '</option>';
-        });
-        $('#pid').html( pid_options );
-      });
 
     })
   </script>
