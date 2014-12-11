@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-10 10:52:56
+-- Generation Time: 2014-12-11 01:57:57
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -130,14 +130,14 @@ CREATE TABLE IF NOT EXISTS `sl_direction` (
   `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
   `belong` smallint(6) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `sl_direction`
 --
 
 INSERT INTO `sl_direction` (`id`, `name`, `sort`, `belong`) VALUES
-(1, '东', 1, 0),
+(1, '东', 9, 0),
 (3, '南', 7, 0),
 (5, '东西', 8, 0),
 (6, '东南', 6, 0),
@@ -1000,7 +1000,7 @@ CREATE TABLE IF NOT EXISTS `sl_s_area` (
   `sort` smallint(5) NOT NULL DEFAULT '0',
   `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `sl_s_area`
@@ -1036,7 +1036,7 @@ CREATE TABLE IF NOT EXISTS `sl_s_price` (
   `sort` smallint(5) NOT NULL DEFAULT '0',
   `belong` smallint(5) NOT NULL DEFAULT '0' COMMENT '所属类别 (0:所有，1:新房，2：二手房，3：商铺，4：写字楼，5，别墅, 6:出租，7:商铺出租，8:写字楼出租，9:别墅出租)，默认0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- 转存表中的数据 `sl_s_price`
