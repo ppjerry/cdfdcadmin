@@ -19,7 +19,6 @@
             <th width="37">排序</th>
             <th width="40">ID</th>
             <th>名称</th>
-            <th width="40">所属类别</th>
             <th width="200">管理操作</th>
           </tr>
         </thead>
@@ -30,7 +29,6 @@
             <td align="center"><input name="listorders[<?php echo $value['id']; ?>]" type="text" size="3" value="<?php echo $value['sort']; ?>" class="input-text-c input-text"></td>
             <td align="center"><?php echo $value['id']; ?></td>
             <td><?php echo $value['name']; ?></td>
-            <td align="center"><?php echo isset($types[$value['belong']]) ? $types[$value['belong']] : '公用'; ?></td>
             <td align="center">
               <a href="__URL__/edit?id=<?php echo $value['id'] ?>">修改</a> |
               <a href="__URL__/delete?id=<?php echo $value['id']; ?>" onClick="return confirm('确认删除『 <?php echo addslashes($value['name']); ?> 』 吗？')">删除</a>

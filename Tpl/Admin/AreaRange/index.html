@@ -33,6 +33,7 @@
             <th width="37">排序</th>
             <th width="40">ID</th>
             <th>名称</th>
+            <th width="100">区间</th>
             <th width="40">所属类别</th>
             <th width="200">管理操作</th>
           </tr>
@@ -44,6 +45,7 @@
             <td align="center"><input name="listorders[<?php echo $value['id']; ?>]" type="text" size="3" value="<?php echo $value['sort']; ?>" class="input-text-c input-text"></td>
             <td align="center"><?php echo $value['id']; ?></td>
             <td><?php echo $value['name']; ?></td>
+            <td><?php echo $value['area']; ?></td>
             <td align="center"><?php echo isset($types[$value['belong']]) ? $types[$value['belong']] : '公用'; ?></td>
             <td align="center">
               <a href="__URL__/edit?id=<?php echo $value['id'] ?>">修改</a> |
