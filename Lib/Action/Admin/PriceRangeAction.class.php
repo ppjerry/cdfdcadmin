@@ -13,10 +13,10 @@ class PriceRangeAction extends CommonAction {
     if (isset( $_GET['type'] )) {
       $priceranges = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $priceranges = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
+      $priceranges = $this->db->where( array( 'belong' => 2 ) )->order("sort desc")->select();
     }
     $this->assign('priceranges',$priceranges);
-    $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
+    $this->assign('types', array('3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
     $this->display();
   }
 
@@ -32,14 +32,14 @@ class PriceRangeAction extends CommonAction {
         $this->success('操作失败', 'index');
       }
     } else {
-      $pid = isset( $_GET['pid'] ) ? intval($_GET['pid']) : 0;
+      $pid = isset( $_GET['pid'] ) ? intval($_GET['pid']) : 2;
       if ( !empty($pid) ) {
         $parent_pricerange = $this->db->find($pid);
         $this->assign( 'parent_pricerange', $parent_pricerange );
       }
-      $this->assign( 'type', isset($parent_pricerange['belong']) ? $parent_pricerange['belong'] : 0 );
-      $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
-      $priceranges = $this->db->where( array( 'pid' => 0 ) )->select();
+      $this->assign( 'type', isset($parent_pricerange['belong']) ? $parent_pricerange['belong'] : 2 );
+      $this->assign('types', array('3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
+      $priceranges = $this->db->where( array( 'pid' => 2 ) )->select();
       $this->assign( 'pid', $pid );
       $this->assign( 'priceranges', $priceranges );
       $this->display();
@@ -59,7 +59,7 @@ class PriceRangeAction extends CommonAction {
       $pricerange = $this->db->find($_GET['id']);
       $pricerange['price'] = explode(',', $pricerange['price']);
       $this->assign('pricerange', $pricerange);
-      $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
+      $this->assign('types', array( '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
       $this->display();
     }
   }

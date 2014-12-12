@@ -13,10 +13,10 @@ class AreaRangeAction extends CommonAction {
     if (isset( $_GET['type'] )) {
       $homeareas = $this->db->where( array( 'belong' => array( 'in' , array( 0, intval($_GET['type']) ) ) ) )->order("sort desc")->select();
     } else {
-      $homeareas = $this->db->where( array( 'belong' => 0 ) )->order("sort desc")->select();
+      $homeareas = $this->db->where( array( 'belong' => 2 ) )->order("sort desc")->select();
     }
     $this->assign('homeareas',$homeareas);
-    $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
+    $this->assign('types', array( '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
     $this->display();
   }
 
@@ -32,14 +32,14 @@ class AreaRangeAction extends CommonAction {
         $this->success('操作失败', 'index');
       }
     } else {
-      $pid = isset( $_GET['pid'] ) ? intval($_GET['pid']) : 0;
+      $pid = isset( $_GET['pid'] ) ? intval($_GET['pid']) : 2;
       if ( !empty($pid) ) {
         $parent_homearea = $this->db->find($pid);
         $this->assign( 'parent_homearea', $parent_homearea );
       }
-      $this->assign( 'type', isset($parent_homearea['belong']) ? $parent_homearea['belong'] : 0 );
-      $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
-      $homeareas = $this->db->where( array( 'pid' => 0 ) )->select();
+      $this->assign( 'type', isset($parent_homearea['belong']) ? $parent_homearea['belong'] : 2 );
+      $this->assign('types', array( '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
+      $homeareas = $this->db->where( array( 'pid' => 2 ) )->select();
       $this->assign( 'pid', $pid );
       $this->assign( 'homeareas', $homeareas );
       $this->display();
@@ -58,10 +58,10 @@ class AreaRangeAction extends CommonAction {
     } else {
       $homearea = $this->db->find($_GET['id']);
       $homearea['area'] = explode(',', $homearea['area']);
-      $homeareas = $this->db->where( array( 'pid' => 0 ) )->select();
+      $homeareas = $this->db->where( array( 'pid' => 2 ) )->select();
       $this->assign('homeareas', $homeareas);
       $this->assign('homearea', $homearea);
-      $this->assign('types', array( '1' => '新房', '2' => '二手房', '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
+      $this->assign('types', array( '3' => '商铺', '4' => '写字楼', '5' => '别墅','6' => '出租', '7' => '商铺出租', '8' => '写字楼出租', '9' => '别墅出租' ));
       $this->display();
     }
   }

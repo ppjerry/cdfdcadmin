@@ -19,7 +19,7 @@ $config = array(
     'admin'=>array('Admin/'),
     'www'=>array('Home/')
     ),*/
-  'SITE_URL' => 'http://www.cdfdc.com/xiaoyaocms/',
+  'SITE_URL' => 'http://localhost/xiaoyaocms/',
   'LANG_SWITCH_ON' => true
   );
 return array_merge($config, $system_config, $database_config);
