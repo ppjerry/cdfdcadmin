@@ -3,7 +3,7 @@ class form {
   /**
    * 编辑器
    * @param int $textareaid
-   * @param int $toolbar 
+   * @param int $toolbar
    * @param string $module 模块名称
    * @param int $catid 栏目id
    * @param int $color 编辑器颜色
@@ -65,7 +65,7 @@ return $str;
 }
 
   /**
-   * 
+   *
    * @param string $name 表单名称
    * @param int $id 表单id
    * @param string $value 表单默认值
@@ -75,7 +75,7 @@ return $str;
    * @param string $class 表单风格
    * @param string $ext 表单扩展属性 如果 js事件等
    * @param string $alowexts 允许图片格式
-   * @param array $thumb_setting 
+   * @param array $thumb_setting
    * @param int $watermark_setting  0或1
    */
   public static function images($name, $id = '', $value = '', $moudle='', $catid='', $size = 50, $class = '', $ext = '', $alowexts = '',$thumb_setting = array(),$watermark_setting = 0 ) {
@@ -88,7 +88,7 @@ return $str;
   }
 
   /**
-   * 
+   *
 
 
    * @param string $name 表单名称
@@ -100,7 +100,7 @@ return $str;
    * @param string $class 表单风格
    * @param string $ext 表单扩展属性 如果 js事件等
    * @param string $alowexts 允许上传的文件格式
-   * @param array $file_setting 
+   * @param array $file_setting
    */
   public static function upfiles($name, $id = '', $value = '', $moudle='', $catid='', $size = 50, $class = '', $ext = '', $alowexts = '',$file_setting = array() ) {
     if(!$id) $id = $name;
@@ -111,7 +111,7 @@ return $str;
     $authkey = upload_key("1,$alowexts,1,$file_ext");
     return $str."<input type=\"text\" name=\"$name\" id=\"$id\" value=\"$value\" size=\"$size\" class=\"$class\" $ext/>  <input type=\"button\" class=\"button\" onclick=\"javascript:flashupload('{$id}_files', '".L('attachmentupload')."','{$id}',submit_attachment,'1,{$alowexts},1,{$file_ext}','{$moudle}','{$catid}','{$authkey}')\"/ value=\"".L('filesupload')."\">";
   }
-  
+
   /**
    * 日期时间控件
    * @param $name 控件name，id
@@ -220,7 +220,7 @@ return $str;
 
   /**
    * 复选框
-   * 
+   *
    * @param $array 选项 二维数组
    * @param $id 默认选中值，多个用 '逗号'分割
    * @param $str 属性
@@ -246,7 +246,7 @@ return $str;
 
   /**
    * 单选框
-   * 
+   *
    * @param $array 选项 二维数组
    * @param $id 默认选中值
    * @param $str 属性
@@ -263,7 +263,7 @@ return $str;
   }
   /**
    * 模板选择
-   * 
+   *
 
 
    * @param $style  风格
@@ -301,7 +301,7 @@ return $str;
     ksort($templates);
     return self::select($templates, $id, $str,L('please_select'));
   }
-  
+
   /**
    * 验证码
 
@@ -318,12 +318,12 @@ return $str;
   public static function checkcode($id = 'checkcode',$code_len = 4, $font_size = 20, $width = 130, $height = 50, $font = '', $font_color = '', $background = '') {
     return "<img id='$id' onclick='this.src=this.src+\"&\"+Math.random()' src='".SITE_PROTOCOL.SITE_URL.WEB_PATH."api.php?op=checkcode&code_len=$code_len&font_size=$font_size&width=$width&height=$height&font_color=".urlencode($font_color)."&background=".urlencode($background)."'>";
   }
-  
+
   /**
    * url  规则调用
-   * 
+   *
 
-   
+
    * @param $module 模块
    * @param $file 文件名
    * @param $ishtml 是否为静态规则
@@ -338,7 +338,7 @@ return $str;
     foreach($urlrules as $roleid=>$rules) {
       if($rules['module'] == $module && $rules['file']==$file && $rules['ishtml']==$ishtml) $array[$roleid] = $rules['example'];
     }
-    
+
     return form::select($array, $id,$str,$default_option);
   }
 }

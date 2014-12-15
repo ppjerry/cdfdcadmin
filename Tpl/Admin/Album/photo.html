@@ -167,19 +167,19 @@
               var html = "";
               for (var i = 0; i < in_content.length; i++) {
                 html += '<div class="photo">' +
-                '<img src="' + in_content[i] + '" data-url="' + in_content[i] + '" />' + 
-                '<input type="text" name="" value="' + in_name[i] + '" class="photodesc" />' + 
+                '<img src="' + in_content[i] + '" data-url="' + in_content[i] + '" />' +
+                '<input type="text" name="" value="' + in_name[i] + '" class="photodesc" />' +
                 '<span class="save">保存</span><span class="delete">删除</span>' +
                 '</div>';
               }
-              $(html).insertAfter("#create_access");    
+              $(html).insertAfter("#create_access");
             } else {
               $(".warning").html($response.msg).show();
             };
           }
         })
       }
-    } 
+    }
   }
   $(function(){
     $(".body").on("click", ".save", function(){

@@ -5,15 +5,13 @@
   class HouseModel extends Model {
     public function house_list($where=array(), $order = "id desc") {
       $houses = $this->join( "{$this->trueTableName}_data as data On {$this->trueTableName}.id = data.id" )->where( array_merge(array('siteid' => get_siteid()),$where) )->order($order)->page((isset($_GET['p']) ? $_GET['p'] : 0).',20')->field("{$this->trueTableName}.* ,data.relation, data.album, data.huxing, data.intent")->select();
-      // echo $this->getLastSql();
-      // 导入分页类
       import("ORG.Util.Page");
       // 查询满足要求的总记录数
       $count      = $this->where(array_merge(array('siteid' => get_siteid()),$where))->count();
       // 实例化分页类 传入总记录数和每页显示的记录数
-      $Page       = new Page($count,20);  
+      $Page       = new Page($count,20);
       // 分页显示输出
-      $show       = $Page->show();  
+      $show       = $Page->show();
       return array("data" => $houses, "page" => $show);
     }
 

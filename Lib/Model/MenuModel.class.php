@@ -1,7 +1,12 @@
 <?php
 
 class MenuModel extends Model {
+
   protected $tableName = 'node';
+
+  function __construct() {
+    parent::__construct( C('online.DB_NAME'), C('online.DB_PREFIX'), C('online') );
+  }
 
   public function accessList() {
     $sql = "SELECT a.*,b.id as b_id,b.title as b_title,b.name as b_name,b.sort as b_sort,b.status as b_stutas FROM

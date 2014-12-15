@@ -49,7 +49,7 @@
                 minuteStep: 1,
                 onSelect   : function() {this.hide();}
               });
-              </script>    
+              </script>
               <label>名称</label>
               <input type="text" value="<?php echo $_GET['filename']; ?>" class="input-text" size="10" name="filename">
               <?php foreach ($_GET as $key => $value) {
@@ -83,17 +83,20 @@
   function album_cancel(obj,id){
     var src = $(obj).children("img").attr("path");
     var filename = $(obj).children("img").attr("title");
+
     if($(obj).hasClass('on')){
       $(obj).removeClass("on");
       var imgstr = parent.window.$("#att-status").html();
       var length = $("a[class='on']").children("img").length;
-      var strs = filenames = '';
+      var ids = strs = filenames = '';
       for(var i=0;i<length;i++){
         strs += '|'+$("a[class='on']").children("img").eq(i).attr('path');
         filenames += '|'+$("a[class='on']").children("img").eq(i).attr('title');
+        ids += '|'+id;
       }
       parent.window.$('#att-status').html(strs);
       parent.window.$('#att-name').html(filenames);
+      parent.window.$('#att-ids').html(ids);
     } else {
       var num = parent.window.$('#att-status').html().split('|').length;
       var file_upload_limit = <?php echo $params[2]; ?>;
@@ -101,6 +104,7 @@
       $(obj).addClass("on");
       parent.window.$('#att-status').append('|'+src);
       parent.window.$('#att-name').append('|'+filename);
+      parent.window.$('#att-ids').append('|'+id);
     }
   }
   </script>

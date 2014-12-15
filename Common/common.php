@@ -47,7 +47,7 @@
     if (empty($siteid)) $siteid = 1;
     return $siteid;
   }
-   
+
   /**
    * 检查id是否存在于数组中
    *
@@ -325,25 +325,25 @@
    * @param $string
    * @return string
    */
-  function remove_xss($string) { 
+  function remove_xss($string) {
     $string = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S', '', $string);
 
     $parm1 = Array('javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink', 'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset', 'ilayer', 'layer', 'bgsound', 'title', 'base');
 
     $parm2 = Array('onabort', 'onactivate', 'onafterprint', 'onafterupdate', 'onbeforeactivate', 'onbeforecopy', 'onbeforecut', 'onbeforedeactivate', 'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload', 'onbeforeupdate', 'onblur', 'onbounce', 'oncellchange', 'onchange', 'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut', 'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick', 'ondeactivate', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate', 'onfilterchange', 'onfinish', 'onfocus', 'onfocusin', 'onfocusout', 'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete', 'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave', 'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel', 'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange', 'onreadystatechange', 'onreset', 'onresize', 'onresizeend', 'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete', 'onrowsinserted', 'onscroll', 'onselect', 'onselectionchange', 'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload');
 
-    $parm = array_merge($parm1, $parm2); 
+    $parm = array_merge($parm1, $parm2);
 
-    for ($i = 0; $i < sizeof($parm); $i++) { 
-      $pattern = '/'; 
-      for ($j = 0; $j < strlen($parm[$i]); $j++) { 
-        if ($j > 0) { 
+    for ($i = 0; $i < sizeof($parm); $i++) {
+      $pattern = '/';
+      for ($j = 0; $j < strlen($parm[$i]); $j++) {
+        if ($j > 0) {
           $pattern .= '('; $pattern .= '(&#[x|X]0([9][a][b]);?)?'; $pattern .= '|(&#0([9][10][13]);?)?'; $pattern .= ')?';
         }
-        $pattern .= $parm[$i][$j]; 
+        $pattern .= $parm[$i][$j];
       }
       $pattern .= '/i';
-      $string = preg_replace($pattern, '', $string); 
+      $string = preg_replace($pattern, '', $string);
     }
     return $string;
   }
@@ -585,7 +585,7 @@
     }
   }
 
-  /** 
+  /**
     * 检查GD库是否支持
    */
   function check_gd() {
@@ -632,7 +632,7 @@
     import('ORG.Net.IpLocation');// 导入IpLocation类
     $Ip = new IpLocation(); // 实例化类 参数表示IP地址库文件
     $iplocation = $Ip->getlocation($ip); // 获取某个IP地址所在的位置
-    $area = iconv('GB2312','UTF-8', $iplocation['country'].$iplocation['area']); 
+    $area = iconv('GB2312','UTF-8', $iplocation['country'].$iplocation['area']);
     return $area;
   }
 
@@ -673,7 +673,7 @@
     $pos .= '</ol>';
     return $pos;
   }
-  
+
   /**
    *  将数组转换成以主键值为key的多维数组
    *  @param array $array  需要转换的数组

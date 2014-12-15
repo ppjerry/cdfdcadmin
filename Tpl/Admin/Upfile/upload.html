@@ -65,6 +65,7 @@
   </div>
   <div id="att-status" class="hidden"></div>
   <div id="att-status-del" class="hidden"></div>
+  <div id="att-ids" class="hidden"></div>
   <div id="att-name" class="hidden"></div>
   <script type="text/javascript">
   function change_params(obj){
@@ -85,7 +86,7 @@
     'buttonImage'     : '',
     'buttonClass'     : 'addnew',
     'buttonText'      : '',
-    'height'          : '28', 
+    'height'          : '28',
     'width'           : '75',
     'fileSizeLimit'   : fileSizeLimit + "MB",
     'fileTypeDesc'    : fileTypeDesc,
@@ -102,25 +103,26 @@
         alert(image_info.error_info);
       } else {
         <?php if ($_GET['type'] == 'video' || $_GET['type'] == 'swf' ) { ?>
-          var src = "__PUBLIC__/images/admin/flv.png";
-          <?php }  else { ?>
-            var src = image_info.attachment_info['path'];
-            <?php } ?>
-            var html = '<li><div id="attachment_' + image_info.attachment_id +'" class="img-wrap">';
-            html += '<a href="javascript:void(0);" onclick="javascript:att_cancel(this,' + image_info.attachment_id + ',\'upload\'' + ')" class="on">'
-            html += '<div class="icon"></div>';
-            html += '<img src="' + src + '" width="80" imgid="' + image_info.attachment_id + '" path="' + image_info.attachment_info['path'] + '" title="' + file.name + '">';
-            html += '</a></div></li>';
-            $('#attachment_list').append(html);
-            att_insert(file.name,image_info.attachment_id);
-          }
-        }
-      });
+        var src = "__PUBLIC__/images/admin/flv.png";
+        <?php }  else { ?>
+        var src = image_info.attachment_info['path'];
+        <?php } ?>
+        var html = '<li><div id="attachment_' + image_info.attachment_id +'" class="img-wrap">';
+        html += '<a href="javascript:void(0);" onclick="javascript:att_cancel(this,' + image_info.attachment_id + ',\'upload\'' + ')" class="on">'
+        html += '<div class="icon"></div>';
+        html += '<img src="' + src + '" width="80" imgid="' + image_info.attachment_id + '" path="' + image_info.attachment_info['path'] + '" title="' + file.name + '">';
+        html += '</a></div></li>';
+        $('#attachment_list').append(html);
+        att_insert(file.name,image_info.attachment_id);
+      }
+    }
+  });
 
 function att_insert(file_name,id) {
   var uploadfile = $("#attachment_"+id+" img").attr('path');
   $('#att-status').append('|'+uploadfile);
   $('#att-name').append('|'+file_name);
+  $('#att-ids').append('|'+id);
 }
 
 function att_cancel(obj,id,source) {
@@ -130,18 +132,21 @@ function att_cancel(obj,id,source) {
     $(obj).removeClass("on");
     var imgstr = $("#att-status").html();
     var length = $("a[class='on']").children("img").length;
-    var strs = filenames = '';
+    var ids = strs = filenames = '';
     for(var i=0;i<length;i++) {
       strs += '|'+$("a[class='on']").children("img").eq(i).attr('path');
       filenames += '|'+$("a[class='on']").children("img").eq(i).attr('title');
+      ids += '|' + id;
     }
     $('#att-status').html(strs);
     $('#att-name').html(filenames);
+    $('#att-ids').html(ids);
     if(source=='upload') $('#att-status-del').append('|'+id);
   } else {
     $(obj).addClass("on");
     $('#att-status').append('|'+src);
     $('#att-name').append('|'+filename);
+    $('#att-ids').append('|'+id);
     var imgstr_del = $("#att-status-del").html();
     var imgstr_del_obj = $("a[class!='on']").children("img")
     var length_del = imgstr_del_obj.length;
@@ -170,7 +175,7 @@ function addonlinefile(obj) {
   $('#att-status').html(strs);
 }
 function set_iframe(id,src){
-  $("#"+id).attr("src",src+"?args="+queueSizeLimit+","+ fileSizeLimit +"," + uploadLimit); 
+  $("#"+id).attr("src",src+"?args="+queueSizeLimit+","+ fileSizeLimit +"," + uploadLimit);
 }
 </script>
 </body>
