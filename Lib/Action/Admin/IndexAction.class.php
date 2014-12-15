@@ -4,7 +4,7 @@ class IndexAction extends CommonAction {
     //PublicAction::checkUser();
     //print_r($_SESSION);
     // 菜单显示自定义方式
-    $model = D("Node");
+    $model = D("Menu");
     if ($_SESSION[C('ADMIN_AUTH_KEY')]) {
       $top_menu = $model->where('pid = 0 and status = 1')->order('sort desc, id asc')->select();
     } else {
@@ -20,7 +20,7 @@ class IndexAction extends CommonAction {
   public function left() {
     // 菜单显示自定义方式
     $mid = empty($_GET['mid']) ? 1 : $_GET['mid'];
-    $model = D("Node");
+    $model = D("Menu");
     if ($_SESSION[C('ADMIN_AUTH_KEY')]) {
       $menulist = $model->where("pid = {$mid} and status = 1")->order('sort desc')->select();
     } else {
