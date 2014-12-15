@@ -13,7 +13,7 @@
       <tr>
         <td>
           <div class="explain-col">
-            所有分类: &nbsp;&nbsp; <a href="__URL__/index/type/0" <?php if( !isset($_GET['type']) || empty($_GET['type']) ) { echo "class='on'"; } ?>>公用</a>&nbsp;
+            所有分类: &nbsp;&nbsp; <a href="__URL__/index/type/2" <?php if(  $_GET['type'] == 2 || empty($_GET['type'] )) { echo "class='on'"; } ?>>二手房</a>&nbsp;
             <?php foreach ($types as $key => $type) { ?>
             <a href="__URL__/index/type/<?php echo $key; ?>" <?php if($_GET['type'] == $key) { echo "class='on'"; } ?>><?php echo $type; ?></a>&nbsp;
             <?php } ?>
@@ -46,7 +46,7 @@
             <td align="center"><?php echo $value['id']; ?></td>
             <td><?php echo $value['name']; ?></td>
             <td><?php echo $value['price']; ?></td>
-            <td align="center"><?php echo isset($types[$value['belong']]) ? $types[$value['belong']] : '公用'; ?></td>
+            <td align="center"><?php echo isset($types[$value['belong']]) ? $types[$value['belong']] : '二手房'; ?></td>
             <td align="center">
               <a href="__URL__/edit?id=<?php echo $value['id'] ?>">修改</a> |
               <a href="__URL__/delete?id=<?php echo $value['id']; ?>" onClick="return confirm('确认删除『 <?php echo addslashes($value['name']); ?> 』 吗？')">删除</a>

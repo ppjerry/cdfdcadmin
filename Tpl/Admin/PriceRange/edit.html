@@ -32,7 +32,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <th width="100"><font class="red">*</font>所属分类</th>
           <td>
             <select name="info[belong]" id="typeid">
-              <option value="0" <?php echo $pricerange['belong'] == 0 ? 'selected' : ''; ?>>公用</option>
+              <option value="0" <?php echo $pricerange['belong'] == 2 ? 'selected' : ''; ?>>二手房</option>
               <?php foreach ($types as $key => $value) { ?>
               <option value='<?php echo $key; ?>' <?php echo $pricerange['belong'] == $key ? 'selected' : ''; ?>><?php echo $value; ?></option>
               <?php } ?>
