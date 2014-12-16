@@ -101,6 +101,7 @@ class SaleHouseAction extends CommonAction {
       // 特色标签
       $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
 
+
       $this->assign( 'house', $house );
       $this->assign( 'regions', $regions );
       $this->assign( 'areas', $areas );
