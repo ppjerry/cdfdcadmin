@@ -84,12 +84,12 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80">总价</th>
+            <th width="80"><font color="red">*</font>总价</th>
             <td><input type="text" name="info[price]" id="price" value="<?php echo $shop['price']; ?>" class="input-text"></td>
           </tr>
 
           <tr>
-            <th width="80">建筑面积</th>
+            <th width="80"><font color="red">*</font>建筑面积</th>
             <td><input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $shop['construction_area']; ?>" class="input-text"></td>
           </tr>
 
@@ -99,14 +99,14 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80">装修程度</th>
+            <th width="80"><font color="red">*</font>装修程度</th>
             <td>
               <?php echo Form::select($decorations, $shop['decoration_id'], 'name=info[decoration_id] id="direction"', '请选择'); ?>
             </td>
           </tr>
 
           <tr>
-            <th width="80">有效期</th>
+            <th width="80"><font color="red">*</font>有效期</th>
             <td>
               <?php echo Form::select(array('15','30','60'),  $shop['validity'],'name=info[validity] id="validity"', '请选择'); ?>
             </td>
@@ -140,7 +140,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80">可经营类别</th>
+            <th width="80"><font color="red">*</font>可经营类别</th>
             <td>
               <div class="contedit fl">
                 <ul class="checkbox_list">
@@ -156,7 +156,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80">房屋配套</th>
+            <th width="80"><font color="red">*</font>房屋配套</th>
             <td>
               <div class="contedit fl">
                 <ul class="checkbox_list">
@@ -277,7 +277,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
 
       $("#construction_area").formValidator({onshow:"请填写产证面积",onfocus:"请填写产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑面积不能为空"}).defaultPassed();
 
-      $("#construct_year").formValidator({onshow:"请填写建筑年代",onfocus:"请填写建筑年代",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑年代不能为空"}).defaultPassed();
+      $("#direction").formValidator({onshow:"请选择装修程度",onfocus:"请选择装修程度",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选装修程度"}).defaultPassed();
 
       $("#validity").formValidator({onshow:"请选择有效期",onfocus:"请选择有效期",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选有效期"}).defaultPassed();
 

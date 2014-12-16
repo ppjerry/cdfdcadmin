@@ -55,7 +55,7 @@ class SaleOfficeAction extends CommonAction {
       $data = $_POST['info'];
       $data['room_structure'] = json_encode($data['room_structure']);
       $data['floor'] = json_encode($data['floor']);
-      $data['house_number'] = empty( $data['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['house_number']);
+      $data['office_number'] = empty( $data['office_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['office_number']);
       $data['tag'] = empty( $data['tag'] ) ? array() : json_encode($data['tag']);
       $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
@@ -66,23 +66,23 @@ class SaleOfficeAction extends CommonAction {
         $this->error("更新失败! ");
       }
     } else {
-      $houseid = isset($_GET['id']) ? intval($_GET['id']) : 0;
-      if ( empty($houseid) ) {
+      $officeid = isset($_GET['id']) ? intval($_GET['id']) : 0;
+      if ( empty($officeid) ) {
         $this->error("房源ID不合法！");
       }
       import("ORG.Util.Form");
-      $house = $this->db->find($houseid);
-      /*$house['room_structure'] = json_decode($house['room_structure'], true);
-      $house['floor'] = json_decode($house['floor'], true);
+      $office = $this->db->find($officeid);
+      /*$office['room_structure'] = json_decode($office['room_structure'], true);
+      $office['floor'] = json_decode($office['floor'], true);
       */
-      $house['house_number'] = empty( $house['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($house['house_number'], true);
-      $house['tag'] = empty( $house['tag'] ) ? array() : json_decode($house['tag'], true);
+      $office['office_number'] = empty( $office['office_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($office['office_number'], true);
+      $office['tag'] = empty( $office['tag'] ) ? array() : json_decode($office['tag'], true);
 
-      $house['customer_tag'] = empty( $house['customer_tag'] ) ? array() : json_decode($house['customer_tag'], true);
+      $office['customer_tag'] = empty( $office['customer_tag'] ) ? array() : json_decode($office['customer_tag'], true);
 
-      $house['supporting'] = empty( $house['supporting'] ) ? array() : json_decode($house['supporting'], true);
+      $office['supporting'] = empty( $office['supporting'] ) ? array() : json_decode($office['supporting'], true);
 
-      $house['room_images'] = empty( $house['room_images'] ) ? array() : json_decode($house['room_images'], true);
+      $office['room_images'] = empty( $office['room_images'] ) ? array() : json_decode($office['room_images'], true);
 
       // 区域一级
       $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
@@ -97,17 +97,21 @@ class SaleOfficeAction extends CommonAction {
       $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       $decorations = array_translate($decorations);
       // 房屋配套
-      $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $office_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       // 特色标签
       $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      //类型
+      $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $genres = array_translate($genres);
 
 
-      $this->assign( 'house', $house );
+      $this->assign( 'office', $office );
       $this->assign( 'regions', $regions );
       $this->assign( 'areas', $areas );
       $this->assign( 'directions', $directions );
       $this->assign( 'decorations', $decorations );
-      $this->assign( 'house_supportings', $house_supportings );
+      $this->assign( 'genres', $genres );
+      $this->assign( 'office_supportings', $office_supportings );
       $this->assign( 'tags', $tags );
       $this->display();
     }
@@ -118,16 +122,16 @@ class SaleOfficeAction extends CommonAction {
       $ids = $_POST['ids'];
       if (!empty($ids) && is_array($ids)) {
         foreach ($ids as $key => $value) {
-          $house = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->find();
-          if ($house) {
-            $member = D('FdcMember')->find( $house['member_id'] );
+          $office = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->find();
+          if ($office) {
+            $member = D('FdcMember')->find( $office['member_id'] );
             if ($member) {
               if ($member['rent_publish_num'] > 0) {
                 $member['rent_publish_num']--;
               } else {
                 $member['rent_publish_num'] = 0;
               }
-              D('FdcMember')->where( array('id' => $house['member_id'] ) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
+              D('FdcMember')->where( array('id' => $office['member_id'] ) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
             }
             $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->delete();
           }
@@ -137,19 +141,19 @@ class SaleOfficeAction extends CommonAction {
         $this->error("您没有勾选信息");
       }
     } else {
-      $house_id = intval($_GET['id']);
-      $house = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $house_id ) )->find();
-      if ($house) {
-        $member = D('FdcMember')->find( $house['member_id'] );
+      $office_id = intval($_GET['id']);
+      $office = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $office_id ) )->find();
+      if ($office) {
+        $member = D('FdcMember')->find( $office['member_id'] );
         if ($member) {
           if ($member['rent_publish_num'] > 0) {
             $member['rent_publish_num']--;
           } else {
             $member['rent_publish_num'] = 0;
           }
-          D('FdcMember')->where( array('id' => $house['member_id']) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
+          D('FdcMember')->where( array('id' => $office['member_id']) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
         }
-        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $house_id ) )->delete() ) {
+        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $office_id ) )->delete() ) {
           $this->success('删除成功！');
         } else {
           $this->error('删除失败！');
