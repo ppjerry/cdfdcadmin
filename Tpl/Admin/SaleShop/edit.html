@@ -108,7 +108,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80">有效期</th>
             <td>
-              <?php echo Form::select(array('15','30','60'), 'name=info[validity] id="validity"', '请选择'); ?>
+              <?php echo Form::select(array('15','30','60'),  $shop['validity'],'name=info[validity] id="validity"', '请选择'); ?>
             </td>
           </tr>
 
@@ -269,9 +269,17 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $("#area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
       $("#address").formValidator({onshow:"请填写房源详细地址",onfocus:"请填写房源详细地址",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"地址必填"}).defaultPassed();
 
+      $("#type").formValidator({onshow:"请选择商铺类型",onfocus:"请选择商铺类型",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选类型"}).defaultPassed();
+
+      $("#shoptypes").formValidator({onshow:"请选择铺面类型",onfocus:"请选择铺面类型",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选铺面类型"}).defaultPassed();
+
       $("#construction_area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
 
       $("#construction_area").formValidator({onshow:"请填写产证面积",onfocus:"请填写产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑面积不能为空"}).defaultPassed();
+
+      $("#construct_year").formValidator({onshow:"请填写建筑年代",onfocus:"请填写建筑年代",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑年代不能为空"}).defaultPassed();
+
+      $("#validity").formValidator({onshow:"请选择有效期",onfocus:"请选择有效期",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选有效期"}).defaultPassed();
 
       $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
       $("#total_floor").formValidator({onshow:"请填写总楼层",onfocus:"请填写总楼层",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"总楼层必须为正整数",oncorrect:"输入正确"}).defaultPassed();
