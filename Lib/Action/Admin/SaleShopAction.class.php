@@ -1,6 +1,6 @@
 <?php
 /**
-*  二手房Controller
+*  商铺Controller
 */
 class SaleShopAction extends CommonAction {
   protected $db;
