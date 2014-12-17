@@ -4,7 +4,7 @@
 */
 class RentHouseModel extends UserCenterCommonModel {
 
-  protected $tableName = 'rent_villas';
+  protected $tableName = 'rent';
 
   public function lists( $where=array(), $order = "id desc" ) {
     $houses = $this->where( array_merge( array('siteid' => get_siteid() ), $where ) )->order($order)->page((isset($_GET['p']) ? $_GET['p'] : 0).',20')->select();

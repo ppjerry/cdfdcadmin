@@ -36,7 +36,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
             </td>
           </tr>
           <tr>
-            <th width="80"> <font color="red">*</font>楼盘名称</th>
+            <th width="80"> <font color="red">*</font>小区名称</th>
             <td>
               <div class="pr">
                 <input type="text" maxlength="15" class="Input_1" style="width:300px;" id="community_name" name="info[community_name]" value="<?php echo $house['community_name']; ?>" autocomplete="off"/>
@@ -72,11 +72,11 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80"><font color="red">*</font>户型</th>
             <td>
-              <input class="Input_1" style="width:32px;" id="input_House_Room" name="info[room_structure][room]" type="text" value="<?php echo $house[room]; ?>">
+              <input class="Input_1" style="width:32px;" id="input_House_Room" name="info[room_structure][room]" type="text" value="<?php echo $house['room']; ?>">
               <span>室</span>
-              <input class="Input_1" style="width:32px;" id="input_House_Hall" name="info[room_structure][hall]" type="text" value="<?php echo $house[hall]; ?>">
+              <input class="Input_1" style="width:32px;" id="input_House_Hall" name="info[room_structure][hall]" type="text" value="<?php echo $house['hall']; ?>">
               <span>厅</span>
-              <input class="Input_1" style="width:32px;" id="input_House_Toilet" name="info[room_structure][bathroom]" type="text" value="<?php echo $house[bathroom]; ?>">
+              <input class="Input_1" style="width:32px;" id="input_House_Toilet" name="info[room_structure][bathroom]" type="text" value="<?php echo $house['bathroom']; ?>">
               <span>卫</span>
             </td>
           </tr>
@@ -89,17 +89,12 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80">建筑面积</th>
+            <th width="80"><font color="red">*</font>建筑面积</th>
             <td><input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $house['construction_area']; ?>" class="input-text"></td>
           </tr>
 
           <tr>
-            <th width="80">售价</th>
-            <td><input type="text" name="info[price]" id="price" value="<?php echo $house['price']; ?>" class="input-text"></td>
-          </tr>
-
-          <tr>
-            <th width="80">楼层</th>
+            <th width="80"><font color="red">*</font>楼层</th>
             <td>
               <input class="input-text" style="width:32px;" id="floor" name="info[floor][floor]" type="text" value="<?php echo $house['current_floor']; ?>">层 共
               <input class="input-text" style="width:32px;" id="total_floor" name="info[floor][total_floor]" type="text" value="<?php echo $house['total_floor']; ?>">层
@@ -121,6 +116,11 @@ defined('IN_ADMIN') or exit('No permission resources.');
               <?php echo Form::select($decorations, $house['direction_id'], 'name=info[direction_id] id="direction"', '请选择'); ?>
               <?php echo Form::select($decorations, $house['decoration_id'], 'name=info[decoration_id] id="direction"', '请选择'); ?>
             </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>租金</th>
+            <td><input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $house['construction_area']; ?>" class="input-text"></td>
           </tr>
 
           <tr>
