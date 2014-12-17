@@ -82,6 +82,13 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
+            <th width="80"><font color="red">*</font>租赁方式</th>
+            <td>
+              <?php echo Form::select($payments, $house['pay_method_id'], 'name=info[pay_method_id] id="payments"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
             <th width="80">建筑面积</th>
             <td><input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $house['construction_area']; ?>" class="input-text"></td>
           </tr>

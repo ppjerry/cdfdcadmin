@@ -2,11 +2,11 @@
 /**
 *  二手房Controller
 */
-class SaleHouseAction extends CommonAction {
+class RentHouseAction extends CommonAction {
   protected $db;
   function __construct() {
     parent::__construct();
-    $this->db = D('SaleHouse');
+    $this->db = D('RentHouse');
   }
 
   public function index() {
@@ -103,13 +103,16 @@ class SaleHouseAction extends CommonAction {
       $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       // 特色标签
       $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-
+      //支付方式
+      $payments = D('PayMethod')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $payments = array_translate($payments);
 
       $this->assign( 'house', $house );
       $this->assign( 'regions', $regions );
       $this->assign( 'areas', $areas );
       $this->assign( 'directions', $directions );
       $this->assign( 'decorations', $decorations );
+      $this->assign( 'payments', $payments );
       $this->assign( 'house_supportings', $house_supportings );
       $this->assign( 'tags', $tags );
       $this->display();
