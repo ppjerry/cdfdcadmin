@@ -1,12 +1,12 @@
 <?php
 /**
-*  二手房Controller
+*  商铺Controller
 */
-class BuyOfficeAction extends CommonAction {
+class BuyShopAction extends CommonAction {
   protected $db;
   function __construct() {
     parent::__construct();
-    $this->db = D('BuyOffice');
+    $this->db = D('BuyShop');
   }
 
   public function index() {
@@ -55,10 +55,11 @@ class BuyOfficeAction extends CommonAction {
       $data = $_POST['info'];
       $data['room_structure'] = json_encode($data['room_structure']);
       $data['floor'] = json_encode($data['floor']);
-      $data['office_number'] = empty( $data['office_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['office_number']);
+      $data['shop_number'] = empty( $data['shop_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['shop_number']);
       $data['tag'] = empty( $data['tag'] ) ? array() : json_encode($data['tag']);
       $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
+      $data['shop_manager_type'] = empty( $data['shop_manager_type'] ) ? array() : json_encode($data['shop_manager_type']);
       $data['room_images'] = empty( $data['room_images'] ) ? array() : json_encode($data['room_images']);
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
         $this->success("更新成功！");
@@ -66,23 +67,25 @@ class BuyOfficeAction extends CommonAction {
         $this->error("更新失败! ");
       }
     } else {
-      $officeid = isset($_GET['id']) ? intval($_GET['id']) : 0;
-      if ( empty($officeid) ) {
+      $shopid = isset($_GET['id']) ? intval($_GET['id']) : 0;
+      if ( empty($shopid) ) {
         $this->error("房源ID不合法！");
       }
       import("ORG.Util.Form");
-      $office = $this->db->find($officeid);
-      /*$office['room_structure'] = json_decode($office['room_structure'], true);
-      $office['floor'] = json_decode($office['floor'], true);
+      $shop = $this->db->find($shopid);
+      /*$shop['room_structure'] = json_decode($shop['room_structure'], true);
+      $shop['floor'] = json_decode($shop['floor'], true);
       */
-      $office['office_number'] = empty( $office['office_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($office['office_number'], true);
-      $office['tag'] = empty( $office['tag'] ) ? array() : json_decode($office['tag'], true);
+      $shop['shop_number'] = empty( $shop['shop_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($shop['shop_number'], true);
+      $shop['tag'] = empty( $shop['tag'] ) ? array() : json_decode($shop['tag'], true);
 
-      $office['customer_tag'] = empty( $office['customer_tag'] ) ? array() : json_decode($office['customer_tag'], true);
+      $shop['customer_tag'] = empty( $shop['customer_tag'] ) ? array() : json_decode($shop['customer_tag'], true);
 
-      $office['supporting'] = empty( $office['supporting'] ) ? array() : json_decode($office['supporting'], true);
+      $shop['supporting'] = empty( $shop['supporting'] ) ? array() : json_decode($shop['supporting'], true);
 
-      $office['room_images'] = empty( $office['room_images'] ) ? array() : json_decode($office['room_images'], true);
+      $shop['shop_manager_type'] = empty( $shop['shop_manager_type'] ) ? array() : json_decode($shop['shop_manager_type'], true);
+
+      $shop['room_images'] = empty( $shop['room_images'] ) ? array() : json_decode($shop['room_images'], true);
 
       // 区域一级
       $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
@@ -97,26 +100,28 @@ class BuyOfficeAction extends CommonAction {
       $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       $decorations = array_translate($decorations);
       // 房屋配套
-      $office_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      // 特色标签
-      $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      //类型
+      $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      //商铺类型
       $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       $genres = array_translate($genres);
+      //适合行业
+      $categorys = D('ShopManagerType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       // 楼层
       $floors = D('Floor')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       $floors = array_translate($floors);
 
 
-      $this->assign( 'office', $office );
+      $this->assign( 'shop', $shop );
       $this->assign( 'regions', $regions );
       $this->assign( 'areas', $areas );
       $this->assign( 'directions', $directions );
       $this->assign( 'decorations', $decorations );
       $this->assign( 'genres', $genres );
-      $this->assign( 'office_supportings', $office_supportings );
-      $this->assign( 'tags', $tags );
       $this->assign( 'floors', $floors );
+      $this->assign( 'shoptypes', $shoptypes );
+      $this->assign( 'house_supportings', $house_supportings );
+      $this->assign( 'categorys', $categorys );
+      $this->assign( 'tags', $tags );
       $this->display();
     }
   }
@@ -126,16 +131,16 @@ class BuyOfficeAction extends CommonAction {
       $ids = $_POST['ids'];
       if (!empty($ids) && is_array($ids)) {
         foreach ($ids as $key => $value) {
-          $office = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->find();
-          if ($office) {
-            $member = D('FdcMember')->find( $office['member_id'] );
+          $shop = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->find();
+          if ($shop) {
+            $member = D('FdcMember')->find( $shop['member_id'] );
             if ($member) {
               if ($member['rent_publish_num'] > 0) {
                 $member['rent_publish_num']--;
               } else {
                 $member['rent_publish_num'] = 0;
               }
-              D('FdcMember')->where( array('id' => $office['member_id'] ) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
+              D('FdcMember')->where( array('id' => $shop['member_id'] ) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
             }
             $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->delete();
           }
@@ -145,19 +150,19 @@ class BuyOfficeAction extends CommonAction {
         $this->error("您没有勾选信息");
       }
     } else {
-      $office_id = intval($_GET['id']);
-      $office = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $office_id ) )->find();
-      if ($office) {
-        $member = D('FdcMember')->find( $office['member_id'] );
+      $shop_id = intval($_GET['id']);
+      $shop = $this->db->where( array( 'siteid' => $this->siteid, 'id' => $shop_id ) )->find();
+      if ($shop) {
+        $member = D('FdcMember')->find( $shop['member_id'] );
         if ($member) {
           if ($member['rent_publish_num'] > 0) {
             $member['rent_publish_num']--;
           } else {
             $member['rent_publish_num'] = 0;
           }
-          D('FdcMember')->where( array('id' => $office['member_id']) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
+          D('FdcMember')->where( array('id' => $shop['member_id']) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
         }
-        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $office_id ) )->delete() ) {
+        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $shop_id ) )->delete() ) {
           $this->success('删除成功！');
         } else {
           $this->error('删除失败！');

@@ -2,7 +2,7 @@
 /**
 *  二手房出售公共数据表Model
 */
-class BuyOfficeModel extends UserCenterCommonModel {
+class BuyShopModel extends UserCenterCommonModel {
 
   protected $tableName = 'i_wanna_buy_property';
 
