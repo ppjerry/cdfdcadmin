@@ -36,7 +36,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
             </td>
           </tr>
           <tr>
-            <th width="80"> <font color="red">*</font>写字楼名称</th>
+            <th width="80"> <font color="red">*</font>小区名称</th>
             <td>
               <div class="pr">
                 <input type="text" maxlength="15" class="Input_1" style="width:300px;" id="community_name" name="info[community_name]" value="<?php echo $office['community_name']; ?>" autocomplete="off"/>
@@ -77,8 +77,15 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80"><font color="red">*</font>总价</th>
-            <td><input type="text" name="info[price]" id="price" value="<?php echo $office['price']; ?>" class="input-text">万元</td>
+            <th width="80"><font color="red">*</font>租赁方式</th>
+            <td>
+              <?php echo Form::select($rentmethods, $office['rent_method_id'], 'name=info[rent_method_id] id="rentmethods"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>建筑面积</th>
+            <td><input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $office['construction_area']; ?>" class="input-text"></td>
           </tr>
 
           <tr>
@@ -90,13 +97,29 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80"><font color="red">*</font>建筑面积</th>
-            <td><input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $office['construction_area']; ?>" class="input-text"></td>
+            <th width="80">装修</th>
+            <td>
+              <?php echo Form::select($decorations, $office['decoration_id'], 'name=info[decoration_id] id="direction"', '请选择'); ?>
+            </td>
           </tr>
 
           <tr>
-            <th width="80">建筑年代</th>
-            <td><input type="text" name="info[construct_year]" id="construct_year" value="<?php echo $office['construct_year']; ?>" class="input-text"></td>
+            <th width="80"><font color="red">*</font>租金</th>
+            <td><input type="text" name="info[price]" id="price" value="<?php echo $office['price']; ?>" class="input-text"></td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>支付方式</th>
+            <td>
+              <?php echo Form::select($payments, $office['pay_method_id'], 'name=info[pay_method_id] id="payment"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>是否含物业费</th>
+            <td>
+              <?php echo Form::select(array('是','否'), $office['is_include_property_costs'], 'name=info[is_include_property_costs] id="property_costs"', '请选择'); ?>
+            </td>
           </tr>
 
           <tr>
@@ -107,20 +130,6 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80">物业公司</th>
             <td><input type="text" name="info[property_corporation]" id="property_corporation" value="<?php echo $office['property_corporation']; ?>" class="input-text"></td>
-          </tr>
-
-          <tr>
-            <th width="80"><font color="red">*</font>装修程度</th>
-            <td>
-              <?php echo Form::select($decorations, $office['decoration_id'], 'name=info[decoration_id] id="direction"', '请选择'); ?>
-            </td>
-          </tr>
-
-          <tr>
-            <th width="80"><font color="red">*</font>有效期</th>
-            <td>
-              <?php echo Form::select(array('15','30','60'),  $office['validity'],'name=info[validity] id="validity"', '请选择'); ?>
-            </td>
           </tr>
 
           <tr>
@@ -151,7 +160,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80"><font color="red">*</font>房屋配套</th>
+            <th width="80">房屋配套</th>
             <td>
               <div class="contedit fl">
                 <ul class="checkbox_list">
@@ -167,23 +176,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80">交通状况</th>
-            <td>
-              <textarea name="info[traffic]" id="traffic" class="ckeditor"><?php echo stripslashes($office['traffic']); ?></textarea>
-              <?php Form::editor('traffic'); ?>
-            </td>
-          </tr>
-
-          <tr>
-            <th width="80">周边配套</th>
-            <td>
-              <textarea name="info[around]" id="around" class="ckeditor"><?php echo stripslashes($office['around']); ?></textarea>
-              <?php Form::editor('around'); ?>
-            </td>
-          </tr>
-
-          <tr>
-            <th width="80">写字楼描述</th>
+            <th width="80">房源描述</th>
             <td>
               <textarea name="info[content]" id="content" class="ckeditor"><?php echo stripslashes($office['content']); ?></textarea>
               <?php Form::editor('content'); ?>
@@ -232,7 +225,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
     GlobalParams.areas = $.parseJSON('<?php echo json_encode($areas); ?>');
 
     $.getJSON( '<?php echo U("office/ajaxPropertyList"); ?>', function( data ) {
-      GlobalParams.houses = data;
+      GlobalParams.offices = data;
     });
 
     var customer_tag = <?php echo count($office['customer_tag']); ?>;
@@ -263,7 +256,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $("#community_name").formValidator({onshow:"请填写楼盘名称",onfocus:"使用标准小区名称更有利于网友搜索到您的房源",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"楼盘名称必填"}).defaultPassed();
       $("#area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
       $("#address").formValidator({onshow:"请填写房源详细地址",onfocus:"请填写房源详细地址",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"地址必填"}).defaultPassed();
-
+      $("#rentmethods").formValidator({onshow:"请选择租赁方式",onfocus:"请选择租赁方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"租赁方式必选"}).defaultPassed();
       $("#type").formValidator({onshow:"请选择类型",onfocus:"请选择类型",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"写字楼必选类型"}).defaultPassed();
 
       $("#input_office_Room, #input_office_Hall, #input_office_Toilet").formValidator({}).regexValidator({datatype:"enum",regexp:"num1",onerror:"请输入正确的户型"}).defaultPassed();
@@ -271,16 +264,16 @@ defined('IN_ADMIN') or exit('No permission resources.');
 
       $("#construction_area").formValidator({onshow:"请填写产证面积",onfocus:"请填写产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑面积不能为空"}).defaultPassed();
 
-      $("#direction").formValidator({onshow:"请选择装修程度",onfocus:"请选择装修程度",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"写字楼必选装修程度"}).defaultPassed();
-
-      $("#validity").formValidator({onshow:"请选择有效期",onfocus:"请选择有效期",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"写字楼必选有效期"}).defaultPassed();
-
-      $("#construction_area").formValidator({onshow:"请填写产证面积",onfocus:"请填写产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑面积不能为空"}).defaultPassed();
-
       $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#payment").formValidator({onshow:"请选择支付方式",onfocus:"请选择支付方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"支付方式必选"}).defaultPassed();
+
+      $("#property_costs").formValidator({onshow:"请选择是否包含物业费  ",onfocus:"请选择是否包含物业费",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"是否包含物业费必选"}).defaultPassed();
       $("#total_floor").formValidator({onshow:"请填写总楼层",onfocus:"请填写总楼层",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"总楼层必须为正整数",oncorrect:"输入正确"}).defaultPassed();
       $("#floor").formValidator({onshow:"请填写所在楼层，地下室请填写负数",onfocus:"请填写所在楼层，地下室请填写负数",oncorrect:"输入正确"}).inputValidator({min:1,max:99,onerror:"楼层必须为整数"}).defaultPassed();
 
+      $("#input_office_Block").formValidator({onshow:"请填写具体楼号",onfocus:"请填写具体楼号",oncorrect:"输入正确"}).inputValidator().defaultPassed();
+      $("#input_office_UnitNumber").formValidator({onshow:"请填写具体楼号",onfocus:"请填写具体单元号",oncorrect:"输入正确"}).inputValidator().defaultPassed();
+      $("#input_office_RoomNum").formValidator({onshow:"请填写具体楼号",onfocus:"请填写具体门牌号",oncorrect:"输入正确"}).inputValidator().defaultPassed();
       $("#title").formValidator({onshow:"吸引人的标题可以更快的促进交易哦！",onfocus:"吸引人的标题可以更快的促进交易哦！",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"标题必填",oncorrect:"输入正确"}).defaultPassed();
       /* 表单验证结束 */
     });
