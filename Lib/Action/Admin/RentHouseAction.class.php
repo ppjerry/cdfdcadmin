@@ -106,6 +106,9 @@ class RentHouseAction extends CommonAction {
       //支付方式
       $payments = D('PayMethod')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       $payments = array_translate($payments);
+      //租赁方式
+      $rentmethods = D('RentMethod')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $rentmethods = array_translate($rentmethods);
 
       $this->assign( 'house', $house );
       $this->assign( 'regions', $regions );
@@ -113,6 +116,7 @@ class RentHouseAction extends CommonAction {
       $this->assign( 'directions', $directions );
       $this->assign( 'decorations', $decorations );
       $this->assign( 'payments', $payments );
+      $this->assign( 'rentmethods', $rentmethods );
       $this->assign( 'house_supportings', $house_supportings );
       $this->assign( 'tags', $tags );
       $this->display();

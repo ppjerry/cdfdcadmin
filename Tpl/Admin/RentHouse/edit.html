@@ -84,7 +84,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80"><font color="red">*</font>租赁方式</th>
             <td>
-              <?php echo Form::select($payments, $house['pay_method_id'], 'name=info[pay_method_id] id="payments"', '请选择'); ?>
+              <?php echo Form::select($rentmethods, $house['rent_method_id'], 'name=info[rent_method_id] id="rentmethods"', '请选择'); ?>
             </td>
           </tr>
 
@@ -120,7 +120,14 @@ defined('IN_ADMIN') or exit('No permission resources.');
 
           <tr>
             <th width="80"><font color="red">*</font>租金</th>
-            <td><input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $house['construction_area']; ?>" class="input-text"></td>
+            <td><input type="text" name="info[price]" id="price" value="<?php echo $house['price']; ?>" class="input-text"></td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>支付方式</th>
+            <td>
+              <?php echo Form::select($payments, $house['pay_method_id'], 'name=info[pay_method_id] id="payment"', '请选择'); ?>
+            </td>
           </tr>
 
           <tr>
@@ -247,6 +254,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $("#community_name").formValidator({onshow:"请填写楼盘名称",onfocus:"使用标准小区名称更有利于网友搜索到您的房源",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"楼盘名称必填"}).defaultPassed();
       $("#area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
       $("#address").formValidator({onshow:"请填写房源详细地址",onfocus:"请填写房源详细地址",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"地址必填"}).defaultPassed();
+      $("#rentmethods").formValidator({onshow:"请选择租赁方式",onfocus:"请选择租赁方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"租赁方式必选"}).defaultPassed();
 
       $("#input_House_Room, #input_House_Hall, #input_House_Toilet").formValidator({}).regexValidator({datatype:"enum",regexp:"num1",onerror:"请输入正确的户型"}).defaultPassed();
       $("#construction_area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
@@ -254,6 +262,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $("#construction_area").formValidator({onshow:"请填写产证面积",onfocus:"请填写产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑面积不能为空"}).defaultPassed();
 
       $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#payment").formValidator({onshow:"请选择支付方式",onfocus:"请选择支付方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"支付方式必选"}).defaultPassed();
       $("#total_floor").formValidator({onshow:"请填写总楼层",onfocus:"请填写总楼层",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"总楼层必须为正整数",oncorrect:"输入正确"}).defaultPassed();
       $("#floor").formValidator({onshow:"请填写所在楼层，地下室请填写负数",onfocus:"请填写所在楼层，地下室请填写负数",oncorrect:"输入正确"}).inputValidator({min:1,max:99,onerror:"楼层必须为整数"}).defaultPassed();
 
