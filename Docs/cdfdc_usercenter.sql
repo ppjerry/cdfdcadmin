@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-18 02:23:03
+-- Generation Time: 2014-12-19 10:32:33
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -295,6 +295,7 @@ CREATE TABLE IF NOT EXISTS `sl_i_wanna_buy_property` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `siteid` tinyint(4) NOT NULL DEFAULT '1',
+  `floors` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
@@ -302,10 +303,10 @@ CREATE TABLE IF NOT EXISTS `sl_i_wanna_buy_property` (
 -- 转存表中的数据 `sl_i_wanna_buy_property`
 --
 
-INSERT INTO `sl_i_wanna_buy_property` (`id`, `type`, `contacts`, `phone`, `area_id`, `construction_area`, `room_structure`, `room`, `bathroom`, `hall`, `price`, `house_age`, `direction_id`, `decoration_id`, `floor`, `title`, `content`, `type_id`, `shop_manager_type`, `supporting`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `created_at`, `updated_at`, `siteid`) VALUES
-(4, 1, '补天', '18182156697', 8, 127, '{"room":"3","hall":"1","bathroom":"1"}', 3, 1, 1, 220, 10, 1, 2, '低层', '住宅求购', '发多少法撒旦法撒旦', NULL, '', '["1","2","3","4","5","6","7","8","9","10","11","12"]', 0, 1, 0, 35, 1, '2014-11-12 09:22:39', '2014-11-26 14:37:39', 1),
-(6, 2, '补天', '18182156697', 8, 127, '', 0, 0, 0, 20, 0, NULL, 1, '多层', '求购测试', '', '1', '', '["1","2","3","4","5","6","7","8","9","10","11","12"]', 0, 1, 0, 35, 1, '2014-11-14 02:23:56', '2014-11-14 07:32:24', 1),
-(7, 3, '补天', '18182156697', 5, 127, '', 0, 0, 0, 20, 0, NULL, 1, '低层', '临街商铺求购', '', '["2","5","6"]', '["1","5","9"]', '["3","7"]', 0, 1, 0, 35, 1, '2014-11-14 02:54:18', '2014-11-14 07:40:39', 1);
+INSERT INTO `sl_i_wanna_buy_property` (`id`, `type`, `contacts`, `phone`, `area_id`, `construction_area`, `room_structure`, `room`, `bathroom`, `hall`, `price`, `house_age`, `direction_id`, `decoration_id`, `floor`, `title`, `content`, `type_id`, `shop_manager_type`, `supporting`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `created_at`, `updated_at`, `siteid`, `floors`) VALUES
+(4, 1, '补天', '18182156697', 8, 127, '{"room":"3","hall":"1","bathroom":"1"}', 3, 1, 1, 220, 10, 2, 1, '2', '住宅求购', '<p>发多少法撒旦法撒旦</p>\r\n', '1', '', '["1","11","10","9","8","7","6","5","4","3","2","12"]', 0, 1, 0, 35, 1, '2014-11-12 09:22:39', '2014-11-26 14:37:39', 1, 3),
+(6, 2, '补天', '18182156697', 8, 127, 'null', 0, 0, 0, 20, 0, 3, 3, '5', '求购测试', '', '1', '', '["1","11","10","9","8","7","6","5","2","12"]', 0, 1, 0, 35, 1, '2014-11-14 02:23:56', '2014-11-14 07:32:24', 1, 1),
+(7, 3, '补天', '18182156697', 5, 127, 'null', 0, 0, 3, 20, 0, 1, 3, '2', '临街商铺求购', '<p>egwegwegweg</p>\r\n', '1', '["1","5","9"]', '["7","3"]', 0, 1, 0, 35, 1, '2014-11-14 02:54:18', '2014-11-14 07:40:39', 1, 4);
 
 -- --------------------------------------------------------
 
@@ -346,7 +347,7 @@ CREATE TABLE IF NOT EXISTS `sl_i_wanna_rent_property` (
 --
 
 INSERT INTO `sl_i_wanna_rent_property` (`id`, `type`, `community`, `contacts`, `phone`, `area_id`, `construction_area`, `room_structure`, `bathroom`, `hall`, `room`, `rent_method_id`, `price`, `title`, `content`, `supporting`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `created_at`, `updated_at`, `siteid`) VALUES
-(1, 1, '["","",""]', '补天', '18182156697', 8, 45, '{"room":"1","hall":"1","bathroom":"1"}', 1, 1, 1, 6, 200, '求租测试', '', '["1","5"]', 0, 1, 0, 35, 1, '2014-11-26 14:48:20', '2014-11-26 14:48:20', 1);
+(1, 1, '["","",""]', '补天', '18182156697', 10, 45, '{"room":"3","hall":"1","bathroom":"1"}', 1, 1, 3, 7, 300, '求租测试', '<p>收到风格</p>\r\n', '["1","5"]', 0, 1, 0, 35, 1, '2014-11-26 14:48:20', '2014-11-26 14:48:20', 1);
 
 -- --------------------------------------------------------
 
@@ -721,6 +722,8 @@ CREATE TABLE IF NOT EXISTS `sl_rent_office` (
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `siteid` tinyint(4) NOT NULL DEFAULT '1',
+  `current_floor` int(11) DEFAULT NULL,
+  `total_floor` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -728,8 +731,8 @@ CREATE TABLE IF NOT EXISTS `sl_rent_office` (
 -- 转存表中的数据 `sl_rent_office`
 --
 
-INSERT INTO `sl_rent_office` (`id`, `contacts`, `phone`, `community_name`, `community_id`, `area_id`, `address`, `rent_method_id`, `type_id`, `construction_area`, `price`, `validity`, `pay_method_id`, `is_include_property_costs`, `property_corporation`, `property_costs`, `floor`, `decoration_id`, `tag`, `customer_tag`, `title`, `supporting`, `content`, `room_images`, `is_commissioned`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `refresh_at`, `created_at`, `updated_at`, `siteid`) VALUES
-(1, '逍遥', '18182156697', '金色华庭', NULL, 8, '临澧县安福镇兴隆街', '7', 1, 45.00, 20.00, 0, 4.00, 1, '3432', '12', '{"floor":"18","total_floor":"22"}', 2, '["1","2"]', '["afds f "]', '写字楼出租测试', '["6","10"]', '<p>dsf ds fad f ds&nbsp;</p>', '', 0, 0, 0, 0, 0, 1, '2014-10-24 17:29:41', '2014-10-24 09:06:11', '2014-11-04 09:16:57', 1);
+INSERT INTO `sl_rent_office` (`id`, `contacts`, `phone`, `community_name`, `community_id`, `area_id`, `address`, `rent_method_id`, `type_id`, `construction_area`, `price`, `validity`, `pay_method_id`, `is_include_property_costs`, `property_corporation`, `property_costs`, `floor`, `decoration_id`, `tag`, `customer_tag`, `title`, `supporting`, `content`, `room_images`, `is_commissioned`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `refresh_at`, `created_at`, `updated_at`, `siteid`, `current_floor`, `total_floor`) VALUES
+(1, '逍遥', '18182156697', '金色华庭', 0, 8, '临澧县安福镇兴隆街', '7', 1, 45.00, 20.00, 0, 4.00, 0, '3432', '12', '{"floor":"9","total_floor":"13"}', 2, '["1","2"]', '["afds f "]', '写字楼出租测试', '["10","6"]', '<p>dsf ds fad f ds&nbsp;</p>\r\n', '', 0, 0, 0, 0, 0, 1, '2014-10-24 17:29:41', '2014-10-24 09:06:11', '2014-11-04 09:16:57', 1, 9, 13);
 
 -- --------------------------------------------------------
 
@@ -780,7 +783,7 @@ CREATE TABLE IF NOT EXISTS `sl_rent_shop` (
 --
 
 INSERT INTO `sl_rent_shop` (`id`, `contacts`, `phone`, `rent_type`, `community_name`, `community_id`, `area_id`, `address`, `type_id`, `shop_face_type_id`, `shop_status`, `shop_manager_type`, `construction_area`, `price`, `price_unit`, `pay_method_id`, `decoration_id`, `tag`, `customer_tag`, `validity`, `title`, `supporting`, `content`, `room_images`, `is_commissioned`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `refresh_at`, `created_at`, `updated_at`, `siteid`) VALUES
-(1, '逍遥', '18182156697', 1, '金海岸二期', NULL, 8, '津市市九澧大道金海岸小区二期售楼部', 1, 1, 0, '["1","5","9"]', 12.00, 132.00, 0, 4.00, 1, '["1"]', NULL, 15, '商铺出租测试', '["1","5"]', '啊说对方但是飞', '', 0, 0, 0, 0, 0, 1, '2014-11-04 15:03:38', '2014-11-04 07:03:38', '2014-11-04 09:17:18', 1);
+(1, '逍遥', '18182156697', 1, '金海岸二期', 0, 8, '津市市九澧大道金海岸小区二期售楼部', 1, 1, 2, '["1","5","9"]', 12.00, 132.00, 0, 4.00, 1, '["1"]', NULL, 1, '商铺出租测试', '["1","5"]', '<p>月合约和人员和色入</p>\r\n', '', 0, 0, 0, 0, 0, 1, '2014-11-04 15:03:38', '2014-11-04 07:03:38', '2014-11-04 09:17:18', 1);
 
 -- --------------------------------------------------------
 
