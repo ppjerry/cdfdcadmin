@@ -54,12 +54,8 @@ class BuyOfficeAction extends CommonAction {
       $this->checkToken();
       $data = $_POST['info'];
       $data['room_structure'] = json_encode($data['room_structure']);
-      $data['floor'] = json_encode($data['floor']);
       $data['office_number'] = empty( $data['office_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['office_number']);
-      $data['tag'] = empty( $data['tag'] ) ? array() : json_encode($data['tag']);
-      $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
-      $data['room_images'] = empty( $data['room_images'] ) ? array() : json_encode($data['room_images']);
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
         $this->success("更新成功！");
       } else {
@@ -76,46 +72,33 @@ class BuyOfficeAction extends CommonAction {
       $office['floor'] = json_decode($office['floor'], true);
       */
       $office['office_number'] = empty( $office['office_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($office['office_number'], true);
-      $office['tag'] = empty( $office['tag'] ) ? array() : json_decode($office['tag'], true);
-
-      $office['customer_tag'] = empty( $office['customer_tag'] ) ? array() : json_decode($office['customer_tag'], true);
-
+    
       $office['supporting'] = empty( $office['supporting'] ) ? array() : json_decode($office['supporting'], true);
-
-      $office['room_images'] = empty( $office['room_images'] ) ? array() : json_decode($office['room_images'], true);
-
       // 区域一级
-      $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
+      $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 4 ) ), 'pid' => 0 ) )->order('sort desc')->select();
       $regions = array_translate($regions);
       // 区域二级
-      $areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $areas = array_key_translate($areas);
-      // 朝向
-      $directions = D('Direction')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      $directions = array_translate($directions);
       // 装修
-      $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $decorations = array_translate($decorations);
       // 房屋配套
-      $office_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      // 特色标签
-      $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $office_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       //类型
-      $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $genres = array_translate($genres);
       // 楼层
-      $floors = D('Floor')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $floors = D('Floor')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $floors = array_translate($floors);
 
 
       $this->assign( 'office', $office );
       $this->assign( 'regions', $regions );
       $this->assign( 'areas', $areas );
-      $this->assign( 'directions', $directions );
       $this->assign( 'decorations', $decorations );
       $this->assign( 'genres', $genres );
       $this->assign( 'office_supportings', $office_supportings );
-      $this->assign( 'tags', $tags );
       $this->assign( 'floors', $floors );
       $this->display();
     }

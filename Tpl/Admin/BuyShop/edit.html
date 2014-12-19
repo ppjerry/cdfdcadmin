@@ -54,7 +54,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80"><font color="red">*</font>期望楼层</th>
             <td>
-              <?php echo Form::select($floors, $house['floor'], 'name=info[floor] id="floor"', '期望楼层'); ?>
+              <?php echo Form::select($floors, $shop['floor'], 'name=info[floor] id="floor"', '期望楼层'); ?>
             </td>
           </tr>
 
@@ -151,7 +151,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
 
       $("#type").formValidator({onshow:"请选择商铺类型",onfocus:"请选择商铺类型",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选类型"}).defaultPassed();
 
-      $("#construction_area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
+      $("#floor").formValidator({onshow:"请选择楼层",onfocus:"请选择楼层",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"必选楼层"}).defaultPassed();
 
       $("#construction_area").formValidator({onshow:"请填写产证面积",onfocus:"请填写产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑面积不能为空"}).defaultPassed();
 
@@ -159,7 +159,6 @@ defined('IN_ADMIN') or exit('No permission resources.');
 
 
       $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
-      $("#total_floor").formValidator({onshow:"请填写总楼层",onfocus:"请填写总楼层",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"总楼层必须为正整数",oncorrect:"输入正确"}).defaultPassed();
 
       $("#title").formValidator({onshow:"吸引人的标题可以更快的促进交易哦！",onfocus:"吸引人的标题可以更快的促进交易哦！",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"标题必填",oncorrect:"输入正确"}).defaultPassed();
       /* 表单验证结束 */

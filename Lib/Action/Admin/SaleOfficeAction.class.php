@@ -85,23 +85,23 @@ class SaleOfficeAction extends CommonAction {
       $office['room_images'] = empty( $office['room_images'] ) ? array() : json_decode($office['room_images'], true);
 
       // 区域一级
-      $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
+      $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 4 ) ), 'pid' => 0 ) )->order('sort desc')->select();
       $regions = array_translate($regions);
       // 区域二级
-      $areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $areas = array_key_translate($areas);
       // 朝向
-      $directions = D('Direction')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $directions = D('Direction')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $directions = array_translate($directions);
       // 装修
-      $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $decorations = array_translate($decorations);
       // 房屋配套
-      $office_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $office_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       // 特色标签
-      $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       //类型
-      $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $genres = array_translate($genres);
 
 

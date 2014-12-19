@@ -2,14 +2,14 @@
 defined('IN_ADMIN') or exit('No permission resources.');
 ?>
 <extend name="Public:list_layout" />
-<block name="title"><title>二手房</title></block>
+<block name="title"><title>写字楼</title></block>
 <block name="subheader">
   <script src="__PUBLIC__/js/admin/jquery.artDialog.source.js?skin=default"></script>
   <script src="__PUBLIC__/js/admin/plugins/iframeTools.source.js"></script>
 </block>
 <block name="subnav">
   <!-- <a class="add fb" href="javascript:openwinx('__URL__/add','');void(0);"><em>添加二手房</em></a> -->
-  <a class="on" href="__URL__/index"><em>二手房管理</em></a><span>|</span><a href="javascript:;" onclick="javascript:$('#searchid').css('display','');"><em>搜索</em></a>
+  <a class="on" href="__URL__/index"><em>写字楼管理</em></a><span>|</span><a href="javascript:;" onclick="javascript:$('#searchid').css('display','');"><em>搜索</em></a>
 </block>
 <block name="search">
   <div id="searchid" style="display: <?php echo ($_GET['search'] ? "" : "none"); ?>;">

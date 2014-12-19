@@ -88,29 +88,29 @@ class SaleShopAction extends CommonAction {
       $shop['room_images'] = empty( $shop['room_images'] ) ? array() : json_decode($shop['room_images'], true);
 
       // 区域一级
-      $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
+      $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 3 ) ), 'pid' => 0 ) )->order('sort desc')->select();
       $regions = array_translate($regions);
       // 区域二级
-      $areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       $areas = array_key_translate($areas);
       // 朝向
-      $directions = D('Direction')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $directions = D('Direction')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       $directions = array_translate($directions);
       // 装修
-      $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $decorations = D('Decoration')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       $decorations = array_translate($decorations);
       // 房屋配套
-      $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       // 特色标签
-      $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       //商铺类型
-      $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       $genres = array_translate($genres);
       //铺面类型
-      $shoptypes = D('ShopFaceType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $shoptypes = D('ShopFaceType')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       $shoptypes = array_translate($shoptypes);
       //可经营类别
-      $categorys = D('ShopManagerType')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $categorys = D('ShopManagerType')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
 
 
       $this->assign( 'shop', $shop );
