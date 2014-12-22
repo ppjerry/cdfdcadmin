@@ -10,7 +10,7 @@ class CommonAction extends Action {
       import('ORG.Util.RBAC');
       if (!RBAC::AccessDecision(GROUP_NAME)) {
         //检查认证识别号
-        if (!$_SESSION [C('USER_AUTH_KEY')]) {
+        if (!$_SESSION[C('USER_AUTH_KEY')]) {
           //跳转到认证网关
           $this->assign('jumpUrl', __GROUP__ . C('USER_AUTH_GATEWAY'));
           $this->assign('waitSecond',1);
@@ -33,7 +33,7 @@ class CommonAction extends Action {
       }
     }
   }
-  
+
   protected function checkToken() {
     if (IS_POST) {
       if (!M()->autoCheckToken($_POST)) {

@@ -1,6 +1,6 @@
 <?php
 /**
-*  房源附属内容处理
+*  房源相关内容处理
 */
 class HouseOtherAction extends CommonAction {
   protected $db, $node;

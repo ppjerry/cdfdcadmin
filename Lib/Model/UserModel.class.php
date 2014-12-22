@@ -1,5 +1,5 @@
 <?php
-class UserModel extends Model 
+class UserModel extends Model
 {
 	public function adminList() {
 		$user = M('user');
@@ -22,12 +22,13 @@ class UserModel extends Model
 		$datas['password'] 		= md5(trim($_POST['pwd']));
 		$datas['status'] 		= $_POST['status'];
 		$datas['create_time'] 	= time();
+		$datas['role_id'] = intval($_POST['role_id']);
 		$res1 = $user->add($datas);
-		
+
 		$role_user = M('role_user');
 		$data['role_id'] 		= $_POST['role_id'];
 		$data['user_id'] 		= $res1;
-		$res2 = $role_user->add($data);		
+		$res2 = $role_user->add($data);
 		return $res2;
 	}
 }

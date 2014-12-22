@@ -30,9 +30,10 @@ class UserAction extends CommonAction {
   public function edit() {
     if(IS_POST) {
       $this->checkToken();
-      $datas = array();
-      $datas['password'] = md5(trim($_POST['pwd']));
-      $datas['account'] = trim($_POST['account']);
+      $datas = $_POST['info'];
+      if ( !empty($_POST['pwd']) ) {
+        $datas['password'] = md5(trim($_POST['pwd']));
+      }
       if($this->db->where("id = {$_POST['id']}")->save($datas)) {
         $this->success('操作成功！',__GROUP__.'/User/index');
       } else {
