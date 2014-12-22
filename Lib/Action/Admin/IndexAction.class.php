@@ -14,7 +14,7 @@ class IndexAction extends CommonAction {
     $this->assign('site_info', $site_info);
     $this->assign('top_menu' ,$top_menu);
     $this->assign('user_info' ,$_SESSION['user_info']);
-    $this->display('Admin:index_index');
+    $this->display('Admin:index');
   }
 
   public function left() {
@@ -35,7 +35,7 @@ class IndexAction extends CommonAction {
       $menulist[$key]['childs'] = $childs;
     }
     $this->assign('menulist', $menulist);
-    $this->display('Admin:index_left');
+    $this->display('Admin:left');
   }
 
   public function main() {
@@ -56,7 +56,7 @@ class IndexAction extends CommonAction {
     $this->assign('system_info', $system_info);
     $this->assign('area',get_location($_SESSION['user_info']['last_login_ip']));
     $this->assign('user_info', $_SESSION['user_info']);
-    $this->display('Admin:index_main');
+    $this->display('Admin:main');
   }
 
 

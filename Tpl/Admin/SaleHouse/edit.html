@@ -184,11 +184,22 @@ defined('IN_ADMIN') or exit('No permission resources.');
               </div>
             </td>
           </tr>
-
+          <tr>
+            <th width="80">是否委托</th>
+            <td>
+              <?php echo Form::radio(array('0' => '否', '1' => '是'), $house['is_commissioned'], 'name=info[is_commissioned]', '90', 'commission' ); ?>
+            </td>
+          </tr>
+          <tr>
+            <th width="80">100%真实个人</th>
+            <td>
+              <?php echo Form::radio(array('0' => '否', '1' => '是'), $house['is_admin'], 'name=info[is_admin]', '90', 'admin' ); ?>
+            </td>
+          </tr>
           <tr>
             <th width="80">状态</th>
             <td>
-              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'), '1', 'name=info[status]', '90', 'status' ); ?>
+              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'), $house['status'], 'name=info[status]', '90', 'status' ); ?>
             </td>
           </tr>
 
