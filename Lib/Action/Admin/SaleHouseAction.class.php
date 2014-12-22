@@ -53,6 +53,9 @@ class SaleHouseAction extends CommonAction {
     if (IS_POST) {
       $this->checkToken();
       $data = $_POST['info'];
+      $data['room'] = $data['room_structure']['room'];
+      $data['hall'] = $data['room_structure']['hall'];
+      $data['bathroom'] = $data['room_structure']['bathroom'];
       $data['room_structure'] = json_encode($data['room_structure']);
       $data['floor'] = json_encode($data['floor']);
       $data['house_number'] = empty( $data['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['house_number']);
@@ -100,6 +103,7 @@ class SaleHouseAction extends CommonAction {
       $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
       // 特色标签
       $tags = D('Tag')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+
 
       $this->assign( 'house', $house );
       $this->assign( 'regions', $regions );

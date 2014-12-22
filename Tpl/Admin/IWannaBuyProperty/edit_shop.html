@@ -1,0 +1,167 @@
+<?php
+defined('IN_ADMIN') or exit('No permission resources.');
+?>
+<extend name="Public:form_layout" />
+<block name="title"><title>添加商铺</title></block>
+<block name="subheader">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/esf.css">
+</block>
+<block name="subnav">
+  <!-- <a class="add fb" href="__URL__/add"><em>添加二手房</em></a>  --><a class="on" href="__URL__/index"><em>商铺管理</em></a>
+</block>
+<block name="main">
+  <div class="common-form">
+    <form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<?php echo $shop['id']; ?>">
+      <table width="100%" cellspacing="0" class="table_form">
+        <tbody>
+          <tr>
+            <th width="80"> <font color="red">*</font>标题</th>
+            <td>
+              <input type="text" name="info[title]" id="title" value="<?php echo $shop['title']; ?>" class="input-text" style="width:400px;">
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>区域</th>
+            <td>
+              <?php echo Form::select($regions, $shop['region_id'], 'name=info[region_id] id="area_top"', '请选择'); ?>
+              <select autocomplete="off" class="input_7" id="area" name="info[area_id]" >
+                <option value="0">请选择</option>
+                <?php foreach ($areas as $key => $area) { ?>
+                <?php if ($area['pid'] == $areas[$shop['area_id']]['pid'] ) { ?>
+                <option value="<?php echo $area['id']; ?>" <?php if( $area['id'] == $shop['area_id'] ) { echo "selected"; } ?>><?php echo $area['name']; ?></option>
+                <?php } ?>
+                <?php } ?>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>装修需求</th>
+            <td>
+              <?php echo Form::select($decorations, $shop['decoration_id'], 'name=info[decoration_id] id="direction"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>商铺类型</th>
+            <td>
+              <?php echo Form::select($genres, $shop['type_id'], 'name=info[type_id] id="type"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>期望楼层</th>
+            <td>
+              <?php echo Form::select($floors, $shop['floor'], 'name=info[floor] id="floor"', '期望楼层'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>售价：</th>
+            <td>不超过<input type="text" name="info[price]" id="price" value="<?php echo $shop['price']; ?>" class="input-text">万元 </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>建筑面积：</th>
+            <td> 不少于<input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $shop['construction_area']; ?>" class="input-text">平方米</td>
+          </tr>
+
+          <tr>
+            <th width="80">适合行业</th>
+            <td>
+              <div class="contedit fl">
+                <ul class="checkbox_list">
+                  <?php foreach ($categorys as $key => $value) { ?>
+                  <li <?php if ( in_array($value['id'], $shop['shop_manager_type']) ) { echo ' class="active"'; } ?>>
+                    <label for="<?php echo 'shop_manager_type' . $value['id']; ?>"><?php echo $value['name']; ?></label>
+                    <input type="checkbox" name="info[shop_manager_type][]"<?php if ( in_array($value['id'], $shop['shop_manager_type']) ) { echo ' checked'; } ?> id="<?php echo 'shop_manager_type' . $value['id']; ?>" value="<?php echo $value['id']; ?>"  autocomplete="off" />
+                  </li>
+                  <?php } ?>
+                </ul>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>房屋配套</th>
+            <td>
+              <div class="contedit fl">
+                <ul class="checkbox_list">
+                  <?php foreach ($house_supportings as $key => $value) { ?>
+                  <li <?php if ( in_array($value['id'], $shop['supporting']) ) { echo ' class="active"'; } ?>>
+                    <label for="<?php echo 'supporting' . $value['id']; ?>"><?php echo $value['name']; ?></label>
+                    <input type="checkbox" name="info[supporting][]"<?php if ( in_array($value['id'], $shop['supporting']) ) { echo ' checked'; } ?> id="<?php echo 'supporting' . $value['id']; ?>" value="<?php echo $value['id']; ?>"  autocomplete="off" />
+                  </li>
+                  <?php } ?>
+                </ul>
+              </div>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80">需求描述</th>
+            <td>
+              <textarea name="info[content]" id="content" class="ckeditor"><?php echo stripslashes($shop['content']); ?></textarea>
+              <?php Form::editor('content'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80">状态</th>
+            <td>
+              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'), '1', 'name=info[status]', '90', 'status' ); ?>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="bk15"></div>
+      <input name="dosubmit" type="submit" class="button" value="提交">
+    </form>
+  </div>
+</block>
+<block name="footer">
+  <script type="text/javascript" src="__PUBLIC__/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/attachupload.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/esf/global.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/esf/functions.js"></script>
+  <script type="text/javascript">
+    var GlobalParams = { 'upload_url' : '<?php echo U("Upfile/upload"); ?>', 'image_num' : <?php echo count($shop['room_images']); ?> };
+    GlobalParams.areas = $.parseJSON('<?php echo json_encode($areas); ?>');
+
+    $.getJSON( '<?php echo U("Shop/ajaxPropertyList"); ?>', function( data ) {
+      GlobalParams.shops = data;
+    });
+
+    var customer_tag = <?php echo count($shop['customer_tag']); ?>;
+    $(function(){
+      /* 表单验证 */
+      $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj) {
+        art.dialog.through({content:msg,lock:true,width:'220',height:'70'}, function() {
+          this.close();
+          $(obj).focus();
+        });
+        $( window ).resize();
+      }});
+
+
+      $("#area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
+
+      $("#type").formValidator({onshow:"请选择商铺类型",onfocus:"请选择商铺类型",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选类型"}).defaultPassed();
+
+      $("#floor").formValidator({onshow:"请选择楼层",onfocus:"请选择楼层",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"必选楼层"}).defaultPassed();
+
+      $("#construction_area").formValidator({onshow:"请填写产证面积",onfocus:"请填写产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"建筑面积不能为空"}).defaultPassed();
+
+      $("#direction").formValidator({onshow:"请选择装修程度",onfocus:"请选择装修程度",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"商铺必选装修程度"}).defaultPassed();
+
+
+      $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+
+      $("#title").formValidator({onshow:"吸引人的标题可以更快的促进交易哦！",onfocus:"吸引人的标题可以更快的促进交易哦！",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"标题必填",oncorrect:"输入正确"}).defaultPassed();
+      /* 表单验证结束 */
+    });
+</script>
+</block>
