@@ -23,18 +23,10 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80"><font color="red">*</font>区域</th>
-            <td>
-              <?php echo Form::select($regions, $house['region_id'], 'name=info[region_id] id="area_top"', '请选择'); ?>
-              <select autocomplete="off" class="input_7" id="area" name="info[area_id]" >
-                <option value="0">请选择</option>
-                <?php foreach ($areas as $key => $area) { ?>
-                <?php if ($area['pid'] == $areas[$house['area_id']]['pid'] ) { ?>
-                <option value="<?php echo $area['id']; ?>" <?php if( $area['id'] == $house['area_id'] ) { echo "selected"; } ?>><?php echo $area['name']; ?></option>
-                <?php } ?>
-                <?php } ?>
-              </select>
-            </td>
+            <th width="80"><font color="red">*</font>意向小区</th>
+            <td><input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="{{{$i_wanna_rent_property['community'][0]}}}"> 或
+          <input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="{{{$i_wanna_rent_property['community'][1]}}}"> 或
+          <input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="{{{$i_wanna_rent_property['community'][2]}}}"></td>
           </tr>
 
           <tr>

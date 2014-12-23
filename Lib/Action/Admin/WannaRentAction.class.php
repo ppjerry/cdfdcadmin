@@ -94,7 +94,12 @@ class WannaRentAction extends CommonAction {
       $this->assign( 'areas', $areas );
       $this->assign( 'rentmethods', $rentmethods );
       $this->assign( 'house_supportings', $house_supportings );
-      $this->display();
+      if ($house['type']){
+        $this->display('edit');
+      }else{
+        $this->display('edit_one');
+      }
+      
     }
   }
 
