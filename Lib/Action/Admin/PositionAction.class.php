@@ -57,7 +57,9 @@ class PositionAction extends CommonAction {
       if ($_POST['info']['typeid'] != 0) {
         $_POST['info']['modelid'] = $_POST['info']['catid'] = -1;
       }
+      // 改变类型删除原有数据
       $pos = $this->db->find($_POST['posid']);
+
       if ($this->db->where(array('id' => intval($_POST['posid'])))->save($_POST['info']) !== false) {
         $this->success('更新成功！', "index");
       } else {
@@ -66,7 +68,7 @@ class PositionAction extends CommonAction {
     } else {
       import('ORG.Util.Form');
       $position = $this->db->find(intval($_GET['posid']));
-      $models = $this->model_db->where(array('siteid' => $this->siteid, 'typeid' => $position['typeid']))->select();
+      $models = D('Model')->where(array('siteid' => $this->siteid, 'typeid' => $position['typeid']))->select();
       foreach ($models as $key => $model) {
         $model_array[$model['id']] = $model['name'];
       }
@@ -269,7 +271,7 @@ class PositionAction extends CommonAction {
   public function public_model_load() {
     import('ORG.Util.Form');
     $typeid = intval($_GET['typeid']);
-    $models = $this->model_db->where('typeid = %d', $typeid)->select();
+    $models = D('Model')->where('typeid = %d', $typeid)->select();
     $modelstr = form::select(array_translate($models),'','name="info[modelid]" onchange="category_load(this);"','选择模型');
     echo $modelstr;
   }
