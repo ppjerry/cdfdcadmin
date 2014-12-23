@@ -47,25 +47,25 @@ defined('IN_ADMIN') or exit('No permission resources.');
                 onSelect   : function() {this.hide();}
               });
             </script>
-            <select name="posids">
-              <option value="">是否推荐</option>
-              <option value="1" <?php if($_GET['posids']==1) echo "selected"; ?>>推荐</option>
-              <option value="0" <?php if($_GET['posids']==="0") echo "selected"; ?>>不推荐</option>
-            </select>
             <select name="is_broker">
               <option value="">是否中介</option>
               <option value="1" <?php if($_GET['is_broker']==1) echo "selected"; ?>>是</option>
               <option value="0" <?php if($_GET['is_broker']==="0") echo "selected"; ?>>否</option>
             </select>
             <select name="is_individual">
-              <option value="">个人房源</option>
+              <option value="">个人发布</option>
               <option value="1" <?php if($_GET['is_individual']==1) echo "selected"; ?>>是</option>
               <option value="0" <?php if($_GET['is_individual']==="0") echo "selected"; ?>>否</option>
             </select>
             <select name="searchtype">
-              <option value="0" <?php if($_GET['searchtype']==0) echo "selected"; ?>>标题</option>
+              <option value="" <?php if($_GET['searchtype']==0) echo "selected"; ?>>标题</option>
               <option value="1" <?php if($_GET['searchtype']==1) echo "selected"; ?>>小区名称</option>
               <option value="2" <?php if($_GET['searchtype']==2) echo "selected"; ?>>房源ID</option>
+            </select>
+            <select name="type">
+              <option value="">类型</option>
+              <option value="1" <?php if($_GET['type']==1) echo "selected"; ?>>按小区求租</option>
+              <option value="2" <?php if($_GET['type']==2) echo "selected"; ?>>按区域</option>
             </select>
             <input name="keyword" type="text" value="<?php echo $_GET['keyword']; ?>" class="input-text">
             <input type="submit" name="search" class="button" value="搜索">
