@@ -117,7 +117,6 @@ class BuyShopAction extends CommonAction {
       $this->assign( 'decorations', $decorations );
       $this->assign( 'genres', $genres );
       $this->assign( 'floors', $floors );
-      $this->assign( 'shoptypes', $shoptypes );
       $this->assign( 'house_supportings', $house_supportings );
       $this->assign( 'categorys', $categorys );
       $this->assign( 'tags', $tags );

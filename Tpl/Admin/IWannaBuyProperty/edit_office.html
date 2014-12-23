@@ -12,25 +12,25 @@ defined('IN_ADMIN') or exit('No permission resources.');
 <block name="main">
   <div class="common-form">
     <form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
-      <input type="hidden" name="id" value="<?php echo $office['id']; ?>">
+      <input type="hidden" name="id" value="<?php echo $house['id']; ?>">
       <table width="100%" cellspacing="0" class="table_form">
         <tbody>
           <tr>
             <th width="80"> <font color="red">*</font>标题</th>
             <td>
-              <input type="text" name="info[title]" id="title" value="<?php echo $office['title']; ?>" class="input-text" style="width:400px;">
+              <input type="text" name="info[title]" id="title" value="<?php echo $house['title']; ?>" class="input-text" style="width:400px;">
             </td>
           </tr>
 
           <tr>
             <th width="80"><font color="red">*</font>区域</th>
             <td>
-              <?php echo Form::select($regions, $office['region_id'], 'name=info[region_id] id="area_top"', '请选择'); ?>
+              <?php echo Form::select($regions, $house['region_id'], 'name=info[region_id] id="area_top"', '请选择'); ?>
               <select autocomplete="off" class="input_7" id="area" name="info[area_id]" >
                 <option value="0">请选择</option>
                 <?php foreach ($areas as $key => $area) { ?>
-                <?php if ($area['pid'] == $areas[$office['area_id']]['pid'] ) { ?>
-                <option value="<?php echo $area['id']; ?>" <?php if( $area['id'] == $office['area_id'] ) { echo "selected"; } ?>><?php echo $area['name']; ?></option>
+                <?php if ($area['pid'] == $areas[$house['area_id']]['pid'] ) { ?>
+                <option value="<?php echo $area['id']; ?>" <?php if( $area['id'] == $house['area_id'] ) { echo "selected"; } ?>><?php echo $area['name']; ?></option>
                 <?php } ?>
                 <?php } ?>
               </select>
@@ -40,31 +40,31 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80"><font color="red">*</font>写字楼类型</th>
             <td>
-              <?php echo Form::select($genres, $office['type_id'], 'name=info[type_id] id="type"', '请选择'); ?>
+              <?php echo Form::select($genres, $house['type_id'], 'name=info[type_id] id="type"', '请选择'); ?>
             </td>
           </tr>
 
           <tr>
             <th width="80"><font color="red">*</font>期望楼层</th>
             <td>
-              <?php echo Form::select($floors, $office['floor'], 'name=info[floor] id="floor"', '期望楼层'); ?>
+              <?php echo Form::select($floors, $house['floor'], 'name=info[floor] id="floor"', '期望楼层'); ?>
             </td>
           </tr>
 
           <tr>
             <th width="80"><font color="red">*</font>售价：</th>
-            <td>不超过<input type="text" name="info[price]" id="price" value="<?php echo $office['price']; ?>" class="input-text">万元</td>
+            <td>不超过<input type="text" name="info[price]" id="price" value="<?php echo $house['price']; ?>" class="input-text">万元</td>
           </tr>
 
           <tr>
             <th width="80"><font color="red">*</font>建筑面积：</th>
-            <td> 不少于<input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $office['construction_area']; ?>" class="input-text"></td>
+            <td> 不少于<input type="text" name="info[construction_area]" id="construction_area" value="<?php echo $house['construction_area']; ?>" class="input-text"></td>
           </tr>
 
           <tr>
             <th width="80"><font color="red">*</font>装修需求</th>
             <td>
-              <?php echo Form::select($decorations, $office['decoration_id'], 'name=info[decoration_id] id="decoration"', '请选择'); ?>
+              <?php echo Form::select($decorations, $house['decoration_id'], 'name=info[decoration_id] id="decoration"', '请选择'); ?>
             </td>
           </tr>
 
@@ -73,10 +73,10 @@ defined('IN_ADMIN') or exit('No permission resources.');
             <td>
               <div class="contedit fl">
                 <ul class="checkbox_list">
-                  <?php foreach ($office_supportings as $key => $value) { ?>
-                  <li <?php if ( in_array($value['id'], $office['supporting']) ) { echo ' class="active"'; } ?>>
+                  <?php foreach ($house_supportings as $key => $value) { ?>
+                  <li <?php if ( in_array($value['id'], $house['supporting']) ) { echo ' class="active"'; } ?>>
                     <label for="<?php echo 'supporting' . $value['id']; ?>"><?php echo $value['name']; ?></label>
-                    <input type="checkbox" name="info[supporting][]"<?php if ( in_array($value['id'], $office['supporting']) ) { echo ' checked'; } ?> id="<?php echo 'supporting' . $value['id']; ?>" value="<?php echo $value['id']; ?>"  autocomplete="off" />
+                    <input type="checkbox" name="info[supporting][]"<?php if ( in_array($value['id'], $house['supporting']) ) { echo ' checked'; } ?> id="<?php echo 'supporting' . $value['id']; ?>" value="<?php echo $value['id']; ?>"  autocomplete="off" />
                   </li>
                   <?php } ?>
                 </ul>
@@ -87,7 +87,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80">需求描述</th>
             <td>
-              <textarea name="info[content]" id="content" class="ckeditor"><?php echo stripslashes($office['content']); ?></textarea>
+              <textarea name="info[content]" id="content" class="ckeditor"><?php echo stripslashes($house['content']); ?></textarea>
               <?php Form::editor('content'); ?>
             </td>
           </tr>
@@ -112,14 +112,14 @@ defined('IN_ADMIN') or exit('No permission resources.');
   <script type="text/javascript" src="__PUBLIC__/js/admin/esf/global.js"></script>
   <script type="text/javascript" src="__PUBLIC__/js/admin/esf/functions.js"></script>
   <script type="text/javascript">
-    var GlobalParams = { 'upload_url' : '<?php echo U("Upfile/upload"); ?>', 'image_num' : <?php echo count($office['room_images']); ?> };
+    var GlobalParams = { 'upload_url' : '<?php echo U("Upfile/upload"); ?>', 'image_num' : <?php echo count($house['room_images']); ?> };
     GlobalParams.areas = $.parseJSON('<?php echo json_encode($areas); ?>');
 
-    $.getJSON( '<?php echo U("office/ajaxPropertyList"); ?>', function( data ) {
+    $.getJSON( '<?php echo U("house/ajaxPropertyList"); ?>', function( data ) {
       GlobalParams.houses = data;
     });
 
-    var customer_tag = <?php echo count($office['customer_tag']); ?>;
+    var customer_tag = <?php echo count($house['customer_tag']); ?>;
     $(function(){
       /* 表单验证 */
       $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj) {

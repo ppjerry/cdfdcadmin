@@ -24,9 +24,9 @@ defined('IN_ADMIN') or exit('No permission resources.');
 
           <tr>
             <th width="80"><font color="red">*</font>意向小区</th>
-            <td><input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="{{{$i_wanna_rent_property['community'][0]}}}"> 或
-          <input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="{{{$i_wanna_rent_property['community'][1]}}}"> 或
-          <input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="{{{$i_wanna_rent_property['community'][2]}}}"></td>
+            <td><input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="<?php echo $house['community']['0']; ?>"> 或
+          <input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="<?php echo $house['community']['1']; ?>" > 或
+          <input type="text" class="Input_1" style="width:120px;" size="21" name="info[community][]" value="<?php echo $house['community']['2']; ?>" ></td>
           </tr>
 
           <tr>

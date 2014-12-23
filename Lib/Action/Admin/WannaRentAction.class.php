@@ -59,12 +59,14 @@ class WannaRentAction extends CommonAction {
       $data['room_structure'] = json_encode($data['room_structure']);
       $data['house_number'] = empty( $data['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['house_number']);      $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
+      $data['community'] = empty( $data['community'] ) ? array() : json_encode($data['community']);
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
         $this->success("更新成功！");
       } else {
         $this->error("更新失败! ");
       }
     } else {
+      exit();
       $houseid = isset($_GET['id']) ? intval($_GET['id']) : 0;
       if ( empty($houseid) ) {
         $this->error("房源ID不合法！");
@@ -75,6 +77,8 @@ class WannaRentAction extends CommonAction {
       $house['floor'] = json_decode($house['floor'], true);
       */
       $house['house_number'] = empty( $house['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($house['house_number'], true);
+
+      $house['community'] = empty( $house['community'] ) ? array() : json_decode($house['community'], true);
 
       $house['supporting'] = empty( $house['supporting'] ) ? array() : json_decode($house['supporting'], true);
       // 区域一级
@@ -94,10 +98,10 @@ class WannaRentAction extends CommonAction {
       $this->assign( 'areas', $areas );
       $this->assign( 'rentmethods', $rentmethods );
       $this->assign( 'house_supportings', $house_supportings );
-      if ($house['type']){
-        $this->display('edit');
-      }else{
+      if ($house['type']==1){
         $this->display('edit_one');
+      }else{
+        $this->display('edit');
       }
       
     }
