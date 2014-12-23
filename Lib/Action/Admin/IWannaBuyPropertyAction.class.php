@@ -27,6 +27,9 @@ class IWannaBuyPropertyAction extends CommonAction {
       if ($_GET['is_individual'] != "") {
         $search['is_individual'] = intval($_GET['is_individual']);
       }
+      if ($_GET['type'] != "") {
+        $search['type'] = intval($_GET['type']);
+      }
       if ($_GET['keyword']) {
         switch (intval($_GET['searchtype'])) {
           case 0:
