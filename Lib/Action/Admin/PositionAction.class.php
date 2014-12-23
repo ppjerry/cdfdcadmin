@@ -1,23 +1,23 @@
 <?php
+/**
+* 推荐位
+*/
 class PositionAction extends CommonAction {
-  protected $db, $model_db, $data_db, $content_db, $type_db;
+  protected $db, $model_db, $data_db, $type_db;
   function __construct() {
     parent::__construct();
     $this->db = D('Position');
     $this->data_db = D('PositionData');
-    $this->content_db = D('Content');
     $this->model_db = D('Model');
     $this->type_db = D('ModelType');
   }
 
   public function index() {
-    if (isset($_GET['typeid'])) {
-      $positions = $this->db->where("(siteid = 0 or siteid = %d) and typeid = %d", $this->siteid, intval($_GET['typeid']))->order('listorder desc, id desc')->select();
-    } else {
-      $positions = $this->db->where("(siteid = 0 or siteid = %d) and typeid = %d", $this->siteid, 0)->order('listorder desc, id desc')->select();
-    }
-    
-    //  此处需要判断站点权限 
+    $typeid = isset($_GET['typeid']) ? intval($_GET['typeid']) : NULL;
+
+    $positions = ($typeid === NULL) ? $this->db->where("siteid = %d", $this->siteid)->order('listorder desc, id desc')->select() : $this->db->where("siteid = %d and typeid = %d", $this->siteid, $typeid)->order('listorder desc, id desc')->select();
+
+    //  此处需要判断站点权限
     $types = $this->type_db->where("siteid = %d", $this->siteid)->select();
     $this->assign("types",$types);
     $this->assign('positions', $positions);
@@ -26,10 +26,7 @@ class PositionAction extends CommonAction {
 
   public function add() {
     if (IS_POST) {
-      $hash[C('TOKEN_NAME')] = $_POST[C('TOKEN_NAME')];
-      if (!$this->db->autoCheckToken($hash)) {
-        $this->error('令牌验证失败！');
-      }
+      $this->checkToken();
       if(!is_array($_POST['info']) || empty($_POST['info']['name'])){
         $this->error("操作失败！");
       }
@@ -53,16 +50,14 @@ class PositionAction extends CommonAction {
 
   public function edit() {
     if (IS_POST) {
-      $hash[C('TOKEN_NAME')] = $_POST[C('TOKEN_NAME')];
-      if (!$this->db->autoCheckToken($hash)) {
-        $this->error('令牌验证失败！');
-      }
+      $this->checkToken();
       if(!is_array($_POST['info']) || empty($_POST['info']['name'])){
         $this->error("操作失败！");
       }
       if ($_POST['info']['typeid'] != 0) {
         $_POST['info']['modelid'] = $_POST['info']['catid'] = -1;
       }
+      $pos = $this->db->find($_POST['posid']);
       if ($this->db->where(array('id' => intval($_POST['posid'])))->save($_POST['info']) !== false) {
         $this->success('更新成功！', "index");
       } else {
@@ -85,6 +80,7 @@ class PositionAction extends CommonAction {
 
   public function delete() {
     if ($this->db->where("id = %d", $_GET['posid'])->delete() !== false) {
+      $this->data_db->where( array( 'posid' => $_GET['posid'] ) )->delete();
       $this->success('删除成功!');
     } else {
       $this->error('删除失败!');
@@ -147,7 +143,7 @@ class PositionAction extends CommonAction {
     } else {
       $type = $this->type_db->where(array('siteid' => $this->siteid))->find($_GET['typeid']);
       $this->assign('type',$type);
-      $this->display(); 
+      $this->display();
     }
   }
 
@@ -176,9 +172,9 @@ class PositionAction extends CommonAction {
   /**
    * 推荐位文章列表
    */
-  public function public_item() { 
+  public function public_item() {
     $posid = intval($_GET['posid']);
-    /*$models = $this->model_db->where('siteid = %d', $this->siteid)->select(); 
+    /*$models = $this->model_db->where('siteid = %d', $this->siteid)->select();
     $models = array_key_translate($models);*/
     $pos_data = $this->data_db->where(array('posid' => $posid))->select();
     // $pos_data = $this->db->get_position_data($posid);
@@ -212,7 +208,7 @@ class PositionAction extends CommonAction {
    * 推荐位文章管理
    */
   public function public_item_manage() {
-    
+
   }
   /**
    * 推荐位文章排序
@@ -241,7 +237,7 @@ class PositionAction extends CommonAction {
           $sql['modelid']= $_v[2];
           $sql['posid'] = intval($_POST['posid']);
           $this->data_db->where($sql)->delete();
-          $this->content_pos($sql['id'],$_v[1],$sql['modelid']);   
+          $this->content_pos($sql['id'],$_v[1],$sql['modelid']);
         }
       }
       $this->success('操作成功！');
@@ -280,7 +276,7 @@ class PositionAction extends CommonAction {
 
   private function content_pos($id, $catid, $modelid) {
     // $model = $this->model_db->find($modelid);
-    $this->content_db->set_model($modelid);
+    D('Content')->set_model($modelid);
     $posids = $this->data_db->where(array('id'=>$id))->find() ? 1 : 0;
     return $this->content_db->where("id = %d", $id)->save(array('posids'=>$posids));
   }

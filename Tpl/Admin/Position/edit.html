@@ -24,13 +24,13 @@ defined('IN_ADMIN') or exit('No permission resources.');
       <input type="hidden" name="posid" value="<?php echo $position['id']; ?>">
       <table width="100%" class="table_form contentWrap">
         <tr>
-          <th width="100">推荐位名称  </th> 
+          <th width="100">推荐位名称  </th>
           <td>
             <input type="text" name="info[name]" value="<?php echo $position['name'] ?>" class="input-text" id="name">
           </td>
         </tr>
         <tr>
-          <th width="100"><font class="red">*</font> 所属类型  </th> 
+          <th width="100"><font class="red">*</font> 所属类型  </th>
           <td>
             <select name="info[typeid]" onchange="type_change(this);" id="typeid">
               <option value="0" <?php echo (0 == $position['typeid']) ? 'selected' : ''; ?>>默认分类(资讯推荐位)</option>
@@ -42,23 +42,23 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </td>
         </tr>
         <tr id="module">
-          <th width="100">所属模型  </th> 
+          <th width="100">所属模型  </th>
           <td>
             <?php echo $modelstr;?>
           </td>
         </tr>
         <tr id="category">
-          <th>所属栏目</th> 
+          <th>所属栏目</th>
           <td id="load_catid">
             <?php echo form::select_category('',$position['catid'],'name="info[catid]"','≡ 作为一级栏目 ≡');?>
           </td>
         </tr>
         <tr>
-          <th>排序</th> 
+          <th>排序</th>
           <td><input type="text" name="info[listorder]" id="listorder" class="input-text" size="5" value="<?php echo $position['listorder']; ?>"></input></td>
         </tr>
         <tr>
-          <th>最大保存条数</th> 
+          <th>最大保存条数</th>
           <td>
             <input type="text" name="info[maxnum]" id="maxnum" class="input-text" size="5" value="<?php echo $position['maxnum']; ?>"/>条
           </td>

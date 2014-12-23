@@ -23,13 +23,13 @@ defined('IN_ADMIN') or exit('No permission resources.');
     <form name="myform" action="__URL__/add" method="post" id="myform">
       <table width="100%" class="table_form contentWrap">
         <tr>
-          <th width="100"><font class="red">*</font>推荐位名称  </th> 
+          <th width="100"><font class="red">*</font>推荐位名称  </th>
           <td>
             <input type="text" name="info[name]" value="" class="input-text" id="name">
           </td>
         </tr>
         <tr>
-          <th width="100"><font class="red">*</font> 所属分类  </th> 
+          <th width="100"><font class="red">*</font> 所属分类  </th>
           <td>
             <select name="info[typeid]" onchange="type_change(this);" id="typeid">
               <option value="0" selected="">默认分类(资讯推荐位)</option>
@@ -44,15 +44,15 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <td id="load_model"></td>
         </tr>
         <tr id="category">
-          <th width="100">所属栏目</th> 
+          <th width="100">所属栏目</th>
           <td id="load_catid"></td>
         </tr>
         <tr>
           <th width="100">排序</th>
           <td><input type="text" name="info[listorder]" id="listorder" class="input-text" size="5" value=""></input></td>
-        </tr> 
+        </tr>
         <tr>
-          <th width="100">最大保存条数</th> 
+          <th width="100">最大保存条数</th>
           <td>
             <input type="text" name="info[maxnum]" id="maxnum" class="input-text" size="5" value="20"/>条
           </td>
