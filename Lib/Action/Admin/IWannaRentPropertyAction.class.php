@@ -2,11 +2,11 @@
 /**
 *  二手房Controller
 */
-class BuyHouseAction extends CommonAction {
+class IWannaRentPropertyAction extends CommonAction {
   protected $db;
   function __construct() {
     parent::__construct();
-    $this->db = D('BuyHouse');
+    $this->db = D('IWannaRentProperty');
   }
 
   public function index() {
@@ -57,8 +57,9 @@ class BuyHouseAction extends CommonAction {
       $data['hall'] = $data['room_structure']['hall'];
       $data['bathroom'] = $data['room_structure']['bathroom'];
       $data['room_structure'] = json_encode($data['room_structure']);
-      $data['house_number'] = empty( $data['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['house_number']);
+      $data['house_number'] = empty( $data['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['house_number']);      $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
+      $data['community'] = empty( $data['community'] ) ? array() : json_encode($data['community']);
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
         $this->success("更新成功！");
       } else {
@@ -76,6 +77,8 @@ class BuyHouseAction extends CommonAction {
       */
       $house['house_number'] = empty( $house['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($house['house_number'], true);
 
+      $house['community'] = empty( $house['community'] ) ? array() : json_decode($house['community'], true);
+
       $house['supporting'] = empty( $house['supporting'] ) ? array() : json_decode($house['supporting'], true);
       // 区域一级
       $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
@@ -85,16 +88,21 @@ class BuyHouseAction extends CommonAction {
       $areas = array_key_translate($areas);
       // 房屋配套
       $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-       // 楼层
-      $floors = D('Floor')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      $floors = array_translate($floors);
+      //租赁方式
+      $rentmethods = D('RentMethod')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      $rentmethods = array_translate($rentmethods);
 
       $this->assign( 'house', $house );
       $this->assign( 'regions', $regions );
       $this->assign( 'areas', $areas );
+      $this->assign( 'rentmethods', $rentmethods );
       $this->assign( 'house_supportings', $house_supportings );
-      $this->assign( 'floors', $floors );
-      $this->display();
+      if ($house['type']==1){
+        $this->display('edit_one');
+      }else{
+        $this->display('edit');
+      }
+      
     }
   }
 
