@@ -1,0 +1,10 @@
+1、推荐位功能以及二手房出售相关功能完善，后台升级说明
+  数据库：
+    导入Docs/position20141223.sql
+    `cdfdc_admin`.`xy_position_data`表添加列 type。
+    命令如下 ALTER TABLE `xy_position_data` ADD `type` VARCHAR(255) NOT NULL;
+
+  功能说明：
+    参考SaleHouseAction.class.php，更新edit,delete两个方法
+    修改地方都已经在代码里面写了注释，可以具体参考。
+
