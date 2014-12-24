@@ -81,6 +81,8 @@ class IWannaBuyPropertyAction extends CommonAction {
       $data = $_POST['info'];
       $data['room_structure'] = json_encode($data['room_structure']);
       $data['house_number'] = empty( $data['house_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['house_number']);
+      $data['type_id'] = empty( $data['type_id'] ) ? array() : json_encode($data['type_id']);
+      $data['shop_manager_type'] = empty( $data['shop_manager_type'] ) ? array() : json_encode($data['shop_manager_type']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
         $this->success("更新成功！");
@@ -105,6 +107,8 @@ class IWannaBuyPropertyAction extends CommonAction {
 
       $house['supporting'] = empty( $house['supporting'] ) ? array() : json_decode($house['supporting'], true);
 
+      $house['type_id'] = empty( $house['type_id'] ) ? array() : json_decode($house['type_id'], true);
+
       $house['shop_manager_type'] = empty( $house['shop_manager_type'] ) ? array() : json_decode($house['shop_manager_type'], true);
 
       $house['room_images'] = empty( $house['room_images'] ) ? array() : json_decode($house['room_images'], true);
@@ -124,7 +128,6 @@ class IWannaBuyPropertyAction extends CommonAction {
       $house_supportings = D('HouseSupporting')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       //类型
       $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
-      $genres = array_translate($genres);
       //适合行业
       $categorys = D('ShopManagerType')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       // 楼层
