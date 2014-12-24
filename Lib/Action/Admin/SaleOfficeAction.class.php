@@ -60,7 +60,32 @@ class SaleOfficeAction extends CommonAction {
       $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
       $data['room_images'] = empty( $data['room_images'] ) ? array() : json_encode($data['room_images']);
+
+
+      // 更新缩略图
+      if ( !empty( $data['room_images'] ) ) {
+        $data['thumbnail'] = current($data['room_images'])['url'];
+      }
+      // 修改更新时间
+      $data['updated_at'] = date("Y-m-d H:i:s");
+
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
+
+        /* 更新房源公共表 */
+        D("SaleCommon")->where( array( 'type' => 'house', 'foreign_id' => $_POST['id'] ) )->save($data);
+        /* 更新房源公共表 END */
+
+        // 推荐位处理
+        $position_data_model = D('PositionData');
+        $position_data_model->where( array( 'id' => $_POST['id'], 'module' => 'Sale', 'siteid' => $this->siteid, 'type' => 'house' ) )->delete();
+        if ( !empty($data['posids']) && is_array($data['posids']) ) {
+          foreach ($data['posids'] as $key => $value) {
+            $position_data_model->add( array( 'id' => $_POST['id'], 'posid' => $value, 'module' => 'Sale', 'siteid' => $this->siteid, 'type' => 'house' ) );
+            // echo $position_data_model->getLastSql();
+          }
+        }
+        // 推荐位处理END
+
         $this->success("更新成功！");
       } else {
         $this->error("更新失败! ");
@@ -70,6 +95,7 @@ class SaleOfficeAction extends CommonAction {
       if ( empty($officeid) ) {
         $this->error("房源ID不合法！");
       }
+
       import("ORG.Util.Form");
       $office = $this->db->find($officeid);
       /*$office['room_structure'] = json_decode($office['room_structure'], true);
@@ -104,6 +130,9 @@ class SaleOfficeAction extends CommonAction {
       $genres = D('EsfType')->where( array( 'belong' => array( 'in', array( 0, 4 ) ) ) )->order('sort desc')->select();
       $genres = array_translate($genres);
 
+      // 载入推荐位
+      $positionstr = D('Position')->getPositionCheckbox( 'Sale', $officeid );
+      $this->assign( 'positionstr', $positionstr );
 
       $this->assign( 'office', $office );
       $this->assign( 'regions', $regions );
@@ -133,7 +162,16 @@ class SaleOfficeAction extends CommonAction {
               }
               D('FdcMember')->where( array('id' => $office['member_id'] ) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
             }
-            $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->delete();
+             // 更新会员信息END
+            if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $value ) )->delete() ) {
+              $sale_common = D("SaleCommon")->where( array( 'type' => 'house', 'foreign_id' => $value ) )->find();
+              if ($sale_common) {
+                // 更新公共表信息
+                D("SaleCommon")->where( array( 'type' => 'house', 'foreign_id' => $value ) )->delete();
+                // 删除推荐数据
+                D('PositionData')->where( array( 'id' => $value, 'module' => 'Sale', 'siteid' => $this->siteid, 'type' => 'house' ) )->delete();
+              }
+            }
           }
         }
         $this->success('操作完成！');
@@ -153,7 +191,12 @@ class SaleOfficeAction extends CommonAction {
           }
           D('FdcMember')->where( array('id' => $office['member_id']) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
         }
-        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $office_id ) )->delete() ) {
+
+        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $house_id ) )->delete() ) {
+          // 删除公共表信息
+          D("SaleCommon")->where( array( 'type' => 'house', 'foreign_id' => $house_id ) )->delete();
+          // 删除推荐数据
+          D('PositionData')->where( array( 'id' => $house_id, 'module' => 'Sale', 'siteid' => $this->siteid, 'type' => 'house' ) )->delete();
           $this->success('删除成功！');
         } else {
           $this->error('删除失败！');

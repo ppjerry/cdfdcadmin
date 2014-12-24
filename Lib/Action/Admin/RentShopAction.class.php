@@ -61,7 +61,31 @@ class RentShopAction extends CommonAction {
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
       $data['shop_manager_type'] = empty( $data['shop_manager_type'] ) ? array() : json_encode($data['shop_manager_type']);
       $data['room_images'] = empty( $data['room_images'] ) ? array() : json_encode($data['room_images']);
+      
+      // 更新缩略图
+      if ( !empty( $data['room_images'] ) ) {
+        $data['thumbnail'] = current($data['room_images'])['url'];
+      }
+      // 修改更新时间
+      $data['updated_at'] = date("Y-m-d H:i:s");
+
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
+
+        /* 更新房源公共表 */
+        D("RentCommon")->where( array( 'type' => 'house', 'foreign_id' => $_POST['id'] ) )->save($data);
+        /* 更新房源公共表 END */
+
+        // 推荐位处理
+        $position_data_model = D('PositionData');
+        $position_data_model->where( array( 'id' => $_POST['id'], 'module' => 'Rent', 'siteid' => $this->siteid, 'type' => 'house' ) )->delete();
+        if ( !empty($data['posids']) && is_array($data['posids']) ) {
+          foreach ($data['posids'] as $key => $value) {
+            $position_data_model->add( array( 'id' => $_POST['id'], 'posid' => $value, 'module' => 'Rent', 'siteid' => $this->siteid, 'type' => 'house' ) );
+            // echo $position_data_model->getLastSql();
+          }
+        }
+        // 推荐位处理END
+        
         $this->success("更新成功！");
       } else {
         $this->error("更新失败! ");
@@ -115,6 +139,9 @@ class RentShopAction extends CommonAction {
       //可经营类别
       $categorys = D('ShopManagerType')->where( array( 'belong' => array( 'in', array( 0, 3 ) ) ) )->order('sort desc')->select();
       
+      // 载入推荐位
+      $positionstr = D('Position')->getPositionCheckbox( 'Rent', $shopid );
+      $this->assign( 'positionstr', $positionstr );
 
       $this->assign( 'shop', $shop );
       $this->assign( 'regions', $regions );
@@ -167,7 +194,11 @@ class RentShopAction extends CommonAction {
           }
           D('FdcMember')->where( array('id' => $shop['member_id']) )->save( array( 'rent_publish_num' => $member['rent_publish_num'] ) );
         }
-        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $shop_id ) )->delete() ) {
+        if ( $this->db->where( array( 'siteid' => $this->siteid, 'id' => $house_id ) )->delete() ) {
+          // 删除公共表信息
+          D("RentCommon")->where( array( 'type' => 'house', 'foreign_id' => $house_id ) )->delete();
+          // 删除推荐数据
+          D('PositionData')->where( array( 'id' => $house_id, 'module' => 'Rent', 'siteid' => $this->siteid, 'type' => 'house' ) )->delete();
           $this->success('删除成功！');
         } else {
           $this->error('删除失败！');

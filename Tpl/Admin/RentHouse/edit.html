@@ -111,6 +111,11 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
+            <th width="80">推荐位</th>
+            <td><?php echo $positionstr; ?></td>
+          </tr>
+
+          <tr>
             <th width="80">朝向/装修：</th>
             <td>
               <?php echo Form::select($decorations, $house['direction_id'], 'name=info[direction_id] id="direction"', '请选择'); ?>
