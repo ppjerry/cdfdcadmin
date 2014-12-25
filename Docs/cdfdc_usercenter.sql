@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-24 03:00:12
+-- Generation Time: 2014-12-25 10:45:11
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,39 @@ SET time_zone = "+00:00";
 --
 -- Database: `cdfdc_usercenter`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sl_apply`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_apply` (
+  `id` int(11) NOT NULL,
+  `update_time` date NOT NULL COMMENT '更新时间',
+  `add_time` date NOT NULL COMMENT '发布时间',
+  `title` varchar(12) NOT NULL COMMENT '职位名称',
+  `category` int(11) NOT NULL COMMENT '职位类别',
+  `name` varchar(32) NOT NULL COMMENT '姓名',
+  `sex` varchar(32) NOT NULL COMMENT '性别',
+  `birthday` char(32) NOT NULL COMMENT '出生日期',
+  `education` int(11) NOT NULL COMMENT '最高学历',
+  `birth_place` varchar(32) NOT NULL COMMENT '籍贯',
+  `living_place` varchar(32) NOT NULL COMMENT '现居地点',
+  `work_place` varchar(32) NOT NULL COMMENT '工作地点',
+  `emil` varchar(32) NOT NULL COMMENT '邮件',
+  `phone_number` char(11) NOT NULL COMMENT '手机号码',
+  `self_introduce` varchar(255) NOT NULL COMMENT '自我介绍 ',
+  `member_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sl_apply`
+--
+
+INSERT INTO `sl_apply` (`id`, `update_time`, `add_time`, `title`, `category`, `name`, `sex`, `birthday`, `education`, `birth_place`, `living_place`, `work_place`, `emil`, `phone_number`, `self_introduce`, `member_id`) VALUES
+(1, '2014-12-04', '2014-12-02', '求职程序员1年经验', 1, '龙泉', '男', '4月10日', 1, '湖南衡阳', '湖南常德', '湖南常德', '2387638763@qq.com', '18711556523', '活泼开朗', 0);
 
 -- --------------------------------------------------------
 
@@ -120,6 +153,58 @@ INSERT INTO `sl_attachment` (`id`, `category_id`, `title`, `description`, `path`
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `sl_category`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_category` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL COMMENT '名字',
+  `pid` int(11) NOT NULL COMMENT '父ID',
+  `sort` int(11) DEFAULT NULL COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sl_category`
+--
+
+INSERT INTO `sl_category` (`id`, `name`, `pid`, `sort`) VALUES
+(4, '管理类', 1, 0),
+(5, '建筑类', 1, 0),
+(6, '装饰类', 1, 0),
+(7, '销售类', 1, 0),
+(8, '其他类', 1, 0),
+(1, '房产建筑类', 0, 0),
+(2, '装饰设计类', 0, 0),
+(3, '其他类', 0, 0),
+(9, '总(副)工程师', 4, 0),
+(0, '房地产开发/策划', 0, NULL),
+(0, '房地产前期', 4, 0),
+(0, '房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n', 4, 0),
+(0, '物业管理', 4, 0),
+(0, '报建员\r\n', 4, 0),
+(15, '招投标人员', 4, 0),
+(0, '', 0, NULL),
+(17, '现场施工管理', 5, 0),
+(18, '土建工程师', 5, 0),
+(19, '质量管理员', 5, 0),
+(20, '工程监理', 5, 0),
+(21, '设备工程师', 5, 0),
+(22, '建筑设计制图', 5, 0),
+(23, '室内外墙装饰', 6, 0),
+(24, '给排水', 6, 0),
+(25, '电气\r\n', 6, 0),
+(26, '供暖', 6, 0),
+(27, '房产(销售)顾问', 7, 0),
+(28, '房产经纪人', 7, 0),
+(0, '', 0, NULL),
+(30, '园林景观设计', 2, 0),
+(31, '设计师', 29, 0),
+(32, '制图员', 29, 0),
+(33, '设计师', 30, 0);
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `sl_decoration`
 --
 
@@ -171,6 +256,69 @@ INSERT INTO `sl_direction` (`id`, `name`, `sort`, `belong`) VALUES
 (9, '东北', 0, 0),
 (10, '西北', 0, 0),
 (43, '北', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sl_education`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_education` (
+  `id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL COMMENT '学历',
+  `sort` int(11) DEFAULT NULL COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sl_education`
+--
+
+INSERT INTO `sl_education` (`id`, `name`, `sort`) VALUES
+(1, '初中', 0),
+(2, '高中', 0),
+(3, '中专', 0),
+(4, '大专', 0),
+(5, '本科', 0),
+(6, '硕士', 0),
+(7, '博士', 0),
+(8, '培训', 0),
+(9, '其它', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sl_employ`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_employ` (
+  `id` int(11) NOT NULL,
+  `title` varchar(12) NOT NULL COMMENT '职位名称',
+  `company` varchar(255) NOT NULL COMMENT '公司名称',
+  `category` int(11) NOT NULL COMMENT '职位类别',
+  `number` int(32) NOT NULL COMMENT '招聘人数',
+  `education` varchar(32) NOT NULL COMMENT '学历要求',
+  `work_experience` int(32) NOT NULL COMMENT '工作年限',
+  `money` int(11) NOT NULL COMMENT '每月薪资',
+  `type` varchar(32) NOT NULL COMMENT '职位类型',
+  `requirements` varchar(32) NOT NULL COMMENT '任职要求',
+  `self_introduce` varchar(255) NOT NULL COMMENT '自我介绍 ',
+  `welfare` int(11) NOT NULL COMMENT '职位福利',
+  `name` varchar(11) NOT NULL COMMENT '联系人',
+  `phone_number` char(11) NOT NULL COMMENT '联系电话',
+  `emil` varchar(32) NOT NULL COMMENT '邮件',
+  `work_place` varchar(32) NOT NULL COMMENT '工作地点',
+  `add_time` datetime NOT NULL COMMENT '发布时间',
+  `update_time` datetime NOT NULL COMMENT '更新时间',
+  `member_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+
+--
+-- 转存表中的数据 `sl_employ`
+--
+
+INSERT INTO `sl_employ` (`id`, `title`, `company`, `category`, `number`, `education`, `work_experience`, `money`, `type`, `requirements`, `self_introduce`, `welfare`, `name`, `phone_number`, `emil`, `work_place`, `add_time`, `update_time`, `member_id`) VALUES
+(0, '经纪人3000包食宿', '', 1, 2, '6', 2, 1, '1', '计算机专业', '要本本科生', 1, '', '18746589856', '6546456456@qq.com', '湖南常德', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -305,9 +453,9 @@ CREATE TABLE IF NOT EXISTS `sl_i_wanna_buy_property` (
 --
 
 INSERT INTO `sl_i_wanna_buy_property` (`id`, `type`, `contacts`, `phone`, `area_id`, `construction_area`, `room_structure`, `room`, `bathroom`, `hall`, `price`, `house_age`, `direction_id`, `decoration_id`, `floor`, `title`, `content`, `type_id`, `shop_manager_type`, `supporting`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `created_at`, `updated_at`, `siteid`, `floors`, `region_id`) VALUES
-(4, 1, '补天', '18182156697', 8, 127, '{"room":"3","hall":"1","bathroom":"1"}', 3, 1, 1, 220, 10, 2, 1, '2', '住宅求购', '<p>发多少法撒旦法撒旦</p>\r\n', '1', '', '["1","11","10","9","8","7","6","5","4","3","2","12"]', 0, 1, 0, 35, 1, '2014-11-12 09:22:39', '2014-11-26 14:37:39', 1, 3, 1),
-(6, 2, '补天', '18182156697', 8, 127, 'null', 0, 0, 0, 20, 0, 3, 3, '5', '求购测试', '', '1', '', '["1","11","10","9","8","7","6","5","2","12"]', 0, 1, 0, 35, 1, '2014-11-14 02:23:56', '2014-11-14 07:32:24', 1, 1, 1),
-(7, 3, '补天', '18182156697', 7, 127, 'null', 0, 0, 3, 20, 0, 1, 3, '2', '临街商铺求购', '<p>egwegwegweg</p>\r\n', '1', '["1","5","9"]', '["1","10","7"]', 0, 1, 0, 35, 1, '2014-11-14 02:54:18', '2014-11-14 07:40:39', 1, 4, 2);
+(4, 1, '补天', '18182156697', 8, 127, '{"room":"3","hall":"1","bathroom":"1"}', 3, 1, 1, 220, 10, 1, 2, '2', '住宅求购', '<p>发多少法撒旦法撒旦</p>\r\n', '1', '', '["11","9","8","7","6","5","3","2","12"]', 0, 1, 0, 35, 1, '2014-11-12 09:22:39', '2014-11-26 14:37:39', 1, 3, 1),
+(6, 2, '补天', '18182156697', 8, 127, 'null', 0, 0, 0, 20, 0, 3, 3, '5', '求购测试', '', '1', '', '["11","10","9","8","7","6","5","2","12"]', 0, 1, 0, 35, 1, '2014-11-14 02:23:56', '2014-11-14 07:32:24', 1, 1, 1),
+(7, 3, '补天', '18182156697', 7, 127, 'null', 0, 0, 3, 20, 0, 1, 3, '2', '临街商铺求购', '<p>egwegwegweg</p>\r\n', '["1","5"]', '["1","2","4","5","9"]', '["10"]', 0, 1, 0, 35, 1, '2014-11-14 02:54:18', '2014-11-14 07:40:39', 1, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -350,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `sl_i_wanna_rent_property` (
 
 INSERT INTO `sl_i_wanna_rent_property` (`id`, `type`, `community`, `contacts`, `phone`, `area_id`, `region_id`, `construction_area`, `room_structure`, `bathroom`, `hall`, `room`, `rent_method_id`, `price`, `title`, `content`, `supporting`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `created_at`, `updated_at`, `siteid`) VALUES
 (1, 2, '["","",""]', '补天', '18182156697', 6, 3, 45, '{"room":"3","hall":"1","bathroom":"1"}', 1, 1, 3, 7, 300, '求租测试', '<p>收到风格</p>\r\n', '["1","5"]', 0, 1, 0, 35, 1, '2014-11-26 14:48:20', '2014-11-26 14:48:20', 1),
-(2, 1, '["\\u6c14\\u6d3e","\\u9ad8\\u5927","\\u6587\\u5316\\u5e95\\u8574"]', '东方网', '18182156697', 10, NULL, 45, '{"room":"3","hall":"1","bathroom":"1"}', 1, 1, 3, 7, 300, '够味儿文化宫', '<p>收到风格</p>\r\n', '["1","5"]', 0, 1, 0, 35, 1, '2014-11-26 14:48:20', '2014-11-26 14:48:20', 1);
+(2, 1, '["\\u6c14\\u6d3e","\\u9ad8\\u5927","\\u6587\\u5316\\u5e95\\u8574"]', '东方网', '18182156697', 10, NULL, 45, '{"room":"3","hall":"1","bathroom":"1"}', 1, 1, 3, 7, 300, '够味儿文化宫', '<p>收到风格</p>\r\n', '["1","11","5"]', 0, 1, 0, 35, 1, '2014-11-26 14:48:20', '2014-11-26 14:48:20', 1);
 
 -- --------------------------------------------------------
 
@@ -532,7 +680,7 @@ CREATE TABLE IF NOT EXISTS `sl_office` (
 --
 
 INSERT INTO `sl_office` (`id`, `contacts`, `phone`, `community_name`, `community_id`, `region_id`, `area_id`, `address`, `construction_area`, `price`, `floor`, `total_floor`, `current_floor`, `type_id`, `validity`, `property_corporation`, `property_costs`, `construct_year`, `decoration_id`, `tag`, `customer_tag`, `title`, `supporting`, `content`, `thumbnail`, `traffic`, `around`, `room_images`, `is_commissioned`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `refresh_at`, `created_at`, `updated_at`, `siteid`) VALUES
-(9, '逍遥', '18182156697', '紫金城・金色世纪', 21, 1, 9, '常德市紫菱路与荷花路交汇处东北角', 245.00, 200.00, '{"floor":"2","total_floor":"12"}', 12, 2, 1, 1, '房顶上', '200', 9, 1, '["1","2"]', '["\\u53d1\\u7684\\u8428\\u82ac"]', '精装写字楼4', '["10","9","6","5"]', '<p>楼房楼房楼房楼房</p>\r\n', '', '<p>楼房楼房楼房楼房</p>\r\n', '<p>楼房楼房楼房楼房</p>\r\n', '', 0, 0, 0, 0, 35, 1, '2014-10-22 15:45:24', '2014-10-22 07:43:53', '2014-12-24 01:53:45', 1);
+(9, '逍遥', '18182156697', '紫金城・金色世纪', 21, 1, 9, '常德市紫菱路与荷花路交汇处东北角', 245.00, 200.00, '{"floor":"2","total_floor":"12"}', 12, 2, 1, 1, '房顶上', '200', 9, 1, '["1","2"]', '["\\u53d1\\u7684\\u8428\\u82ac"]', '精装写字楼4', '["10","9","6","5"]', '<p>楼房楼房楼房楼房</p>\r\n', '', '<p>楼房楼房楼房楼房</p>\r\n', '<p>楼房楼房楼房楼房</p>\r\n', '', 0, 0, 0, 0, 35, 1, '2014-10-22 15:45:24', '2014-10-22 07:43:53', '2014-12-25 00:27:44', 1);
 
 -- --------------------------------------------------------
 
@@ -788,7 +936,7 @@ CREATE TABLE IF NOT EXISTS `sl_rent_shop` (
 --
 
 INSERT INTO `sl_rent_shop` (`id`, `contacts`, `phone`, `rent_type`, `community_name`, `community_id`, `area_id`, `region_id`, `address`, `type_id`, `shop_face_type_id`, `shop_status`, `shop_manager_type`, `construction_area`, `price`, `price_unit`, `pay_method_id`, `decoration_id`, `tag`, `customer_tag`, `validity`, `title`, `supporting`, `content`, `room_images`, `is_commissioned`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `refresh_at`, `created_at`, `updated_at`, `siteid`) VALUES
-(1, '逍遥', '18182156697', 1, '金海岸二期', 0, 15, 1, '津市市九澧大道金海岸小区二期售楼部', 1, 1, 2, '["1","5","9"]', 12.00, 132.00, 0, 4.00, 1, '["1"]', NULL, 1, '商铺出租测试', '["1","10","5"]', '<p>月合约和人员和色入</p>\r\n', '', 1, 0, 0, 0, 0, 1, '2014-11-04 15:03:38', '2014-11-04 07:03:38', '2014-12-24 01:56:28', 1);
+(1, '逍遥', '18182156697', 1, '金海岸二期', 0, 15, 1, '津市市九澧大道金海岸小区二期售楼部', 1, 1, 2, '["1","5","9"]', 12.00, 132.00, 0, 4.00, 1, '["1"]', NULL, 1, '商铺出租测试', '["1","10","5"]', '<p>月合约和人员和色入</p>\r\n', '', 1, 0, 0, 0, 0, 1, '2014-11-04 15:03:38', '2014-11-04 07:03:38', '2014-12-25 00:34:20', 1);
 
 -- --------------------------------------------------------
 
@@ -845,6 +993,34 @@ INSERT INTO `sl_rent_villas` (`id`, `contacts`, `phone`, `community_name`, `comm
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `sl_salary`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_salary` (
+  `id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sl_salary`
+--
+
+INSERT INTO `sl_salary` (`id`, `name`, `sort`) VALUES
+(1, '面议', 0),
+(2, '1000以下', 0),
+(3, '1000-2000元', 0),
+(4, '2000-3000元', 0),
+(5, '3000-5000元', 0),
+(6, '5000-8000元', 0),
+(7, '8000-12000元', 0),
+(8, '12000-20000元', 0),
+(9, '20000-25000元', 0),
+(10, '25000以上', 0);
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `sl_sale_common`
 --
 
@@ -880,7 +1056,7 @@ CREATE TABLE IF NOT EXISTS `sl_sale_common` (
 INSERT INTO `sl_sale_common` (`id`, `type`, `title`, `community_name`, `community_id`, `foreign_id`, `thumbnail`, `address`, `price`, `construction_area`, `region_id`, `area_id`, `is_individual`, `is_commissioned`, `is_broker`, `is_admin`, `member_id`, `status`, `created_at`, `updated_at`, `siteid`) VALUES
 (1, 'house', '二手房测试', '绿地新都会', 23, 8, 'http://www.cdfdc.com/c_esf/public/uploads/2014/12/10/campingforkidsadvert-320x1501.jpg', '常德经济技术开发区姚家湾路', 100, 123, 1, 8, 1, 0, 0, 0, 35, 1, '2014-11-28 16:22:29', '2014-12-10 13:17:33', 1),
 (2, 'villas', '别墅出售', '中原德景园', 0, 3, '', '常德市洞庭大道与皂果路交汇处', 200, 45, 1, 8, 1, 0, 0, 0, 35, 1, '2014-11-28 16:44:25', '2014-11-28 16:44:25', 1),
-(3, 'house', '精装写字楼4', '紫金城・金色世纪', 21, 9, '', '常德市紫菱路与荷花路交汇处东北角', 200, 245, 1, 9, 1, 0, 0, 0, 35, 1, '2014-11-28 16:44:34', '2014-12-24 09:53:45', 1),
+(3, 'house', '精装写字楼4', '紫金城・金色世纪', 21, 9, '', '常德市紫菱路与荷花路交汇处东北角', 200, 245, 1, 9, 1, 0, 0, 0, 35, 1, '2014-11-28 16:44:34', '2014-12-25 08:27:44', 1),
 (4, 'office', '精装写字楼4', '紫金城・金色世纪', 21, 9, '', '常德市紫菱路与荷花路交汇处东北角', 200, 245, 1, 9, 1, 0, 0, 0, 35, 1, '2014-11-28 16:44:40', '2014-11-28 16:44:40', 1),
 (5, 'villas', '特价房er', '金海岸二期', 0, 1, '', '津市市九澧大道金海岸小区二期售楼部', 200, 245, 1, 8, 1, 1, 0, 0, 35, 1, '2014-11-28 16:44:53', '2014-11-28 16:44:53', 1),
 (24, 'house', '超低价新房出售3980元/M2', '高尚名门', 0, 487, '', '洞庭大道东延线与常德大道交汇处', 52, 129, 0, 0, 1, 0, 0, 0, 143, 1, '2014-12-03 13:46:52', '2014-12-03 13:46:52', 1),
@@ -1898,6 +2074,60 @@ INSERT INTO `sl_villas` (`id`, `contacts`, `phone`, `community_name`, `community
 (1, '逍遥', '18182156697', '金海岸二期', NULL, 0, 8, '津市市九澧大道金海岸小区二期售楼部', '{"room":"2","hall":"1","bathroom":"1"}', 2, 1, 1, 245.00, 200.00, 0, '{"floor":"12","unit":"1"}', 2, 0, '["1","2"]', NULL, '特价房er', '["5","6","9","10"]', '<p>特价房特价房特价房特价房</p>', 'http://www.cdfdc.com/c_esf/public/uploads/2014/11/28/QQ20141125-5.png', '{"1417164289":{"id":"1417164289","url":"http:\\/\\/www.cdfdc.com\\/c_esf\\/public\\/uploads\\/2014\\/11\\/28\\/QQ20141125-5.png"}}', 1, 0, 0, 0, 35, 1, '2014-10-22 10:20:35', '2014-10-22 01:28:25', '2014-11-28 08:44:53', 1),
 (2, '补天', '18182156697', '紫金城・金色世纪', NULL, 0, 7, '常德市紫菱路与荷花路交汇处东北角', '{"room":"3","hall":"1","bathroom":"1"}', 0, 0, 0, 245.00, 200.00, 3, '{"floor":"1","unit":"1"}', 1, 1, '["1","2"]', NULL, '特色别墅', '["2","6","10"]', '', '', '', 0, 0, 1, 0, 35, 1, '2014-11-16 18:40:51', '2014-11-16 10:40:51', '2014-11-16 10:40:51', 1),
 (3, '补天', '18182156697', '中原德景园', NULL, 0, 8, '常德市洞庭大道与皂果路交汇处', '{"room":"4","hall":"2","bathroom":"2"}', 4, 2, 2, 45.00, 200.00, 3, '{"floor":"122","unit":"1"}', 2, 0, '["2"]', NULL, '别墅出售', '["2","3","7","10","11"]', '', 'http://www.cdfdc.com/c_esf/public/uploads/2014/11/16/QQ20141115-5.png', '{"1416140868":{"id":"1416140868","url":"http:\\/\\/www.cdfdc.com\\/c_esf\\/public\\/uploads\\/2014\\/11\\/16\\/QQ20141115-5.png"}}', 0, 0, 1, 0, 35, 1, '2014-11-16 18:42:34', '2014-11-16 10:42:34', '2014-11-16 12:27:50', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sl_welfare`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_welfare` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL COMMENT '职位福利',
+  `sort` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sl_welfare`
+--
+
+INSERT INTO `sl_welfare` (`id`, `name`, `sort`) VALUES
+(0, '五险一金', 0),
+(2, '包吃', 0),
+(3, '包住', 0),
+(4, '周末双休', 0),
+(5, '年底双薪', 0),
+(6, '房补', 0),
+(7, '话补', 0),
+(8, '交通补助', 0),
+(9, '饭补', 0),
+(10, '加班补助', 0);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sl_work_experience`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_work_experience` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL COMMENT '工作年限',
+  `sort` int(11) NOT NULL COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sl_work_experience`
+--
+
+INSERT INTO `sl_work_experience` (`id`, `name`, `sort`) VALUES
+(0, '不限', 0),
+(0, '一年以下', 0),
+(0, '1-2年', 0),
+(0, '3-5年', 0),
+(0, '6-7年', 0),
+(0, '8-10年', 0),
+(0, '10年以上', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
