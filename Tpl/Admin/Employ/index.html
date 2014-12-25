@@ -99,6 +99,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
               <img src="__PUBLIC__/images/admin/icon/small_elite.gif" title="推荐">
               <?php } ?>
             </td>
+            <td align="center"><?php echo $employ['company']; ?></td>
             <td align="center"><?php echo $employ['work_place']; ?></td>
             <td align="center" class="<?php echo 'status_' . $employ['status']; ?>"><?php echo $status[$employ['status']]; ?></td>
             <td align="center"><?php echo $employ['created_at']; ?></td>
