@@ -56,11 +56,8 @@ class EmployAction extends CommonAction{
   	if (IS_POST) {
       $this->checkToken();
       $data = $_POST['info'];
-      $data['room_structure'] = json_encode($data['room_structure']);
-      $data['employ_number'] = empty( $data['employ_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['employ_number']);      
-      $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
-      $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
-      $data['community'] = empty( $data['community'] ) ? array() : json_encode($data['community']);
+      $data['welfare'] = empty( $data['welfare'] ) ? array() : json_encode($data['welfare']);
+      $data['other_welfare'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
         $this->success("更新成功！");
       } else {
@@ -73,26 +70,30 @@ class EmployAction extends CommonAction{
       }
       import("ORG.Util.Form");
       $employ = $this->db->find($employid);
-      /*$employ['room_structure'] = json_decode($employ['room_structure'], true);
-      $employ['floor'] = json_decode($employ['floor'], true);
-      */
-      $employ['employ_number'] = empty( $employ['employ_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_decode($employ['employ_number'], true);
 
-      $employ['community'] = empty( $employ['community'] ) ? array() : json_decode($employ['community'], true);
+      $employ['welfare'] = empty( $employ['welfare'] ) ? array() : json_decode($employ['welfare'], true);
 
-      $employ['supporting'] = empty( $employ['supporting'] ) ? array() : json_decode($employ['supporting'], true);
-      // 区域一级
-      $regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
-      $regions = array_translate($regions);
-      // 区域二级
-      $areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      $areas = array_key_translate($areas);
-      // 房屋配套
-      $employ_supportings = D('employSupporting')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      //租赁方式
-      $rentmethods = D('RentMethod')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
-      $rentmethods = array_translate($rentmethods);
+      $employ['other_welfare'] = empty( $employ['other_welfare'] ) ? array() : json_decode($employ['other_welfare'], true);
+      // 学历要求
+      $educations = D('Education')->order('sort desc')->select();
+      $educations = array_translate($educations);
+      //职位类型
+      $categorys = D('Category')->order('sort desc')->select();
+      $categorys = array_translate($categorys);
+      //每月薪资
+      $moneys = D('Money')->order('sort desc')->select();
+      $moneys = array_translate($moneys);
+      //工作年限
+      $work_experiences = D('WorkExperience')->order('sort desc')->select();
+      $work_experiences = array_translate($work_experiences);
+      //公司福利
+      $welfares = D('Welfare')->order('sort desc')->select();
 
+      $this->assign( 'educations', $educations );
+      $this->assign( 'categorys', $categorys );
+      $this->assign( 'moneys', $moneys );
+      $this->assign('work_experiences',$work_experiences);
+      $this->assign('welfares',$welfares);
       $this->assign( 'employ', $employ );
   	  $this -> display();
   }

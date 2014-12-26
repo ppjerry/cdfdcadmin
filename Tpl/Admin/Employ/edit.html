@@ -37,21 +37,21 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80"><font color="red">*</font>学历要求</th>
             <td>
-              <?php echo Form::select($decorations, $employ['education'], 'name=info[education] id="education"', '请选择'); ?>
+              <?php echo Form::select($educations, $employ['education'], 'name=info[education] id="education"', '请选择'); ?>
             </td>
           </tr>
 
           <tr>
             <th width="80"><font color="red">*</font>工作年限</th>
             <td>
-              <?php echo Form::select($decorations, $employ['work_experience'], 'name=info[work_experience] id="work_experience"', '请选择'); ?>
+              <?php echo Form::select($work_experiences, $employ['work_experience'], 'name=info[work_experience] id="work_experience"', '请选择'); ?>
             </td>
           </tr>
 
           <tr>
             <th width="80"><font color="red">*</font>每月薪资</th>
             <td>
-              <?php echo Form::select($decorations, $employ['money'], 'name=info[money] id="money"', '请选择'); ?>
+              <?php echo Form::select($moneys, $employ['money'], 'name=info[money] id="money"', '请选择'); ?>
             </td>
           </tr>
 
@@ -83,22 +83,34 @@ defined('IN_ADMIN') or exit('No permission resources.');
               <input type="text" name="info[work_place]" id="work_place" value="<?php echo $employ['work_place']; ?>" class="input-text" style="width:400px;">
             </td>
           </tr>
-                  
+
           <tr>
-            <th width="80"><font color="red">*</font>职位福利</th>
+            <th width="80">职位福利</th>
             <td>
               <div class="contedit fl">
-                <ul class="checkbox_list">
-                  <?php foreach ($employ_supportings as $key => $value) { ?>
-                  <li <?php if ( in_array($value['id'], $employ['supporting']) ) { echo ' class="active"'; } ?>>
-                    <label for="<?php echo 'supporting' . $value['id']; ?>"><?php echo $value['name']; ?></label>
-                    <input type="checkbox" name="info[supporting][]"<?php if ( in_array($value['id'], $employ['supporting']) ) { echo ' checked'; } ?> id="<?php echo 'supporting' . $value['id']; ?>" value="<?php echo $value['id']; ?>"  autocomplete="off" />
+                <ul class="checkbox_list clear">
+                  <?php foreach ($welfares as $key => $tag) { ?>
+                  <li <?php if ( in_array($tag['id'], $employ['welfare']) ) { echo ' class="active"'; } ?>>
+                    <label for="<?php echo 'welfare' . $tag['id']; ?>"><?php echo $tag['name']; ?></label>
+                    <input type="checkbox" name="info[welfare][]"<?php if ( in_array($tag['id'], $employ['welfare']) ) { echo ' checked'; } ?> id="<?php echo 'welfare' . $tag['id']; ?>" value="<?php echo $tag['id']; ?>"  autocomplete="off" />
                   </li>
                   <?php } ?>
                 </ul>
+                <ul class="brightspot" id="brightspot">
+                  <?php foreach ($employ['other_welfare'] as $key => $tag) { ?>
+                  <li class='actived'><?php echo $tag; ?><a href='javascript:void(0);' class='cbdel'></a><input type='hidden' name='info[customer_tag][]' value='<?php echo $tag; ?>'/></li>
+                  <?php } ?>
+                </ul>
+                <div class="clear"></div>
+                <div id="OthBrig">
+                  <input type="text" id="customer_tag" class="textstyle" maxlength="20" placeholder="最多增加<?php echo 3 - count($employ['other_welfare']); ?>个福利" autocomplete="off" >
+                  <input type="button" class="addbrig" id="add_customer_tag" value="添加福利" style="display: inline-block;">
+                  <span id="txtOthBrig1_Tip"></span>
+                </div>
               </div>
             </td>
           </tr>
+
           <tr>
             <th width="80"><font color="red">*</font>任职要求</th>
             <td>
@@ -134,7 +146,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
       GlobalParams.employs = data;
     });
 
-    var customer_tag = <?php echo count($employ['customer_tag']); ?>;
+    //var other_welfare = <?php echo count($employ['other_welfare']); ?>;
     $(function(){
       /* 表单验证 */
       $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj) {
@@ -148,12 +160,6 @@ defined('IN_ADMIN') or exit('No permission resources.');
       $("#area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
       $("#rentmethods").formValidator({onshow:"请选择租赁方式",onfocus:"请选择租赁方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"租赁方式必选"}).defaultPassed();
 
-      $("#input_employ_Room, #input_employ_Hall, #input_employ_Toilet").formValidator({}).regexValidator({datatype:"enum",regexp:"num1",onerror:"请输入正确的户型"}).defaultPassed();
-      $("#construction_area").formValidator({onshow:"请填写期望产证面积",onfocus:"请填写期望产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"期望面积不能为空"}).defaultPassed();
-
-      $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
-
-      $("#title").formValidator({onshow:"吸引人的标题可以更快的促进交易哦！",onfocus:"吸引人的标题可以更快的促进交易哦！",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"标题必填",oncorrect:"输入正确"}).defaultPassed();
       /* 表单验证结束 */
     });
 </script>

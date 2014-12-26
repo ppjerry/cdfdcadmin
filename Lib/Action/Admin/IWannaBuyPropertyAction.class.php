@@ -53,29 +53,6 @@ class IWannaBuyPropertyAction extends CommonAction {
   }
 
   public function edit() {
-/*    $input = Input::get('info'); 
-    switch ( $input['type'] ) {
-      case 2:
-      $view = 'i_wanna_buy_property/edit?type=office';
-      break;
-      case 3:
-      $view = 'i_wanna_buy_property/edit?type=shop';
-      break;
-      default:
-      $view = 'i_wanna_buy_property/edit?type=house';
-      break;
-    }
-    $validator = Validator::make($input, $this->rules, $this->messages);
-    if ($validator->fails()) {
-      return Redirect::to($view)->withErrors($validator)->withInput(Input::all());
-    }
-    $i_wanna_buy_property = IWannaBuyProperty::constructModel($input);
-    if ( $i_wanna_buy_property->save() ) {
-      return Redirect::to( 'i_wanna_buy_property' );
-    } else {
-      return Redirect::to($view)->withMessage( '发布失败' )->withInput(Input::all());
-    }
-*/
       if (IS_POST) { 
       $this->checkToken();
       $data = $_POST['info'];

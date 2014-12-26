@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2014-12-25 10:45:11
+-- Generation Time: 2014-12-26 07:52:21
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `sl_apply` (
   `birth_place` varchar(32) NOT NULL COMMENT '籍贯',
   `living_place` varchar(32) NOT NULL COMMENT '现居地点',
   `work_place` varchar(32) NOT NULL COMMENT '工作地点',
-  `emil` varchar(32) NOT NULL COMMENT '邮件',
+  `email` varchar(32) NOT NULL COMMENT '邮件',
   `phone_number` char(11) NOT NULL COMMENT '手机号码',
   `self_introduce` varchar(255) NOT NULL COMMENT '自我介绍 ',
   `member_id` int(11) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `sl_apply` (
 -- 转存表中的数据 `sl_apply`
 --
 
-INSERT INTO `sl_apply` (`id`, `update_time`, `add_time`, `title`, `category`, `name`, `sex`, `birthday`, `education`, `birth_place`, `living_place`, `work_place`, `emil`, `phone_number`, `self_introduce`, `member_id`) VALUES
+INSERT INTO `sl_apply` (`id`, `update_time`, `add_time`, `title`, `category`, `name`, `sex`, `birthday`, `education`, `birth_place`, `living_place`, `work_place`, `email`, `phone_number`, `self_introduce`, `member_id`) VALUES
 (1, '2014-12-04', '2014-12-02', '求职程序员1年经验', 1, '龙泉', '男', '4月10日', 1, '湖南衡阳', '湖南常德', '湖南常德', '2387638763@qq.com', '18711556523', '活泼开朗', 0);
 
 -- --------------------------------------------------------
@@ -177,13 +177,12 @@ INSERT INTO `sl_category` (`id`, `name`, `pid`, `sort`) VALUES
 (2, '装饰设计类', 0, 0),
 (3, '其他类', 0, 0),
 (9, '总(副)工程师', 4, 0),
-(0, '房地产开发/策划', 0, NULL),
-(0, '房地产前期', 4, 0),
-(0, '房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n房地产估价师\r\n', 4, 0),
-(0, '物业管理', 4, 0),
-(0, '报建员\r\n', 4, 0),
+(12, '房地产开发/策划', 4, 0),
+(10, '房地产前期', 4, 0),
+(11, '房地产估价师', 4, 0),
+(13, '物业管理', 4, 0),
+(14, '报建员\r\n', 4, 0),
 (15, '招投标人员', 4, 0),
-(0, '', 0, NULL),
 (17, '现场施工管理', 5, 0),
 (18, '土建工程师', 5, 0),
 (19, '质量管理员', 5, 0),
@@ -196,7 +195,6 @@ INSERT INTO `sl_category` (`id`, `name`, `pid`, `sort`) VALUES
 (26, '供暖', 6, 0),
 (27, '房产(销售)顾问', 7, 0),
 (28, '房产经纪人', 7, 0),
-(0, '', 0, NULL),
 (30, '园林景观设计', 2, 0),
 (31, '设计师', 29, 0),
 (32, '制图员', 29, 0),
@@ -302,14 +300,17 @@ CREATE TABLE IF NOT EXISTS `sl_employ` (
   `type` varchar(32) NOT NULL COMMENT '职位类型',
   `requirements` varchar(32) NOT NULL COMMENT '任职要求',
   `self_introduce` varchar(255) NOT NULL COMMENT '自我介绍 ',
-  `welfare` int(11) NOT NULL COMMENT '职位福利',
+  `welfare` varchar(255) NOT NULL COMMENT '职位福利',
   `name` varchar(11) NOT NULL COMMENT '联系人',
   `phone_number` char(11) NOT NULL COMMENT '联系电话',
-  `emil` varchar(32) NOT NULL COMMENT '邮件',
+  `email` varchar(32) NOT NULL COMMENT '邮件',
   `work_place` varchar(32) NOT NULL COMMENT '工作地点',
   `add_time` datetime NOT NULL COMMENT '发布时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   `member_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1' COMMENT '状态;审核状态 0：退回，1：再次提交审核，99：审核通过。默认审核通过',
+  `graduates` int(11) NOT NULL COMMENT '是否可接收应届生',
+  `other_welfare` varchar(255) NOT NULL COMMENT '自定义福利; 存储json格式的数据，如：json_encode( array(‘添加福利1’, ‘添加福利2’, ‘添加福利3’) )',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
@@ -317,8 +318,10 @@ CREATE TABLE IF NOT EXISTS `sl_employ` (
 -- 转存表中的数据 `sl_employ`
 --
 
-INSERT INTO `sl_employ` (`id`, `title`, `company`, `category`, `number`, `education`, `work_experience`, `money`, `type`, `requirements`, `self_introduce`, `welfare`, `name`, `phone_number`, `emil`, `work_place`, `add_time`, `update_time`, `member_id`) VALUES
-(0, '经纪人3000包食宿', '', 1, 2, '6', 2, 1, '1', '计算机专业', '要本本科生', 1, '', '18746589856', '6546456456@qq.com', '湖南常德', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
+INSERT INTO `sl_employ` (`id`, `title`, `company`, `category`, `number`, `education`, `work_experience`, `money`, `type`, `requirements`, `self_introduce`, `welfare`, `name`, `phone_number`, `email`, `work_place`, `add_time`, `update_time`, `member_id`, `status`, `graduates`, `other_welfare`) VALUES
+(-6, '经纪人3000包食宿', '田丰企业有限公司', 27, 2, '1', 2, 1, '2', '<p>计算机专业</p>\r\n', '要本本科生', '["1","8","6","3"]', '龙泉', '18746589856', '6546456456@qq.com', '湖南常德', '2014-12-16 08:21:28', '2014-12-26 08:22:56', 1, 1, 1, '["\\u798f\\u52291"]'),
+(1, '销售3000包食宿', '田丰企业有限公司', 27, 2, '1', 2, 1, '2', '<p>计算机专业</p>\r\n', '要本本科生', '["1","8","6","3"]', '龙泉', '18746589856', '6546456456@qq.com', '湖南常德', '2014-12-16 08:21:28', '2014-12-26 08:22:56', 1, 1, 1, '["\\u798f\\u52291"]'),
+(3, '程序员3000包食宿', '田丰企业有限公司', 27, 2, '1', 2, 1, '2', '<p>计算机专业</p>\r\n', '要本本科生', '["1","8","6","3"]', '龙泉', '18746589856', '6546456456@qq.com', '湖南常德', '2014-12-16 08:21:28', '2014-12-26 08:22:56', 1, 1, 1, '["\\u798f\\u52291","\\u53d1\\u5230\\u516c\\u53f8\\u7684v"]');
 
 -- --------------------------------------------------------
 
@@ -626,6 +629,34 @@ CREATE TABLE IF NOT EXISTS `sl_migrations` (
 
 INSERT INTO `sl_migrations` (`migration`, `batch`) VALUES
 ('2014_12_12_095411_add_site_id_column', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `sl_money`
+--
+
+CREATE TABLE IF NOT EXISTS `sl_money` (
+  `id` int(11) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `sort` int(11) DEFAULT NULL COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `sl_money`
+--
+
+INSERT INTO `sl_money` (`id`, `name`, `sort`) VALUES
+(1, '面议', 0),
+(2, '1000以下', 0),
+(3, '1000-2000元', 0),
+(4, '2000-3000元', 0),
+(5, '3000-5000元', 0),
+(6, '5000-8000元', 0),
+(7, '8000-12000元', 0),
+(8, '12000-20000元', 0),
+(9, '20000-25000元', 0),
+(10, '25000以上', 0);
 
 -- --------------------------------------------------------
 
@@ -989,34 +1020,6 @@ CREATE TABLE IF NOT EXISTS `sl_rent_villas` (
 
 INSERT INTO `sl_rent_villas` (`id`, `contacts`, `phone`, `community_name`, `community_id`, `area_id`, `address`, `rent_method_id`, `room_structure`, `construction_area`, `price`, `pay_method_id`, `floor`, `house_number`, `direction_id`, `decoration_id`, `tag`, `customer_tag`, `title`, `supporting`, `content`, `room_images`, `is_commissioned`, `is_broker`, `is_individual`, `is_admin`, `member_id`, `status`, `refresh_at`, `created_at`, `updated_at`, `siteid`, `room`, `hall`, `bathroom`) VALUES
 (1, '逍遥', '18182156697', '汇景中央', 0, 9, '澧县政务中心斜对面', '7', '{"room":"8","hall":"7","bathroom":"7"}', 245.00, 200.00, 2.00, 0, '{"floor":"12","unit":"1","room":""}', 3, 0, '["1","2"]', '["\\u7684\\u6492\\u53d1\\u7684\\u8bf4\\u6cd5"]', '别墅出租', '["10","2"]', '<p>sdafsdfdsaasdfsdafsdfsdfsdfdsfdsaf</p>\r\n', '{"1414121327":{"id":"1414121327","url":"http:\\/\\/www.cdfdc.com\\/cdfdc\\/usercenter\\/public\\/uploads\\/2014\\/10\\/24\\/css-cheat-sheet-v2.png"},"1414121338":{"id":"1414121338","url":"http:\\/\\/www.cdfdc.com\\/cdfdc\\/usercenter\\/public\\/uploads\\/2014\\/10\\/24\\/logo.png"},"1414121346":{"id":"1414121346","url":"http:\\/\\/www.cdfdc.com\\/cdfdc\\/usercenter\\/public\\/uploads\\/2014\\/10\\/24\\/php-cheat-sheet-v2.png"},"1414121388":{"id":"1414121388","url":"http:\\/\\/www.cdfdc.com\\/cdfdc\\/usercenter\\/public\\/uploads\\/2014\\/10\\/24\\/regular-expressions-cheat-sheet-v21.png"},"1414121389":{"id":"1414121389","url":"http:\\/\\/www.cdfdc.com\\/cdfdc\\/usercenter\\/public\\/uploads\\/2014\\/10\\/24\\/rgb-hex-cheat-sheet-v1.png"}}', 0, 0, 0, 0, 0, 1, '2014-10-24 11:29:55', '2014-10-24 03:17:48', '2014-11-04 08:09:59', 1, 8, 7, 7);
-
--- --------------------------------------------------------
-
---
--- 表的结构 `sl_salary`
---
-
-CREATE TABLE IF NOT EXISTS `sl_salary` (
-  `id` int(11) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `sort` int(11) DEFAULT NULL COMMENT '排序'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `sl_salary`
---
-
-INSERT INTO `sl_salary` (`id`, `name`, `sort`) VALUES
-(1, '面议', 0),
-(2, '1000以下', 0),
-(3, '1000-2000元', 0),
-(4, '2000-3000元', 0),
-(5, '3000-5000元', 0),
-(6, '5000-8000元', 0),
-(7, '8000-12000元', 0),
-(8, '12000-20000元', 0),
-(9, '20000-25000元', 0),
-(10, '25000以上', 0);
 
 -- --------------------------------------------------------
 
@@ -2093,7 +2096,7 @@ CREATE TABLE IF NOT EXISTS `sl_welfare` (
 --
 
 INSERT INTO `sl_welfare` (`id`, `name`, `sort`) VALUES
-(0, '五险一金', 0),
+(1, '五险一金', 0),
 (2, '包吃', 0),
 (3, '包住', 0),
 (4, '周末双休', 0),
@@ -2121,13 +2124,13 @@ CREATE TABLE IF NOT EXISTS `sl_work_experience` (
 --
 
 INSERT INTO `sl_work_experience` (`id`, `name`, `sort`) VALUES
-(0, '不限', 0),
-(0, '一年以下', 0),
-(0, '1-2年', 0),
-(0, '3-5年', 0),
-(0, '6-7年', 0),
-(0, '8-10年', 0),
-(0, '10年以上', 0);
+(1, '不限', 0),
+(2, '一年以下', 0),
+(3, '1-2年', 0),
+(4, '3-5年', 0),
+(5, '6-7年', 0),
+(6, '8-10年', 0),
+(7, '10年以上', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
