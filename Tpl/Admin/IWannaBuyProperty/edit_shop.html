@@ -120,7 +120,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80">状态</th>
             <td>
-              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'), '1', 'name=info[status]', '90', 'status' ); ?>
+              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'),$house['status'], 'name=info[status]', '90', 'status' ); ?>
             </td>
           </tr>
 

@@ -85,7 +85,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
-            <th width="80"><font color="red">*</font>职位福利</th>
+            <th width="80">职位福利</th>
             <td>
               <div class="contedit fl">
                 <ul class="checkbox_list clear">
@@ -122,7 +122,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
           <tr>
             <th width="80">状态</th>
             <td>
-              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'),$employ['status'], 'name=info[status]', '90', 'status' ); ?>
+              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'), '1', 'name=info[status]', '90', 'status' ); ?>
             </td>
           </tr>
 
@@ -158,20 +158,19 @@ defined('IN_ADMIN') or exit('No permission resources.');
       }});
 
       $("#title").formValidator({onshow:"包含职位名称的标题将获得更多关注",onfocus:"包含职位名称的标题将获得更多关注",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"职位名称不能为空"}).defaultPassed();
-      $("#category").formValidator({onshow:"请选择职位类别",onfocus:"请选择职位类别",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"职位类别不能为空"}).defaultPassed();
+      $("#category").formValidator({onshow:"请选择租赁方式",onfocus:"请选择租赁方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"租赁方式必选"}).defaultPassed();
 
   //    $("#input_House_Room, #input_House_Hall, #input_House_Toilet").formValidator({}).regexValidator({datatype:"enum",regexp:"num1",onerror:"请输入正确的户型"}).defaultPassed();
-      $("#number").formValidator({onshow:"只能填写整数",onfocus:"只能填写整数",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"招聘人数为1～3位整数，且不能为0"}).defaultPassed();
+      $("#number").formValidator({onshow:"请填写期望产证面积",onfocus:"请填写期望产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"期望面积不能为空"}).defaultPassed();
 
-      $("#education").formValidator({onshow:"请选择学历要求",onfocus:"请选择学历要求",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"学历要求不能为空"}).defaultPassed();
-      $("#work_experience").formValidator({onshow:"请选择工作年限",onfocus:"请选择工作年限",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"工作年限不能为空"}).defaultPassed();
-      $("#money").formValidator({onshow:"请选择每月薪资",onfocus:"请选择每月薪资",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"每月薪资不能为空"}).defaultPassed();
-      $("#type").formValidator({onshow:"请选择职位类型",onfocus:"请选择职位类型",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"职位类型不能为空"}).defaultPassed();
-      $("#name").formValidator({onshow:"请输入联系人",onfocus:"请输入联系人",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"2-6个字，不能填写电话和特殊符号"}).defaultPassed();
-      $("#phone_number").formValidator({onshow:"请输入电话号码",onfocus:"请输入电话号码",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"电话不能为空"}).defaultPassed();
-      $("#requirements").formValidator({onshow:"20-2000个字之间，不能填写电话、QQ等联系方式",onfocus:"20-2000个字之间，不能填写电话、QQ等联系方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"内容太过简单"}).defaultPassed();
-      $("#email").formValidator({onshow:"应聘简历将会同时投递到您此处填写的邮箱",onfocus:"应聘简历将会同时投递到您此处填写的邮箱",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"邮箱不能为空"}).defaultPassed();
-      $("#work_place").formValidator({onshow:"请填写正确的工作地址",onfocus:"请填写正确的工作地址",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"地址不能为空"}).defaultPassed();
+      $("#education").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#work_experience").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#money").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#type").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#name").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#phone_number").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+      $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
 
 
       /* 表单验证结束 */
