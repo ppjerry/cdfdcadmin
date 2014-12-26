@@ -1,0 +1,160 @@
+<?php
+defined('IN_ADMIN') or exit('No permission resources.');
+?>
+<extend name="Public:form_layout" />
+<block name="title"><title>添加招聘</title></block>
+<block name="subheader">
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/esf.css">
+</block>
+<block name="subnav">
+  <!-- <a class="add fb" href="__URL__/add"><em>添加二手房</em></a>  --><a class="on" href="__URL__/index"><em>招聘管理</em></a>
+</block>
+<block name="main">
+  <div class="common-form">
+    <form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="id" value="<?php echo $employ['id']; ?>">
+      <table width="100%" cellspacing="0" class="table_form">
+        <tbody>
+          <tr>
+            <th width="80"> <font color="red">*</font>职位名称</th>
+            <td>
+              <input type="text" name="info[title]" id="title" value="<?php echo $employ['title']; ?>" class="input-text" style="width:400px;">
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>职位类别</th>
+            <td>
+              <?php echo Form::select($categorys, $employ['category'], 'name=info[category] id="category"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>招聘人数</th>
+            <td><input type="text" name="info[number]" id="number" value="<?php echo $employ['number']; ?>" class="input-text"></td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>学历要求</th>
+            <td>
+              <?php echo Form::select($decorations, $employ['education'], 'name=info[education] id="education"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>工作年限</th>
+            <td>
+              <?php echo Form::select($decorations, $employ['work_experience'], 'name=info[work_experience] id="work_experience"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>每月薪资</th>
+            <td>
+              <?php echo Form::select($decorations, $employ['money'], 'name=info[money] id="money"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>职位类型</th>
+            <td>
+              <?php echo Form::select(array('全职','兼职','实习' ), $employ['type'], 'name=info[type] id="type"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>职位联系人</th>
+            <td><input type="text" name="info[name]" id="name" value="<?php echo $employ['name']; ?>" class="input-text"></td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>联系电话</th>
+            <td><input type="text" name="info[phone_number]" id="phone_number" value="<?php echo $employ['phone_number']; ?>" class="input-text"></td>
+          </tr>
+
+          <tr>
+            <th width="80">简历接收邮箱</th>
+            <td><input type="text" name="info[email]" id="email" value="<?php echo $employ['email']; ?>" class="input-text" style="width:300px;"></td>
+          </tr>
+
+          <tr>
+            <th width="80">工作地址</th>
+            <td>
+              <input type="text" name="info[work_place]" id="work_place" value="<?php echo $employ['work_place']; ?>" class="input-text" style="width:400px;">
+            </td>
+          </tr>
+                  
+          <tr>
+            <th width="80"><font color="red">*</font>职位福利</th>
+            <td>
+              <div class="contedit fl">
+                <ul class="checkbox_list">
+                  <?php foreach ($employ_supportings as $key => $value) { ?>
+                  <li <?php if ( in_array($value['id'], $employ['supporting']) ) { echo ' class="active"'; } ?>>
+                    <label for="<?php echo 'supporting' . $value['id']; ?>"><?php echo $value['name']; ?></label>
+                    <input type="checkbox" name="info[supporting][]"<?php if ( in_array($value['id'], $employ['supporting']) ) { echo ' checked'; } ?> id="<?php echo 'supporting' . $value['id']; ?>" value="<?php echo $value['id']; ?>"  autocomplete="off" />
+                  </li>
+                  <?php } ?>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th width="80"><font color="red">*</font>任职要求</th>
+            <td>
+              <textarea name="info[requirements]" id="requirements" class="ckeditor"><?php echo stripslashes($employ['requirements']); ?></textarea>
+              <?php Form::editor('content'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80">状态</th>
+            <td>
+              <?php echo Form::radio(array('0' => '待审', '1' => '发布', '2' => '被退回'), '1', 'name=info[status]', '90', 'status' ); ?>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="bk15"></div>
+      <input name="dosubmit" type="submit" class="button" value="提交">
+    </form>
+  </div>
+</block>
+<block name="footer">
+  <script type="text/javascript" src="__PUBLIC__/js/ckeditor/ckeditor.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/attachupload.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/esf/global.js"></script>
+  <script type="text/javascript" src="__PUBLIC__/js/admin/esf/functions.js"></script>
+  <script type="text/javascript">
+    var GlobalParams = { 'upload_url' : '<?php echo U("Upfile/upload"); ?>', 'image_num' : <?php echo count($employ['room_images']); ?> };
+    GlobalParams.areas = $.parseJSON('<?php echo json_encode($areas); ?>');
+
+    $.getJSON( '<?php echo U("employ/ajaxPropertyList"); ?>', function( data ) {
+      GlobalParams.employs = data;
+    });
+
+    var customer_tag = <?php echo count($employ['customer_tag']); ?>;
+    $(function(){
+      /* 表单验证 */
+      $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj) {
+        art.dialog.through({content:msg,lock:true,width:'220',height:'70'}, function() {
+          this.close();
+          $(obj).focus();
+        });
+        $( window ).resize();
+      }});
+
+      $("#area").formValidator({onshow:"请选择区域",onfocus:"请选择区域",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"城区必选区域"}).defaultPassed();
+      $("#rentmethods").formValidator({onshow:"请选择租赁方式",onfocus:"请选择租赁方式",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"租赁方式必选"}).defaultPassed();
+
+      $("#input_employ_Room, #input_employ_Hall, #input_employ_Toilet").formValidator({}).regexValidator({datatype:"enum",regexp:"num1",onerror:"请输入正确的户型"}).defaultPassed();
+      $("#construction_area").formValidator({onshow:"请填写期望产证面积",onfocus:"请填写期望产证面积",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"期望面积不能为空"}).defaultPassed();
+
+      $("#price").formValidator({onshow:"请填写期望的售价",onfocus:"请填写期望的售价",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"价格不能为空"}).defaultPassed();
+
+      $("#title").formValidator({onshow:"吸引人的标题可以更快的促进交易哦！",onfocus:"吸引人的标题可以更快的促进交易哦！",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"标题必填",oncorrect:"输入正确"}).defaultPassed();
+      /* 表单验证结束 */
+    });
+</script>
+</block>

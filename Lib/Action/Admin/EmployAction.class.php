@@ -57,7 +57,8 @@ class EmployAction extends CommonAction{
       $this->checkToken();
       $data = $_POST['info'];
       $data['room_structure'] = json_encode($data['room_structure']);
-      $data['employ_number'] = empty( $data['employ_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['employ_number']);      $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
+      $data['employ_number'] = empty( $data['employ_number'] ) ? array('floor' => '', 'unit' => '', 'room' => '' ) : json_encode($data['employ_number']);      
+      $data['customer_tag'] = empty( $data['customer_tag'] ) ? array() : json_encode($data['customer_tag']);
       $data['supporting'] = empty( $data['supporting'] ) ? array() : json_encode($data['supporting']);
       $data['community'] = empty( $data['community'] ) ? array() : json_encode($data['community']);
       if ($this->db->where(array("id" => $_POST['id'], 'siteid' => $this->siteid))->save($data) !== false) {
@@ -93,10 +94,6 @@ class EmployAction extends CommonAction{
       $rentmethods = array_translate($rentmethods);
 
       $this->assign( 'employ', $employ );
-      $this->assign( 'regions', $regions );
-      $this->assign( 'areas', $areas );
-      $this->assign( 'rentmethods', $rentmethods );
-      $this->assign( 'employ_supportings', $employ_supportings );
   	  $this -> display();
   }
 }

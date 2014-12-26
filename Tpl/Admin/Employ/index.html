@@ -102,7 +102,7 @@ defined('IN_ADMIN') or exit('No permission resources.');
             <td align="center"><?php echo $employ['company']; ?></td>
             <td align="center"><?php echo $employ['work_place']; ?></td>
             <td align="center" class="<?php echo 'status_' . $employ['status']; ?>"><?php echo $status[$employ['status']]; ?></td>
-            <td align="center"><?php echo $employ['created_at']; ?></td>
+            <td align="center"><?php echo $employ['add_time']; ?></td>
             <td align="center">
               <a href="__URL__/edit?id=<?php echo $employ['id'] ?>">修改</a> | <a href="__URL__/check?id=<?php echo $employ['id'] ?>&status=<?php echo $employ['status'] == 1 ? 0 : 1 ?>"><?php echo $employ['status'] == 1 ? '退稿' : '通过审核' ?></a> | <a href="__URL__/delete?id=<?php echo $employ['id']; ?>" onClick="return confirm('确认删除『 <?php echo addslashes($employ['title']); ?> 』 吗？')">删除</a>
             </td>
