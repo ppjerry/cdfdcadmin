@@ -30,6 +30,21 @@ defined('IN_ADMIN') or exit('No permission resources.');
           </tr>
 
           <tr>
+            <th width="80"><font color="red">*</font>职位类别</th>
+            <td>
+              <?php echo Form::select($categorys, $employ['category_pid'], 'name=info[category_pid] id="area_top"', '请选择'); ?>
+              <select autocomplete="off" class="input_7" id="area" name="info[category_id]" >
+                <option value="0">请选择</option>
+                <?php foreach ($categorys_o as $key => $area) { ?>
+                <?php if ($area['pid'] == $categorys_o[$employ['category_id']]['pid'] ) { ?>
+                <option value="<?php echo $area['id']; ?>" <?php if( $area['id'] == $employ['category_id'] ) { echo "selected"; } ?>><?php echo $area['name']; ?></option>
+                <?php } ?>
+                <?php } ?>
+              </select>
+            </td>
+          </tr>
+
+          <tr>
             <th width="80"><font color="red">*</font>招聘人数</th>
             <td><input type="text" name="info[number]" id="number" value="<?php echo $employ['number']; ?>" class="input-text"></td>
           </tr>
@@ -45,6 +60,13 @@ defined('IN_ADMIN') or exit('No permission resources.');
             <th width="80"><font color="red">*</font>工作年限</th>
             <td>
               <?php echo Form::select($work_experiences, $employ['work_experience'], 'name=info[work_experience] id="work_experience"', '请选择'); ?>
+            </td>
+          </tr>
+
+          <tr>
+            <th width="80"><font color="red">*</font>可接收应届生</th>
+            <td>
+              <?php echo Form::select(array('是','否'), $employ['graduates'], 'name=info[graduates] id="graduates"', '请选择'); ?>
             </td>
           </tr>
 
@@ -165,6 +187,8 @@ defined('IN_ADMIN') or exit('No permission resources.');
 
       $("#education").formValidator({onshow:"请选择学历要求",onfocus:"请选择学历要求",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"学历要求不能为空"}).defaultPassed();
       $("#work_experience").formValidator({onshow:"请选择工作年限",onfocus:"请选择工作年限",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"工作年限不能为空"}).defaultPassed();
+      $("#graduates").formValidator({onshow:"请选择是否接受应届生",onfocus:"请选择是否接受应届生",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"不能为空"}).defaultPassed();
+
       $("#money").formValidator({onshow:"请选择每月薪资",onfocus:"请选择每月薪资",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"每月薪资不能为空"}).defaultPassed();
       $("#type").formValidator({onshow:"请选择职位类型",onfocus:"请选择职位类型",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"职位类型不能为空"}).defaultPassed();
       $("#name").formValidator({onshow:"请输入联系人",onfocus:"请输入联系人",oncorrect:"输入正确"}).inputValidator({min:1,onerror:"2-6个字，不能填写电话和特殊符号"}).defaultPassed();

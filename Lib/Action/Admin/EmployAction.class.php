@@ -77,9 +77,21 @@ class EmployAction extends CommonAction{
       // 学历要求
       $educations = D('Education')->order('sort desc')->select();
       $educations = array_translate($educations);
-      //职位类型
-      $categorys = D('Category')->order('sort desc')->select();
+      //职位类型一级
+      $categorys = D('Category')->where(  array('pid' => 0 ) )->order('sort desc')->select();
       $categorys = array_translate($categorys);
+      //职位类型二级
+      //$categorys_o = D('Category')->where( array('pid' => array( 'in', array( 1, 2, 3, 4, 5, 6, 7, 8 ) ) ) )->order('sort desc')->select();
+      //$categorys_o = array_translate($categorys);
+      //职位类型三级
+      $categorys_o = D('Category')->order('sort desc')->select();
+      $categorys_o = array_translate($categorys);
+      // 区域一级
+      //$regions = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ), 'pid' => 0 ) )->order('sort desc')->select();
+      //$regions = array_translate($regions);
+      // 区域二级
+      //$areas = D('Region')->where( array( 'belong' => array( 'in', array( 0, 2 ) ) ) )->order('sort desc')->select();
+      //$areas = array_key_translate($areas);
       //每月薪资
       $moneys = D('Money')->order('sort desc')->select();
       $moneys = array_translate($moneys);
